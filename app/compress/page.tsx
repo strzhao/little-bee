@@ -75,7 +75,7 @@ export default function ImageCompressorPage() {
         }
     }
 
-    const options = { ...getOptions(level), useWebWorker: true, onProgress: (p) => setProcessedFiles(Math.round(p)) };
+    const options = { ...getOptions(level), useWebWorker: true, onProgress: (p: number) => setProcessedFiles(Math.round(p)) };
 
     const newResults: CompressedFileResult[] = [];
     for (const file of files) {
