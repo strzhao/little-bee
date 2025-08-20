@@ -1,17 +1,16 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import imageCompression from "browser-image-compression";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
 
 // --- UI Components ---
-// Assuming shadcn/ui components are located here.
-// If not, we may need to create these simple components.
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 // --- Helper Icons ---
 const UploadCloudIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -22,14 +21,6 @@ const UploadCloudIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const FileIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-        <polyline points="14 2 14 8 20 8" />
-    </svg>
-);
-
-
 const DownloadIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -38,8 +29,9 @@ const DownloadIcon = (props: React.SVGProps<SVGSVGElement>) => (
     </svg>
 );
 
-
 // --- Types ---
+type CompressionLevel = "small" | "recommended" | "high";
+
 interface CompressedFileResult {
   originalFile: File;
   compressedFile: Blob;
@@ -60,63 +52,66 @@ const formatBytes = (bytes: number, decimals = 2) => {
 
 // --- Main Component ---
 export default function ImageCompressorPage() {
+  const [sourceFiles, setSourceFiles] = useState<File[]>([]);
   const [compressedResults, setCompressedResults] = useState<CompressedFileResult[]>([]);
+  const [compressionLevel, setCompressionLevel] = useState<CompressionLevel>("recommended");
   const [isCompressing, setIsCompressing] = useState(false);
   const [isZipping, setIsZipping] = useState(false);
-  const [totalFiles, setTotalFiles] = useState(0);
   const [processedFiles, setProcessedFiles] = useState(0);
 
-  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files) {
-      await processFiles(Array.from(files));
-    }
-  };
-
-  const handleDrop = async (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-    const files = event.dataTransfer.files;
-    if (files) {
-      await processFiles(Array.from(files));
-    }
-  };
-
-  const processFiles = async (files: File[]) => {
+  const processFiles = useCallback(async (files: File[], level: CompressionLevel) => {
     setIsCompressing(true);
-    setTotalFiles(files.length);
     setProcessedFiles(0);
-    setCompressedResults([]);
 
-    const options = {
-      maxSizeMB: 1,
-      maxWidthOrHeight: 1920,
-      useWebWorker: true,
-    };
+    const getOptions = (level: CompressionLevel) => {
+        switch (level) {
+            case "small":
+                return { maxSizeMB: 0.5, initialQuality: 0.6, };
+            case "high":
+                return { maxSizeMB: 2, initialQuality: 0.95, };
+            case "recommended":
+            default:
+                return { maxSizeMB: 1, initialQuality: 0.8, };
+        }
+    }
+
+    const options = { ...getOptions(level), useWebWorker: true, onProgress: (p) => setProcessedFiles(Math.round(p)) };
 
     const newResults: CompressedFileResult[] = [];
     for (const file of files) {
         if (!file.type.startsWith('image/')) continue;
-
         try {
             const compressedFile = await imageCompression(file, options);
-            const result: CompressedFileResult = {
+            newResults.push({
                 originalFile: file,
                 compressedFile,
                 originalSize: file.size,
                 compressedSize: compressedFile.size,
                 previewUrl: URL.createObjectURL(compressedFile),
-            };
-            newResults.push(result);
+            });
         } catch (error) {
             console.error("Error compressing file:", error);
-            // Optionally, add a failed result to show in the UI
         }
-        setProcessedFiles(prev => prev + 1);
     }
     
-    setCompressedResults(newResults);
+    setCompressedResults(prevResults => {
+        prevResults.forEach(r => URL.revokeObjectURL(r.previewUrl));
+        return newResults;
+    });
     setIsCompressing(false);
+    setProcessedFiles(0);
+  }, []);
+
+  useEffect(() => {
+    if (sourceFiles.length > 0) {
+        processFiles(sourceFiles, compressionLevel);
+    }
+  }, [sourceFiles, compressionLevel, processFiles]);
+
+  const handleFileSelect = (files: FileList | null) => {
+    if (files) {
+      setSourceFiles(Array.from(files));
+    }
   };
 
   const handleDownload = (result: CompressedFileResult) => {
@@ -137,41 +132,45 @@ export default function ImageCompressorPage() {
 
   const handleClear = () => {
     compressedResults.forEach(result => URL.revokeObjectURL(result.previewUrl));
+    setSourceFiles([]);
     setCompressedResults([]);
-    setTotalFiles(0);
-    setProcessedFiles(0);
   };
 
   const UploadArea = () => (
     <div 
         className="flex flex-col items-center justify-center w-full max-w-2xl mx-auto mt-10 p-10 border-2 border-dashed border-gray-300 rounded-xl text-center cursor-pointer hover:border-blue-500 transition-colors"
         onDragOver={(e) => {e.preventDefault(); e.stopPropagation();}}
-        onDrop={handleDrop}
+        onDrop={(e) => { e.preventDefault(); e.stopPropagation(); handleFileSelect(e.dataTransfer.files);}}
         onClick={() => document.getElementById('file-input')?.click()}
     >
         <UploadCloudIcon className="w-16 h-16 text-gray-400 mb-4" />
         <h2 className="text-2xl font-semibold text-gray-700">拖拽或点击上传图片</h2>
-        <p className="text-gray-500 mt-2">支持 JPG, PNG, WEBP 等格式，可批量上传</p>
-        <Input id="file-input" type="file" multiple accept="image/*" className="hidden" onChange={handleFileChange} />
+        <p className="text-gray-500 mt-2">支持 JPG, PNG, WEBP 格式，可批量上传</p>
+        <Input id="file-input" type="file" multiple accept="image/*" className="hidden" onChange={(e) => handleFileSelect(e.target.files)} />
     </div>
   );
 
   const CompressionProgress = () => (
     <div className="w-full max-w-2xl mx-auto mt-10 text-center">
         <h2 className="text-2xl font-semibold text-gray-700 mb-4">正在为您压缩图片...</h2>
-        <Progress value={(processedFiles / totalFiles) * 100} className="w-full" />
-        <p className="text-gray-500 mt-2">{processedFiles} / {totalFiles} 张已处理</p>
+        { processedFiles > 0 && <Progress value={processedFiles} className="w-full mb-2" /> }
+        <p className="text-gray-500 mt-2">{isCompressing ? "处理中..." : "已完成"}</p>
     </div>
   );
 
   const ResultsView = () => (
     <div className="w-full max-w-6xl mx-auto mt-10">
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
             <h2 className="text-3xl font-bold">压缩完成</h2>
-            <div className="flex gap-4">
-                <Button onClick={handleClear} variant="outline">清空全部</Button>
+            <div className="flex items-center gap-4">
+                <ToggleGroup type="single" value={compressionLevel} onValueChange={(value: CompressionLevel) => value && setCompressionLevel(value)} aria-label="Compression Level">
+                    <ToggleGroupItem value="small" aria-label="Smallest Size">更小体积</ToggleGroupItem>
+                    <ToggleGroupItem value="recommended" aria-label="Recommended">智能推荐</ToggleGroupItem>
+                    <ToggleGroupItem value="high" aria-label="Higher Quality">更高质量</ToggleGroupItem>
+                </ToggleGroup>
+                <Button onClick={handleClear} variant="outline">清空</Button>
                 <Button onClick={handleDownloadAll} disabled={isZipping}>
-                    {isZipping ? "正在打包..." : "下载全部 (.zip)"}
+                    {isZipping ? "正在打包..." : "下载全部"}
                 </Button>
             </div>
         </div>
@@ -214,7 +213,7 @@ export default function ImageCompressorPage() {
             <p className="mt-4 text-lg text-gray-600">在您的浏览器中快速、安全地批量压缩图片。</p>
         </div>
 
-        {isCompressing ? <CompressionProgress /> : (compressedResults.length === 0 ? <UploadArea /> : <ResultsView />)}
+        {isCompressing && compressedResults.length === 0 ? <CompressionProgress /> : (sourceFiles.length === 0 ? <UploadArea /> : <ResultsView />)}
     </main>
   );
 }
