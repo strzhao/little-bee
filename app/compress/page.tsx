@@ -109,11 +109,11 @@ export default function ImageCompressorPage() {
   const [isZipping, setIsZipping] = useState(false);
   const [processedFiles, setProcessedFiles] = useState(0);
   const [totalFiles, setTotalFiles] = useState(0);
-  const [singleFileProgress, setSingleFileProgress] = useState<number | null>(null);
+  const [displayProgress, setDisplayProgress] = useState(0);
   const [currentProcessingFile, setCurrentProcessingFile] = useState<string | null>(null);
 
 
-  const runFakeProgress = (duration: number, progressCallback: (p: number) => void) => {
+  const runFakeProgress = (duration: number, baseProgress: number, progressShare: number, progressCallback: (p: number) => void) => {
     let startTime: number | null = null;
     const easeOutQuad = (t: number) => t * (2 - t);
 
@@ -124,7 +124,18 @@ export default function ImageCompressorPage() {
             const progress = Math.min(elapsed / duration, 1);
             const easedProgress = easeOutQuad(progress);
             
-            progressCallback(Math.min(easedProgress * 100, 99));
+            let rawProgress = easedProgress * 100;
+            let animatedProgress;
+
+            if (rawProgress < 90) {
+                animatedProgress = rawProgress;
+            } else {
+                const post90Input = (rawProgress - 90) / 10; // Range 0-1 for the last 10% of progress
+                animatedProgress = 90 + post90Input * 9; // Map to 90-99 range
+            }
+
+            const currentFileContribution = (animatedProgress / 100) * progressShare;
+            progressCallback(baseProgress + currentFileContribution);
 
             if (progress < 1) {
                 requestAnimationFrame(animate);
@@ -140,6 +151,7 @@ export default function ImageCompressorPage() {
     setIsCompressing(true);
     setProcessedFiles(0);
     setTotalFiles(files.length);
+    setDisplayProgress(0);
 
     const getOptions = (level: CompressionLevel) => {
         switch (level) {
@@ -164,17 +176,18 @@ export default function ImageCompressorPage() {
                 setCurrentProcessingFile(file.name);
                 const estimatedDuration = 1000 + (file.size / 1024 / 1024) * 4000; // 1s base + 4s per MB
                 
-                const progressPromise = runFakeProgress(estimatedDuration, setSingleFileProgress);
-                compressedFile = await compressGif(file, level);
-                await progressPromise; // Ensure fake progress animation can complete
+                const progressShare = (1 / files.length) * 100;
+                const baseProgress = (index / files.length) * 100;
 
-                setSingleFileProgress(100);
-                await new Promise(res => setTimeout(res, 300)); // Show 100% for a moment
-                setSingleFileProgress(null);
+                const progressPromise = runFakeProgress(estimatedDuration, baseProgress, progressShare, setDisplayProgress);
+                compressedFile = await compressGif(file, level);
+                await progressPromise; 
+
                 setCurrentProcessingFile(null);
             } else {
                 compressedFile = await imageCompression(file, options);
             }
+            
             newResults.push({
                 originalFile: file,
                 compressedFile,
@@ -186,6 +199,7 @@ export default function ImageCompressorPage() {
             console.error("Error compressing file:", error);
         }
         setProcessedFiles(index + 1);
+        setDisplayProgress(((index + 1) / files.length) * 100);
     }
     
     setCompressedResults(prevResults => {
@@ -245,20 +259,17 @@ export default function ImageCompressorPage() {
   );
 
   const CompressionProgress = () => (
-    <div className="w-full max-w-2xl mx-auto mt-10 text-center space-y-6">
+    <div className="w-full max-w-2xl mx-auto mt-10 text-center space-y-4">
         <div>
             <h2 className="text-2xl font-semibold text-gray-700 mb-2">正在为您压缩图片...</h2>
-            <p className="text-gray-500">
-                {isCompressing ? `总进度: ${processedFiles} / ${totalFiles}` : "已完成"}
+            <p className="text-gray-500 h-6"> 
+                {isCompressing && totalFiles > 0 ? `总进度: ${processedFiles} / ${totalFiles}` : "已完成"}
             </p>
-            <Progress value={totalFiles > 0 ? (processedFiles / totalFiles) * 100 : 0} className="w-full mt-2" />
+            <Progress value={displayProgress} className="w-full mt-2" />
+            <p className="text-sm font-medium text-gray-600 truncate mt-2 h-5" title={currentProcessingFile || ''}>
+                {currentProcessingFile ? `处理中: ${currentProcessingFile}` : ""}
+            </p>
         </div>
-        {singleFileProgress !== null && currentProcessingFile && (
-            <div className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-sm font-medium text-gray-600 truncate mb-2" title={currentProcessingFile}>处理中: {currentProcessingFile}</p>
-                <Progress value={singleFileProgress} className="w-full" />
-            </div>
-        )}
     </div>
   );
 
