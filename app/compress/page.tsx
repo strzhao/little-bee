@@ -131,7 +131,7 @@ export default function ImageCompressorPage() {
                 animatedProgress = rawProgress;
             } else {
                 const post90Input = (rawProgress - 90) / 10; // Range 0-1 for the last 10% of progress
-                animatedProgress = 90 + post90Input * 9; // Map to 90-99 range
+                animatedProgress = 90 + post90Input * 7; // Map to 90-97 range, making it slower
             }
 
             const currentFileContribution = (animatedProgress / 100) * progressShare;
