@@ -325,7 +325,7 @@ export default function ImageCompressorPage() {
     <main className="container mx-auto px-4 py-8">
         <div className="text-center mb-12">
             <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">图像压缩工具</h1>
-            <p className="mt-4 text-lg text-gray-600">在您的浏览器中快速、安全地批量压缩图片。</p>
+            <p className="mt-4 text-lg text-gray-600">纯本地压缩，图片无需上传，确保您的数据绝对安全。</p>
         </div>
 
         {isCompressing && compressedResults.length === 0 ? <CompressionProgress /> : (sourceFiles.length === 0 ? <UploadArea /> : <ResultsView />)}
