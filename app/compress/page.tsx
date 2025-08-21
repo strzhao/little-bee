@@ -109,6 +109,32 @@ export default function ImageCompressorPage() {
   const [isZipping, setIsZipping] = useState(false);
   const [processedFiles, setProcessedFiles] = useState(0);
   const [totalFiles, setTotalFiles] = useState(0);
+  const [singleFileProgress, setSingleFileProgress] = useState<number | null>(null);
+  const [currentProcessingFile, setCurrentProcessingFile] = useState<string | null>(null);
+
+
+  const runFakeProgress = (duration: number, progressCallback: (p: number) => void) => {
+    let startTime: number | null = null;
+    const easeOutQuad = (t: number) => t * (2 - t);
+
+    return new Promise<void>(resolve => {
+        const animate = (time: number) => {
+            if (startTime === null) startTime = time;
+            const elapsed = time - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easedProgress = easeOutQuad(progress);
+            
+            progressCallback(Math.min(easedProgress * 100, 99));
+
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                resolve();
+            }
+        };
+        requestAnimationFrame(animate);
+    });
+  };
 
   const processFiles = useCallback(async (files: File[], level: CompressionLevel) => {
     setIsCompressing(true);
@@ -135,7 +161,17 @@ export default function ImageCompressorPage() {
         try {
             let compressedFile: Blob;
             if (file.type === 'image/gif') {
+                setCurrentProcessingFile(file.name);
+                const estimatedDuration = 1000 + (file.size / 1024 / 1024) * 4000; // 1s base + 4s per MB
+                
+                const progressPromise = runFakeProgress(estimatedDuration, setSingleFileProgress);
                 compressedFile = await compressGif(file, level);
+                await progressPromise; // Ensure fake progress animation can complete
+
+                setSingleFileProgress(100);
+                await new Promise(res => setTimeout(res, 300)); // Show 100% for a moment
+                setSingleFileProgress(null);
+                setCurrentProcessingFile(null);
             } else {
                 compressedFile = await imageCompression(file, options);
             }
@@ -209,12 +245,20 @@ export default function ImageCompressorPage() {
   );
 
   const CompressionProgress = () => (
-    <div className="w-full max-w-2xl mx-auto mt-10 text-center">
-        <h2 className="text-2xl font-semibold text-gray-700 mb-4">正在为您压缩图片...</h2>
-        <Progress value={totalFiles > 0 ? (processedFiles / totalFiles) * 100 : 0} className="w-full mb-2" />
-        <p className="text-gray-500 mt-2">
-            {isCompressing ? `正在处理第 ${processedFiles} / ${totalFiles} 个文件...` : "已完成"}
-        </p>
+    <div className="w-full max-w-2xl mx-auto mt-10 text-center space-y-6">
+        <div>
+            <h2 className="text-2xl font-semibold text-gray-700 mb-2">正在为您压缩图片...</h2>
+            <p className="text-gray-500">
+                {isCompressing ? `总进度: ${processedFiles} / ${totalFiles}` : "已完成"}
+            </p>
+            <Progress value={totalFiles > 0 ? (processedFiles / totalFiles) * 100 : 0} className="w-full mt-2" />
+        </div>
+        {singleFileProgress !== null && currentProcessingFile && (
+            <div className="p-4 bg-gray-50 rounded-lg">
+                <p className="text-sm font-medium text-gray-600 truncate mb-2" title={currentProcessingFile}>处理中: {currentProcessingFile}</p>
+                <Progress value={singleFileProgress} className="w-full" />
+            </div>
+        )}
     </div>
   );
 
