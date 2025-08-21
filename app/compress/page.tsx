@@ -261,7 +261,7 @@ export default function ImageCompressorPage() {
   const CompressionProgress = () => (
     <div className="w-full max-w-2xl mx-auto mt-10 text-center space-y-4">
         <div>
-            <h2 className="text-2xl font-semibold text-gray-700 mb-2">正在为您压缩图片...</h2>
+            <h2 className="text-2xl font-semibold text-gray-700 mb-2">正在本地为您压缩图片...</h2>
             <p className="text-gray-500 h-6"> 
                 {isCompressing && totalFiles > 0 ? `总进度: ${processedFiles} / ${totalFiles}` : "已完成"}
             </p>
@@ -278,14 +278,14 @@ export default function ImageCompressorPage() {
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
             <h2 className="text-3xl font-bold">压缩完成</h2>
             <div className="flex items-center gap-4">
-                <ToggleGroup type="single" value={compressionLevel} onValueChange={(value: CompressionLevel) => value && setCompressionLevel(value)} aria-label="Compression Level">
+                <ToggleGroup type="single" value={compressionLevel} onValueChange={(value: CompressionLevel) => value && setCompressionLevel(value)} aria-label="Compression Level" disabled={isCompressing}>
                     <ToggleGroupItem value="small" aria-label="Smallest Size">更小体积</ToggleGroupItem>
                     <ToggleGroupItem value="recommended" aria-label="Recommended">智能推荐</ToggleGroupItem>
                     <ToggleGroupItem value="high" aria-label="Higher Quality">更高质量</ToggleGroupItem>
                 </ToggleGroup>
-                <Button onClick={handleClear} variant="outline">清空</Button>
-                <Button onClick={handleDownloadAll} disabled={isZipping}>
-                    {isZipping ? "正在打包..." : "下载全部"}
+                <Button onClick={handleClear} variant="outline" disabled={isCompressing}>清空</Button>
+                <Button onClick={handleDownloadAll} disabled={isZipping || isCompressing}>
+                    {isZipping ? "正在打包..." : (isCompressing ? "处理中..." : "下载全部")}
                 </Button>
             </div>
         </div>
@@ -321,6 +321,12 @@ export default function ImageCompressorPage() {
     </div>
   );
 
+  const LoadingOverlay = () => (
+    <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex flex-col items-center justify-center z-10 rounded-xl">
+        <CompressionProgress />
+    </div>
+  );
+
   return (
     <main className="container mx-auto px-4 py-8">
         <div className="text-center mb-12">
@@ -328,7 +334,16 @@ export default function ImageCompressorPage() {
             <p className="mt-4 text-lg text-gray-600">纯本地压缩，图片无需上传，确保您的数据绝对安全。</p>
         </div>
 
-        {isCompressing && compressedResults.length === 0 ? <CompressionProgress /> : (sourceFiles.length === 0 ? <UploadArea /> : <ResultsView />)}
+        {sourceFiles.length === 0 && <UploadArea />}
+
+        {isCompressing && compressedResults.length === 0 && <CompressionProgress />}
+
+        {compressedResults.length > 0 && (
+            <div className="relative">
+                {isCompressing && <LoadingOverlay />}
+                <ResultsView />
+            </div>
+        )}
     </main>
   );
 }
