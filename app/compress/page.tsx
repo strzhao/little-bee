@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect } from "react";
 import imageCompression from "browser-image-compression";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
+import gifsicle from 'gifsicle-wasm-browser';
 
 // --- UI Components ---
 import { Button } from "@/components/ui/button";
@@ -50,6 +51,55 @@ const formatBytes = (bytes: number, decimals = 2) => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
 };
 
+const compressGif = async (file: File, level: CompressionLevel): Promise<Blob> => {
+    const optimizationLevels = {
+        small: '-O3 --lossy=120 --colors 64',
+        recommended: '-O3 --lossy=60 --colors 96', 
+        high: '-O2 --lossy=20 --colors 128',
+    };
+    try {
+        console.log('Starting GIF compression with level:', level);
+        console.log('Input file size:', file.size, 'bytes');
+        
+        // Convert File to ArrayBuffer for gifsicle
+        const arrayBuffer = await file.arrayBuffer();
+        console.log('ArrayBuffer size:', arrayBuffer.byteLength, 'bytes');
+        
+        const result = await gifsicle.run({
+            input: [{ file: arrayBuffer, name: "input.gif" }],
+            command: [`${optimizationLevels[level]} --resize-method=lanczos3 --optimize=3 input.gif -o /out/output.gif`],
+        });
+        
+        console.log('Gifsicle result:', result);
+        console.log('Result type:', typeof result);
+        console.log('Result length:', result?.length);
+        
+        if (!result || result.length === 0) {
+            console.error('Gifsicle returned no results');
+            throw new Error('Gifsicle returned empty result');
+        }
+        
+        // gifsicle.run returns an array of File objects
+        const outputFile = result[0];
+        console.log('Output file:', outputFile);
+        console.log('Output file type:', typeof outputFile);
+        console.log('Output file size:', outputFile.size, 'bytes');
+        
+        if (!outputFile || outputFile.size === 0) {
+            console.error('Output file is empty or invalid');
+            throw new Error('Gifsicle returned empty file');
+        }
+        
+        // Convert File to Blob
+        return new Blob([await outputFile.arrayBuffer()], { type: 'image/gif' });
+    } catch (error) {
+        console.error('GIF compression failed:', error);
+        // 如果压缩失败，返回原文件
+        return new Blob([await file.arrayBuffer()], { type: 'image/gif' });
+    }
+};
+
+
 // --- Main Component ---
 export default function ImageCompressorPage() {
   const [sourceFiles, setSourceFiles] = useState<File[]>([]);
@@ -81,7 +131,12 @@ export default function ImageCompressorPage() {
     for (const file of files) {
         if (!file.type.startsWith('image/')) continue;
         try {
-            const compressedFile = await imageCompression(file, options);
+            let compressedFile: Blob;
+            if (file.type === 'image/gif') {
+                compressedFile = await compressGif(file, level);
+            } else {
+                compressedFile = await imageCompression(file, options);
+            }
             newResults.push({
                 originalFile: file,
                 compressedFile,
@@ -145,8 +200,8 @@ export default function ImageCompressorPage() {
     >
         <UploadCloudIcon className="w-16 h-16 text-gray-400 mb-4" />
         <h2 className="text-2xl font-semibold text-gray-700">拖拽或点击上传图片</h2>
-        <p className="text-gray-500 mt-2">支持 JPG, PNG, WEBP 格式，可批量上传</p>
-        <Input id="file-input" type="file" multiple accept="image/*" className="hidden" onChange={(e) => handleFileSelect(e.target.files)} />
+        <p className="text-gray-500 mt-2">支持 JPG, PNG, WEBP, GIF 格式，可批量上传</p>
+        <Input id="file-input" type="file" multiple accept="image/*,.gif" className="hidden" onChange={(e) => handleFileSelect(e.target.files)} />
     </div>
   );
 
