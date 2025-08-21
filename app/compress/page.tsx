@@ -108,10 +108,12 @@ export default function ImageCompressorPage() {
   const [isCompressing, setIsCompressing] = useState(false);
   const [isZipping, setIsZipping] = useState(false);
   const [processedFiles, setProcessedFiles] = useState(0);
+  const [totalFiles, setTotalFiles] = useState(0);
 
   const processFiles = useCallback(async (files: File[], level: CompressionLevel) => {
     setIsCompressing(true);
     setProcessedFiles(0);
+    setTotalFiles(files.length);
 
     const getOptions = (level: CompressionLevel) => {
         switch (level) {
@@ -125,10 +127,10 @@ export default function ImageCompressorPage() {
         }
     }
 
-    const options = { ...getOptions(level), useWebWorker: true, onProgress: (p: number) => setProcessedFiles(Math.round(p)) };
+    const options = { ...getOptions(level), useWebWorker: true };
 
     const newResults: CompressedFileResult[] = [];
-    for (const file of files) {
+    for (const [index, file] of files.entries()) {
         if (!file.type.startsWith('image/')) continue;
         try {
             let compressedFile: Blob;
@@ -147,6 +149,7 @@ export default function ImageCompressorPage() {
         } catch (error) {
             console.error("Error compressing file:", error);
         }
+        setProcessedFiles(index + 1);
     }
     
     setCompressedResults(prevResults => {
@@ -208,8 +211,10 @@ export default function ImageCompressorPage() {
   const CompressionProgress = () => (
     <div className="w-full max-w-2xl mx-auto mt-10 text-center">
         <h2 className="text-2xl font-semibold text-gray-700 mb-4">正在为您压缩图片...</h2>
-        { processedFiles > 0 && <Progress value={processedFiles} className="w-full mb-2" /> }
-        <p className="text-gray-500 mt-2">{isCompressing ? "处理中..." : "已完成"}</p>
+        <Progress value={totalFiles > 0 ? (processedFiles / totalFiles) * 100 : 0} className="w-full mb-2" />
+        <p className="text-gray-500 mt-2">
+            {isCompressing ? `正在处理第 ${processedFiles} / ${totalFiles} 个文件...` : "已完成"}
+        </p>
     </div>
   );
 
