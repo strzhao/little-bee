@@ -35,10 +35,10 @@ export default function HomePage() {
         {/* 标题区域 */}
         <div className="text-center mb-12 md:mb-16">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100">
-            在线工具集
+            一个工具集
           </h1>
           <p className="mt-4 max-w-2xl mx-auto text-lg sm:text-xl text-gray-600 dark:text-gray-400">
-            为您的日常数字任务提供简单、高效的解决方案。
+            为您的日常数字任务提供安全、高效的解决方案。
           </p>
         </div>
 
