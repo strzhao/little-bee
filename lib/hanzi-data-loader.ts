@@ -11,6 +11,7 @@ export interface HanziCharacter {
   category?: string;
   learningStage?: string;
   meaning: string;
+  emoji?: string;
   assets: {
     pronunciationAudio: string;
     mainIllustration: string;

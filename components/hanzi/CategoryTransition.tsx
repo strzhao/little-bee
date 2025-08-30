@@ -248,8 +248,13 @@ const CircularHanziCard = ({
         }}
       >
         <div className="text-center">
-          <div className="text-6xl font-serif mb-4 text-gray-800">
-            {hanzi.character}
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="text-4xl">
+                {hanzi.emoji || '📝'}
+              </div>
+            <div className="text-6xl font-serif text-gray-800">
+              {hanzi.character}
+            </div>
           </div>
           <div className="text-lg text-blue-600 mb-2 font-medium">
             {hanzi.pinyin}
