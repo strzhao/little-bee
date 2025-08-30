@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "description": "汉字学习数据主配置文件",
+  "lastUpdated": "2025-08-30T12:41:28.212Z",
+  "categories": [
+    {
+      "name": "基础汉字",
+      "file": "categories/基础汉字.json",
+      "count": 0
+    },
+    {
+      "name": "天空与气象",
+      "file": "categories/天空与气象.json",
+      "count": 8
+    },
+    {
+      "name": "水与地理",
+      "file": "categories/水与地理.json",
+      "count": 5
+    }
+  ],
+  "learningStages": [
+    {
+      "name": "基础层",
+      "file": "learning-stages/基础层.json",
+      "count": 13
+    }
+  ],
+  "totalCharacters": 13
+}

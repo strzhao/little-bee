@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import { hanziDataLoader, HanziCharacter } from '@/lib/hanzi-data-loader';
 
 // Define the types based on our JSON structure
 interface HanziData {
@@ -11,27 +12,94 @@ interface HanziData {
   pinyin: string;
   theme: string;
   meaning: string;
+  category?: string;
+  learningStage?: string;
 }
 
 // Main Page Component
 export default function HanziHomePage() {
   const [data, setData] = useState<HanziData[]>([]);
   const [loading, setLoading] = useState(true);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   useEffect(() => {
-    fetch('/data/hanzi-data.json')
-      .then((res) => res.json())
-      .then((jsonData) => {
-        setData(jsonData);
+    const loadData = async () => {
+      try {
+        await hanziDataLoader.initialize();
+        const availableCategories = hanziDataLoader.getAvailableCategories();
+        setCategories(availableCategories);
+        
+        // Load all data by default
+        const allData: HanziCharacter[] = [];
+        for (const category of availableCategories) {
+          const categoryData = await hanziDataLoader.loadByCategory(category);
+          allData.push(...categoryData);
+        }
+        
+        setData(allData);
         setLoading(false);
-      });
+      } catch (error) {
+        console.error('Failed to load hanzi data:', error);
+        setLoading(false);
+      }
+    };
+    
+    loadData();
   }, []);
+  
+  const handleCategoryChange = async (category: string) => {
+    setSelectedCategory(category);
+    setLoading(true);
+    
+    try {
+      if (category === 'all') {
+        const allData: HanziCharacter[] = [];
+        for (const cat of categories) {
+          const categoryData = await hanziDataLoader.loadByCategory(cat);
+          allData.push(...categoryData);
+        }
+        setData(allData);
+      } else {
+        const categoryData = await hanziDataLoader.loadByCategory(category);
+        setData(categoryData);
+      }
+    } catch (error) {
+      console.error('Failed to load category data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (loading) {
     return <div className="w-screen h-screen flex justify-center items-center bg-amber-50">Loading...</div>;
   }
 
-  return <ExplorationWorld characters={data} />;
+  return (
+    <div className="w-full h-screen bg-amber-50">
+      {/* Category Filter */}
+      <div className="absolute top-4 right-4 z-10">
+        <div className="bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-lg">
+          <label className="block text-sm font-medium text-amber-800 mb-2">选择类别</label>
+          <select 
+            value={selectedCategory} 
+            onChange={(e) => handleCategoryChange(e.target.value)}
+            className="block w-full px-3 py-2 border border-amber-200 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500 text-sm"
+          >
+            <option value="all">全部汉字</option>
+            {categories.map(category => (
+              <option key={category} value={category}>{category}</option>
+            ))}
+          </select>
+          <div className="mt-2 text-xs text-amber-600">
+            共 {data.length} 个汉字
+          </div>
+        </div>
+      </div>
+      
+      <ExplorationWorld characters={data} />
+    </div>
+  );
 }
 
 // --- Child Components (kept in the same file for simplicity for now) ---

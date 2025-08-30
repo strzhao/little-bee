@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { Home, Sparkles } from 'lucide-react';
 import CelebrationAnimation from '@/components/hanzi/CelebrationAnimation';
 import VoicePlayer from '@/components/hanzi/VoicePlayer';
+import { hanziDataLoader, HanziCharacter } from '@/lib/hanzi-data-loader';
 
 
 // --- Type Definitions ---
@@ -26,11 +27,13 @@ interface HanziData {
   pinyin: string;
   theme: string;
   meaning: string;
+  category?: string;
+  learningStage?: string;
   assets: {
     pronunciationAudio: string;
     mainIllustration: string;
     realObjectImage: string;
-    realObjectCardColor: string;
+    realObjectCardColor?: string;
     lottieAnimation: string;
   };
   evolutionStages: EvolutionStage[];
@@ -46,18 +49,34 @@ export default function HanziDetailPage() {
 
   useEffect(() => {
     if (!id) return;
-    fetch('/data/hanzi-data.json')
-      .then(res => res.json())
-      .then(allData => {
-        const data = allData.find((c: HanziData) => c.id === id);
-        setCharacterData(data || null);
-        setAllCharacters(allData);
+    
+    const loadData = async () => {
+      try {
+        await hanziDataLoader.initialize();
+        
+        // Load specific character
+        const character = await hanziDataLoader.loadCharacterById(id);
+        if (character) {
+          setCharacterData(character as HanziData);
+        }
+        
+        // Load all characters for navigation
+        const categories = hanziDataLoader.getAvailableCategories();
+        const allData: HanziCharacter[] = [];
+        for (const category of categories) {
+          const categoryData = await hanziDataLoader.loadByCategory(category);
+          allData.push(...categoryData);
+        }
+        setAllCharacters(allData as HanziData[]);
+        
         setLoading(false);
-      })
-      .catch(err => {
-        console.error('Failed to load hanzi-data.json', err);
+      } catch (error) {
+        console.error('Failed to load character data:', error);
         setLoading(false);
-      });
+      }
+    };
+    
+    loadData();
   }, [id]);
 
   if (loading) {

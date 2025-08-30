@@ -1,0 +1,106 @@
+{
+  "characterIndex": {
+    "山": {
+      "id": "shan",
+      "category": "基础汉字",
+      "learningStage": "基础层"
+    },
+    "水": {
+      "id": "shui",
+      "category": "基础汉字",
+      "learningStage": "基础层"
+    },
+    "天": {
+      "id": "tian",
+      "category": "天空与气象",
+      "learningStage": "基础层"
+    },
+    "云": {
+      "id": "yun",
+      "category": "天空与气象",
+      "learningStage": "基础层"
+    },
+    "雨": {
+      "id": "yu",
+      "category": "天空与气象",
+      "learningStage": "基础层"
+    },
+    "风": {
+      "id": "feng",
+      "category": "天空与气象",
+      "learningStage": "基础层"
+    },
+    "雪": {
+      "id": "xue",
+      "category": "天空与气象",
+      "learningStage": "基础层"
+    },
+    "日": {
+      "id": "ri",
+      "category": "天空与气象",
+      "learningStage": "基础层"
+    },
+    "月": {
+      "id": "yue",
+      "category": "天空与气象",
+      "learningStage": "基础层"
+    },
+    "星": {
+      "id": "xing",
+      "category": "天空与气象",
+      "learningStage": "基础层"
+    },
+    "河": {
+      "id": "he",
+      "category": "水与地理",
+      "learningStage": "基础层"
+    },
+    "海": {
+      "id": "hai",
+      "category": "水与地理",
+      "learningStage": "基础层"
+    },
+    "湖": {
+      "id": "hu",
+      "category": "水与地理",
+      "learningStage": "基础层"
+    }
+  },
+  "categoryIndex": {
+    "基础汉字": [],
+    "天空与气象": [
+      "tian",
+      "yun",
+      "yu",
+      "feng",
+      "xue",
+      "ri",
+      "yue",
+      "xing"
+    ],
+    "水与地理": [
+      "he",
+      "hai",
+      "hu",
+      "shan",
+      "shui"
+    ]
+  },
+  "learningStageIndex": {
+    "基础层": [
+      "shan",
+      "shui",
+      "tian",
+      "yun",
+      "yu",
+      "feng",
+      "xue",
+      "ri",
+      "yue",
+      "xing",
+      "he",
+      "hai",
+      "hu"
+    ]
+  }
+}
