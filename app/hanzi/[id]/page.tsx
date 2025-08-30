@@ -4,36 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Home, RotateCcw } from 'lucide-react';
-import LottiePlayer, { LottiePlayerRef } from '@/components/LottiePlayer';
-
-// --- Simple Error Boundary to catch rendering errors ---
-class ErrorBoundary extends React.Component<any, { hasError: boolean; error: any }> {
-  constructor(props: any) {
-    super(props);
-    this.state = { hasError: false, error: null };
-  }
-
-  static getDerivedStateFromError(error: any) {
-    return { hasError: true, error };
-  }
-
-  componentDidCatch(error: any, errorInfo: any) {
-    console.error("[DEBUG_BOUNDARY] Uncaught error in child component:", error, errorInfo);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div className="w-full h-full flex flex-col justify-center items-center bg-red-100 text-red-800">
-          <h1 className="text-2xl font-bold">Something went wrong.</h1>
-          <pre className="mt-4 p-4 bg-red-200 rounded-md">{this.state.error?.toString()}</pre>
-        </div>
-      );
-    }
-    return this.props.children; 
-  }
-}
+import { Home } from 'lucide-react';
 
 // --- Type Definitions ---
 interface EvolutionStage {
@@ -41,6 +12,8 @@ interface EvolutionStage {
   timestamp: number;
   narrationAudio: string;
   explanation: string;
+  scriptImage: string;
+  cardColor: string;
 }
 
 interface HanziData {
@@ -52,193 +25,155 @@ interface HanziData {
   assets: {
     pronunciationAudio: string;
     mainIllustration: string;
+    realObjectImage: string;
+    realObjectCardColor: string;
     lottieAnimation: string;
   };
   evolutionStages: EvolutionStage[];
 }
 
-// --- Main Page Component (with logging) ---
+// --- Main Page Component ---
 export default function HanziDetailPage() {
-  console.log('[DEBUG_PARENT] HanziDetailPage rendering or re-rendering.');
   const params = useParams();
   const id = params.id as string;
   const [characterData, setCharacterData] = useState<HanziData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  console.log('[DEBUG_PARENT] Raw params:', params);
-  console.log('[DEBUG_PARENT] Extracted id:', id);
-  console.log('[DEBUG_PARENT] Type of id:', typeof id);
-  console.log(`[DEBUG_PARENT] Current state: id=${id}, loading=${loading}, characterData is ${characterData ? 'set' : 'null'}`);
-
-  console.log('[DEBUG_PARENT] About to define useEffect with dependency:', id);
-  
-  // Simple test useEffect
   useEffect(() => {
-    console.log('[DEBUG_PARENT] *** SIMPLE useEffect TRIGGERED ***');
-  });
-  
-  // Main useEffect with dependency
-  useEffect(() => {
-    console.log(`[DEBUG_PARENT] *** MAIN useEffect TRIGGERED for id: ${id} ***`);
-    
-    if (!id) {
-      console.log('[DEBUG_PARENT] id is missing, returning.');
-      return;
-    }
-    
-    console.log('[DEBUG_PARENT] Starting data fetch process');
-    setLoading(true);
-    
+    if (!id) return;
     fetch('/data/hanzi-data.json')
-      .then(res => {
-        console.log('[DEBUG_PARENT] Fetch response received, status:', res.status);
-        if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
-        return res.json();
-      })
+      .then(res => res.json())
       .then(allData => {
-        console.log('[DEBUG_PARENT] JSON parsed, searching for id:', id);
         const data = allData.find((c: HanziData) => c.id === id);
-        if (data) {
-          console.log('[DEBUG_PARENT] Character data found:', data.character);
-          setCharacterData(data);
-        } else {
-          console.error(`[DEBUG_PARENT] Character data for id '${id}' NOT FOUND`);
-          setCharacterData(null);
-        }
+        setCharacterData(data || null);
         setLoading(false);
       })
       .catch(err => {
-        console.error('[DEBUG_PARENT] Fetch failed:', err);
+        console.error('Failed to load hanzi-data.json', err);
         setLoading(false);
       });
   }, [id]);
-  
-  console.log('[DEBUG_PARENT] useEffects defined, continuing with render logic');
 
   if (loading) {
-    console.log("[DEBUG_PARENT] Render: returning 'Loading' view.");
     return <div className="w-screen h-screen flex justify-center items-center bg-amber-50">Loading Character...</div>;
   }
 
   if (!characterData) {
-    console.log("[DEBUG_PARENT] Render: returning 'Not Found' view.");
-    return <div className="w-screen h-screen flex justify-center items-center bg-amber-50">Character not found. Please check the ID.</div>;
+    return <div className="w-screen h-screen flex justify-center items-center bg-amber-50">Character not found.</div>;
   }
 
-  console.log('[DEBUG_PARENT] Render: returning <EvolutionPlayer />');
-  return (
-    <ErrorBoundary>
-      <EvolutionPlayer characterData={characterData} />
-    </ErrorBoundary>
-  );
+  return <EvolutionPlayer characterData={characterData} />;
 }
 
-// --- Core Player Component (Ultimate Debug Mode) ---
+// --- Core Player Component ("Breathing Heartbeat" Final Version) ---
 const EvolutionPlayer = ({ characterData }: { characterData: HanziData }) => {
-  const [activeStage, setActiveStage] = useState(-1);
-  const lottiePlayerRef = useRef<LottiePlayerRef>(null);
+  const [activeStage, setActiveStage] = useState(-2); // -2 for Real Object
+  const [currentImageUrl, setCurrentImageUrl] = useState(characterData.assets.realObjectImage);
   const narrationRef = useRef<HTMLAudioElement>(null);
-  const internalStateForDebug = useRef({});
-  const [isAnimationLoaded, setIsAnimationLoaded] = useState(false);
 
   useEffect(() => {
-    console.log(`[DEBUG_CHILD] EvolutionPlayer useEffect for ${characterData.id}`);
+    setCurrentImageUrl(characterData.assets.realObjectImage);
+    setActiveStage(-2);
+  }, [characterData]);
+
+  useEffect(() => {
     if (!narrationRef.current) {
-      console.log('[DEBUG_CHILD] Initializing Audio element');
       narrationRef.current = new Audio();
     }
-  }, [characterData.id]);
+  }, []);
 
-  const handleAnimationLoad = () => {
-    console.log('[DEBUG_CHILD] Lottie animation loaded via LottiePlayer');
-    setIsAnimationLoaded(true);
-  };
+  const handleCardClick = (stageIndex: number) => {
+    setActiveStage(stageIndex);
+    let imageUrl = '';
+    let audioUrl = '';
 
-  const handleAnimationError = (error: Error) => {
-    console.error('[DEBUG_CHILD] Lottie animation error:', error);
-  };
+    if (stageIndex === -2) {
+      imageUrl = characterData.assets.realObjectImage;
+    } else {
+      const stage = characterData.evolutionStages[stageIndex];
+      if (stage) {
+        imageUrl = stage.scriptImage;
+        audioUrl = stage.narrationAudio;
+      }
+    }
+    setCurrentImageUrl(imageUrl);
 
-  const handleAnimationComplete = () => {
-    console.log('[DEBUG_CHILD] Animation completed');
-  };
-
-  const handleReplay = () => {
-    if (lottiePlayerRef.current) {
-      lottiePlayerRef.current.stop();
-      setTimeout(() => {
-        lottiePlayerRef.current?.play();
-      }, 100);
-      setActiveStage(-1);
+    if (narrationRef.current && audioUrl) {
+      narrationRef.current.src = audioUrl;
+      narrationRef.current.play().catch(e => console.error("Audio play failed", e));
+    } else if (narrationRef.current) {
+      narrationRef.current.pause();
     }
   };
+  
+  const getExplanation = () => {
+      if (activeStage === -2) return `我们生活中看到的“${characterData.character}”是这个样子的。`;
+      if (activeStage >= 0 && characterData.evolutionStages[activeStage]) {
+          return characterData.evolutionStages[activeStage].explanation;
+      }
+      return '点击左侧的彩色圆圈，开始探索它的故事吧！';
+  }
 
-  useEffect(() => {
-      const interval = setInterval(() => {
-          internalStateForDebug.current = {
-              hasLottiePlayer: !!lottiePlayerRef.current,
-              isLoaded: isAnimationLoaded,
-              element: lottiePlayerRef.current?.getElement() ? 'exists' : 'null',
-          };
-      }, 500);
-      return () => clearInterval(interval);
-  }, [isAnimationLoaded]);
-
-  console.log(`[DEBUG_CHILD] Rendering EvolutionPlayer for ${characterData.id}`);
   return (
-    <div className="w-screen h-screen bg-stone-100 flex flex-col justify-center items-center relative overflow-hidden">
-        {/* Controls */}
-        <div className="absolute top-5 left-5 z-10 flex gap-2">
-            <Link href="/hanzi" passHref>
-                <motion.button whileTap={{scale: 0.9}} className="p-3 bg-white/70 backdrop-blur-sm rounded-full shadow-md">
-                    <Home className="w-6 h-6 text-stone-700"/>
-                </motion.button>
-            </Link>
-            <motion.button onClick={handleReplay} whileTap={{scale: 0.9}} className="p-3 bg-white/70 backdrop-blur-sm rounded-full shadow-md">
-                <RotateCcw className="w-6 h-6 text-stone-700"/>
-            </motion.button>
+    <div className="w-screen h-screen bg-stone-100 flex flex-col md:flex-row p-4 sm:p-6 md:p-8 gap-6 md:gap-8">
+      
+      <div className="w-full md:w-auto flex flex-col gap-4 flex-shrink-0 items-center">
+        <Link href="/hanzi" passHref>
+          <motion.button whileTap={{ scale: 0.95 }} className="w-28 p-3 bg-white/70 backdrop-blur-sm rounded-lg shadow-md flex items-center justify-center gap-2">
+            <Home className="w-5 h-5 text-stone-700"/>
+            <span className="font-semibold">首页</span>
+          </motion.button>
+        </Link>
+
+        <div className="hidden md:block h-px w-full bg-stone-300 my-2"></div>
+
+        <div className="flex-grow flex flex-row md:flex-col gap-5 overflow-x-auto md:overflow-x-hidden p-4 justify-center items-center">
+          
+          {/* Real Object Card */}
+          <motion.div
+            onClick={() => handleCardClick(-2)}
+            className="w-24 h-24 rounded-full cursor-pointer flex-shrink-0 shadow-md flex items-center justify-center"
+            style={{ backgroundColor: characterData.assets.realObjectCardColor }}
+            animate={{ scale: activeStage === -2 ? 1.15 : 1 }}
+            transition={{ type: "spring", stiffness: 200, damping: 15 }}
+          >
+            <p className="text-2xl font-serif font-semibold text-white">实物</p>
+          </motion.div>
+
+          {characterData.evolutionStages.map((stage, index) => (
+            <motion.div
+              key={index}
+              onClick={() => handleCardClick(index)}
+              className="w-24 h-24 rounded-full cursor-pointer flex-shrink-0 shadow-md flex items-center justify-center"
+              style={{ backgroundColor: stage.cardColor }}
+              animate={{ scale: activeStage === index ? 1.25 : 1 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            >
+              <p className="text-2xl font-serif font-semibold text-white">{stage.scriptName}</p>
+            </motion.div>
+          ))}
         </div>
+      </div>
 
-        {/* On-screen debug info */}
-        {/* <div className="absolute top-5 right-5 bg-black/50 text-white p-2 rounded-md text-xs font-mono">
-            <pre>DEBUG_STATE: {JSON.stringify(internalStateForDebug.current, null, 2)}</pre>
-        </div> */}
-
-        {/* Main Animation Stage */}
-        <div className="w-full max-w-4xl aspect-video" style={{ width: '800px', height: '450px' }}>
-          <LottiePlayer
-            ref={lottiePlayerRef}
-            src={characterData.assets.lottieAnimation}
-            width="100%"
-            height="100%"
-            loop={false}
-            autoplay={true}
-            onLoad={handleAnimationLoad}
-            onError={handleAnimationError}
-            onComplete={handleAnimationComplete}
+      <div className="w-full h-full flex-grow flex flex-col items-center justify-center gap-6 bg-white/50 rounded-2xl shadow-lg p-4">
+        <div className="w-full flex-grow flex justify-center items-center rounded-lg bg-white shadow-inner overflow-hidden p-4">
+          <motion.img 
+            key={currentImageUrl}
+            src={currentImageUrl} 
+            alt={activeStage !== -1 ? characterData.evolutionStages[activeStage]?.scriptName : 'Object or Illustration'} 
+            className="max-w-full max-h-full object-contain"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
           />
         </div>
+        <div className="w-full max-w-3xl text-center h-24 flex items-center justify-center p-2">
+          <p className="text-stone-600 text-lg md:text-xl">
+            {getExplanation()}
+          </p>
+        </div>
+      </div>
 
-        {/* Progress Bar / Timeline */}
-        <div className="absolute bottom-10 w-full max-w-4xl flex justify-between items-end px-4">
-            {characterData.evolutionStages.map((stage, index) => (
-                <div key={index} className="flex flex-col items-center gap-2">
-                    <motion.div 
-                        animate={{ scale: activeStage === index ? 1.2 : 1, opacity: activeStage === index ? 1 : 0.7 }}
-                        className="px-4 py-1 bg-white/80 backdrop-blur-sm rounded-lg shadow-sm"
-                    >
-                        <p className="text-xl font-serif text-stone-800">{stage.scriptName}</p>
-                    </motion.div>
-                    <div className={`w-1 h-4 ${activeStage >= index ? 'bg-orange-400' : 'bg-stone-300'} rounded-full`}></div>
-                </div>
-            ))}
-        </div>
-        
-        {/* Explanation Text */}
-        <div className="absolute bottom-24 w-full max-w-2xl text-center">
-            <p className="text-stone-600 text-lg">
-                {activeStage !== -1 && characterData.evolutionStages[activeStage] ? characterData.evolutionStages[activeStage].explanation : ''}
-            </p>
-        </div>
     </div>
   );
 };
