@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { hanziDataLoader } from '@/lib/hanzi-data-loader';
+import CategoryTransition from '@/components/hanzi/CategoryTransition';
 
 // 类别配置
 interface CategoryConfig {
@@ -79,6 +80,11 @@ export default function HanziHomePage() {
   const [totalCharacters, setTotalCharacters] = useState(0);
   const [learnedCount, setLearnedCount] = useState(8); // 模拟已学习数量
   const [loading, setLoading] = useState(true);
+  
+  // 过渡动画状态
+  const [selectedCategory, setSelectedCategory] = useState<CategoryConfig | null>(null);
+  const [isTransitionOpen, setIsTransitionOpen] = useState(false);
+  const [clickPosition, setClickPosition] = useState<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
     const loadCategories = async () => {
@@ -181,21 +187,57 @@ export default function HanziHomePage() {
           {/* 类别网格 */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {categories.map((category) => (
-              <CategoryCard key={category.name} category={category} />
+              <CategoryCard 
+                key={category.name} 
+                category={category} 
+                onCategoryClick={(category, position) => {
+                  setSelectedCategory(category);
+                  setClickPosition(position);
+                  setIsTransitionOpen(true);
+                }}
+              />
             ))}
           </div>
         </div>
       </main>
+
+      {/* 过渡动画组件 */}
+      <CategoryTransition
+        category={selectedCategory}
+        isOpen={isTransitionOpen}
+        onClose={() => {
+          setIsTransitionOpen(false);
+          setSelectedCategory(null);
+          setClickPosition(null);
+        }}
+        clickPosition={clickPosition}
+      />
     </div>
   );
 }
 
 // 类别卡片组件
-const CategoryCard = ({ category }: { category: CategoryConfig }) => {
-  const handleClick = () => {
+const CategoryCard = ({ 
+  category, 
+  onCategoryClick 
+}: { 
+  category: CategoryConfig;
+  onCategoryClick?: (category: CategoryConfig, position: { x: number; y: number }) => void;
+}) => {
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (category.available) {
-      // 跳转到类别详情页面
-      window.location.href = `/hanzi/category/${encodeURIComponent(category.name)}`;
+      if (onCategoryClick) {
+        // 获取点击位置（卡片中心）
+        const rect = event.currentTarget.getBoundingClientRect();
+        const position = {
+          x: rect.left + rect.width / 2,
+          y: rect.top + rect.height / 2
+        };
+        onCategoryClick(category, position);
+      } else {
+        // 跳转到类别详情页面（备用方案）
+        window.location.href = `/hanzi/category/${encodeURIComponent(category.name)}`;
+      }
     }
   };
 
