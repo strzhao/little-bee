@@ -18,13 +18,15 @@ interface CategoryTransitionProps {
   isOpen: boolean;
   onClose: () => void;
   clickPosition: { x: number; y: number } | null;
+  onReturning?: (isReturning: boolean) => void;
 }
 
 export default function CategoryTransition({ 
   category, 
   isOpen, 
   onClose, 
-  clickPosition 
+  clickPosition,
+  onReturning 
 }: CategoryTransitionProps) {
   const [hanziList, setHanziList] = useState<HanziCharacter[]>([]);
   const [loading, setLoading] = useState(false);
@@ -57,10 +59,14 @@ export default function CategoryTransition({
 
   const handleClose = () => {
     setAnimationPhase('closing');
+    // 通知主页面开始返回动画
+    onReturning?.(true);
     // 延迟关闭，等待收缩动画完成
     setTimeout(() => {
       onClose();
       setAnimationPhase('expanding');
+      // 通知主页面返回动画结束
+      onReturning?.(false);
     }, 800);
   };
 

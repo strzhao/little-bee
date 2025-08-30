@@ -85,6 +85,7 @@ export default function HanziHomePage() {
   const [selectedCategory, setSelectedCategory] = useState<CategoryConfig | null>(null);
   const [isTransitionOpen, setIsTransitionOpen] = useState(false);
   const [clickPosition, setClickPosition] = useState<{ x: number; y: number } | null>(null);
+  const [isReturning, setIsReturning] = useState(false);
 
   useEffect(() => {
     const loadCategories = async () => {
@@ -190,6 +191,7 @@ export default function HanziHomePage() {
               <CategoryCard 
                 key={category.name} 
                 category={category} 
+                isReturning={isReturning && selectedCategory?.name === category.name}
                 onCategoryClick={(category, position) => {
                   setSelectedCategory(category);
                   setClickPosition(position);
@@ -211,6 +213,7 @@ export default function HanziHomePage() {
           setClickPosition(null);
         }}
         clickPosition={clickPosition}
+        onReturning={setIsReturning}
       />
     </div>
   );
@@ -219,10 +222,12 @@ export default function HanziHomePage() {
 // 类别卡片组件
 const CategoryCard = ({ 
   category, 
-  onCategoryClick 
+  onCategoryClick,
+  isReturning = false 
 }: { 
   category: CategoryConfig;
   onCategoryClick?: (category: CategoryConfig, position: { x: number; y: number }) => void;
+  isReturning?: boolean;
 }) => {
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (category.available) {
@@ -251,12 +256,25 @@ const CategoryCard = ({
       onClick={handleClick}
     >
       <div className="text-center flex flex-col items-center justify-center h-full">
-        <div className="text-8xl mb-6">{category.emoji}</div>
-        <h3 className="text-3xl font-bold text-gray-800 mb-4">{category.name}</h3>
+        <div 
+          className="text-8xl mb-6 transition-opacity duration-300"
+          style={{ opacity: isReturning ? 0 : 1 }}
+        >
+          {category.emoji}
+        </div>
+        <h3 
+          className="text-3xl font-bold text-gray-800 mb-4 transition-opacity duration-300"
+          style={{ opacity: isReturning ? 0 : 1 }}
+        >
+          {category.name}
+        </h3>
         
         {/* 居中的星星进度 */}
          {category.available && (
-           <div className="mb-4">
+           <div 
+             className="mb-4 transition-opacity duration-300"
+             style={{ opacity: isReturning ? 0 : 1 }}
+           >
              <SimpleStarProgress total={category.count} learned={category.learnedCount} />
            </div>
          )}
