@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { Home, Sparkles } from 'lucide-react';
 import CelebrationAnimation from '@/components/hanzi/CelebrationAnimation';
 import VoicePlayer from '@/components/hanzi/VoicePlayer';
+import ExplanationVoicePlayer, { ExplanationVoicePlayerRef } from '@/components/hanzi/ExplanationVoicePlayer';
 import { hanziDataLoader, HanziCharacter } from '@/lib/hanzi-data-loader';
 
 
@@ -100,6 +101,7 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
   const [challengeStatus, setChallengeStatus] = useState<'idle' | 'correct' | 'incorrect'>('idle');
   const [showCelebration, setShowCelebration] = useState(false);
   const [incorrectOptionId, setIncorrectOptionId] = useState<string | null>(null);
+  const explanationVoiceRef = useRef<ExplanationVoicePlayerRef>(null);
 
   const startChallenge = () => {
     const distractors = allCharacters
@@ -206,6 +208,20 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
     } else if (narrationRef.current) {
       narrationRef.current.pause();
     }
+
+    // 自动播放说明文字
+    setTimeout(() => {
+      let explanation = '';
+      if (stageIndex === -2) {
+        explanation = `我们生活中看到的"${characterData.character}"是这个样子的。`;
+      } else if (stageIndex >= 0 && characterData.evolutionStages[stageIndex]) {
+        explanation = characterData.evolutionStages[stageIndex].explanation;
+      }
+      
+      if (explanation && explanationVoiceRef.current) {
+        explanationVoiceRef.current.speak(explanation);
+      }
+    }, 800);
   };
   
   const getExplanation = () => {
@@ -320,11 +336,16 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className={`${activeStage >= -2 ? 'w-full md:w-1/2' : 'w-full md:w-2/3'} bg-white rounded-xl shadow-sm p-6 flex items-center justify-center`}
+              className={`${activeStage >= -2 ? 'w-full md:w-1/2' : 'w-full md:w-2/3'} bg-white rounded-xl shadow-sm p-6 flex items-center justify-center gap-3`}
             >
-              <p className="text-stone-600 text-base md:text-lg text-center leading-relaxed">
+              <p className="text-stone-600 text-base md:text-lg text-center leading-relaxed flex-1">
                 {getExplanation()}
               </p>
+              <ExplanationVoicePlayer 
+                text={getExplanation()} 
+                ref={explanationVoiceRef}
+                size="md"
+              />
             </motion.div>
             
             {/* 游戏按钮 */}
