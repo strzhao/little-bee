@@ -99,7 +99,7 @@ export default function HanziHomePage() {
           '基础汉字': 0
         };
         
-        const categoryConfigs: CategoryConfig[] = [
+        const allCategoryConfigs: CategoryConfig[] = [
           {
             name: '天空与气象',
             emoji: '🌤️',
@@ -142,6 +142,9 @@ export default function HanziHomePage() {
           }
         ];
         
+        // 过滤掉没有汉字的类别
+        const categoryConfigs = allCategoryConfigs.filter(category => category.count > 0);
+        
         setCategories(categoryConfigs);
         setTotalCharacters(masterConfig.totalCharacters);
         setLoading(false);
@@ -177,19 +180,9 @@ export default function HanziHomePage() {
         <div className="max-w-4xl mx-auto">
           {/* 类别网格 */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* 第一行：2个大卡片 */}
-            <div className="md:col-span-2 lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
-              {categories.slice(0, 2).map((category) => (
-                <CategoryCard key={category.name} category={category} />
-              ))}
-            </div>
-            
-            {/* 第二行：3个卡片 */}
-            <div className="md:col-span-2 lg:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-6">
-              {categories.slice(2).map((category) => (
-                <CategoryCard key={category.name} category={category} />
-              ))}
-            </div>
+            {categories.map((category) => (
+              <CategoryCard key={category.name} category={category} />
+            ))}
           </div>
         </div>
       </main>
@@ -220,17 +213,13 @@ const CategoryCard = ({ category }: { category: CategoryConfig }) => {
         <h3 className="text-3xl font-bold text-gray-800 mb-4">{category.name}</h3>
         
         {/* 居中的星星进度 */}
-        {category.available && (
-          <div className="mb-4">
-            <SimpleStarProgress total={category.count} learned={category.learnedCount} />
-          </div>
-        )}
-        
-        {category.available ? (
-          <p className="text-xl text-gray-600">{category.count}个汉字</p>
-        ) : (
-          <p className="text-2xl text-gray-600">即将开放</p>
-        )}
+         {category.available && (
+           <div className="mb-4">
+             <SimpleStarProgress total={category.count} learned={category.learnedCount} />
+           </div>
+         )}
+         
+
       </div>
     </motion.div>
   );
