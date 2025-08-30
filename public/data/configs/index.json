@@ -64,6 +64,41 @@
       "id": "hu",
       "category": "水与地理",
       "learningStage": "基础层"
+    },
+    "树": {
+      "id": "shu",
+      "category": "植物世界",
+      "learningStage": "基础层"
+    },
+    "花": {
+      "id": "hua",
+      "category": "植物世界",
+      "learningStage": "基础层"
+    },
+    "草": {
+      "id": "cao",
+      "category": "植物世界",
+      "learningStage": "基础层"
+    },
+    "鸟": {
+      "id": "niao",
+      "category": "动物王国",
+      "learningStage": "基础层"
+    },
+    "鱼": {
+      "id": "yu",
+      "category": "动物王国",
+      "learningStage": "基础层"
+    },
+    "马": {
+      "id": "ma",
+      "category": "动物王国",
+      "learningStage": "基础层"
+    },
+    "牛": {
+      "id": "niu",
+      "category": "动物王国",
+      "learningStage": "基础层"
     }
   },
   "categoryIndex": {
@@ -84,6 +119,17 @@
       "hu",
       "shan",
       "shui"
+    ],
+    "植物世界": [
+      "shu",
+      "hua",
+      "cao"
+    ],
+    "动物王国": [
+      "niao",
+      "yu",
+      "ma",
+      "niu"
     ]
   },
   "learningStageIndex": {
@@ -100,7 +146,14 @@
       "xing",
       "he",
       "hai",
-      "hu"
+      "hu",
+      "shu",
+      "hua",
+      "cao",
+      "niao",
+      "yu",
+      "ma",
+      "niu"
     ]
   }
 }

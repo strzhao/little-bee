@@ -1,0 +1,164 @@
+[
+  {
+    "id": "shu",
+    "character": "树",
+    "pinyin": "shù",
+    "theme": "nature",
+    "category": "植物世界",
+    "learningStage": "基础层",
+    "meaning": "Tree",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/shu-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/shu-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/shu.json",
+      "realObjectImage": "/assets/hanzi/images/shu-real.png",
+      "realObjectCardColor": "#228B22"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/shu-1.mp3",
+        "explanation": "古人画出了一棵大树的样子，有树干、树枝和树叶。",
+        "scriptText": "树",
+        "fontFamily": "HanziJiaguwen",
+        "cardColor": "#A52A2A"
+      },
+      {
+        "scriptName": "金文",
+        "timestamp": 5,
+        "narrationAudio": "/assets/hanzi/audio/shu-2.mp3",
+        "explanation": "金文的'树'字，左边是木，右边是'豆'，表示像豆子一样结果的木本植物。",
+        "scriptText": "树",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/shu-3.mp3",
+        "explanation": "小篆的'树'字，左边是木字旁，右边是'豆'，组合起来就是树木。",
+        "scriptText": "树",
+        "fontFamily": "HanziXiaozhuan",
+        "cardColor": "#2F4F4F"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 10,
+        "narrationAudio": "/assets/hanzi/audio/shu-4.mp3",
+        "explanation": "现在的'树'字，左边是木字旁，右边是'豆'，表示高大的木本植物。",
+        "scriptText": "树",
+        "fontFamily": "HanziKaishu",
+        "cardColor": "#000000"
+      }
+    ]
+  },
+  {
+    "id": "hua",
+    "character": "花",
+    "pinyin": "huā",
+    "theme": "nature",
+    "category": "植物世界",
+    "learningStage": "基础层",
+    "meaning": "Flower",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/hua-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/hua-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/hua.json",
+      "realObjectImage": "/assets/hanzi/images/hua-real.png",
+      "realObjectCardColor": "#FF69B4"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/hua-1.mp3",
+        "explanation": "古人画出了花朵盛开的样子，像一朵美丽的花。",
+        "scriptText": "花",
+        "fontFamily": "HanziJiaguwen",
+        "cardColor": "#A52A2A"
+      },
+      {
+        "scriptName": "金文",
+        "timestamp": 5,
+        "narrationAudio": "/assets/hanzi/audio/hua-2.mp3",
+        "explanation": "金文的'花'字，上面是草字头，下面是'化'，表示植物开出的美丽花朵。",
+        "scriptText": "花",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/hua-3.mp3",
+        "explanation": "小篆的'花'字，上面是草字头，下面是'化'，组合起来就是花朵。",
+        "scriptText": "花",
+        "fontFamily": "HanziXiaozhuan",
+        "cardColor": "#2F4F4F"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 10,
+        "narrationAudio": "/assets/hanzi/audio/hua-4.mp3",
+        "explanation": "现在的'花'字，上面是草字头，下面是'化'，表示植物开出的美丽花朵。",
+        "scriptText": "花",
+        "fontFamily": "HanziKaishu",
+        "cardColor": "#000000"
+      }
+    ]
+  },
+  {
+    "id": "cao",
+    "character": "草",
+    "pinyin": "cǎo",
+    "theme": "nature",
+    "category": "植物世界",
+    "learningStage": "基础层",
+    "meaning": "Grass",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/cao-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/cao-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/cao.json",
+      "realObjectImage": "/assets/hanzi/images/cao-real.png",
+      "realObjectCardColor": "#90EE90"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/cao-1.mp3",
+        "explanation": "古人画出了草的样子，像地上长出的小草。",
+        "scriptText": "草",
+        "fontFamily": "HanziJiaguwen",
+        "cardColor": "#A52A2A"
+      },
+      {
+        "scriptName": "金文",
+        "timestamp": 5,
+        "narrationAudio": "/assets/hanzi/audio/cao-2.mp3",
+        "explanation": "金文的'草'字，上面是草字头，下面是'早'，表示早春时节长出的嫩草。",
+        "scriptText": "草",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/cao-3.mp3",
+        "explanation": "小篆的'草'字，上面是草字头，下面是'早'，组合起来就是草。",
+        "scriptText": "草",
+        "fontFamily": "HanziXiaozhuan",
+        "cardColor": "#2F4F4F"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 10,
+        "narrationAudio": "/assets/hanzi/audio/cao-4.mp3",
+        "explanation": "现在的'草'字，上面是草字头，下面是'早'，表示地上长的小草。",
+        "scriptText": "草",
+        "fontFamily": "HanziKaishu",
+        "cardColor": "#000000"
+      }
+    ]
+  }
+]

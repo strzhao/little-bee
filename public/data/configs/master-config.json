@@ -17,14 +17,24 @@
       "name": "水与地理",
       "file": "categories/水与地理.json",
       "count": 5
+    },
+    {
+      "name": "植物世界",
+      "file": "categories/植物世界.json",
+      "count": 3
+    },
+    {
+      "name": "动物王国",
+      "file": "categories/动物王国.json",
+      "count": 4
     }
   ],
   "learningStages": [
     {
       "name": "基础层",
       "file": "learning-stages/基础层.json",
-      "count": 13
+      "count": 20
     }
   ],
-  "totalCharacters": 13
+  "totalCharacters": 20
 }

@@ -1,0 +1,218 @@
+[
+  {
+    "id": "niao",
+    "character": "鸟",
+    "pinyin": "niǎo",
+    "theme": "nature",
+    "category": "动物王国",
+    "learningStage": "基础层",
+    "meaning": "Bird",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/niao-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/niao-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/niao.json",
+      "realObjectImage": "/assets/hanzi/images/niao-real.png",
+      "realObjectCardColor": "#87CEEB"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/niao-1.mp3",
+        "explanation": "古人画出了鸟的样子，有头、身体、翅膀和尾巴。",
+        "scriptText": "鸟",
+        "fontFamily": "HanziJiaguwen",
+        "cardColor": "#A52A2A"
+      },
+      {
+        "scriptName": "金文",
+        "timestamp": 5,
+        "narrationAudio": "/assets/hanzi/audio/niao-2.mp3",
+        "explanation": "金文的'鸟'字，更像一只展翅飞翔的鸟儿。",
+        "scriptText": "鸟",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/niao-3.mp3",
+        "explanation": "小篆的'鸟'字，简化了鸟的形状，但仍能看出是鸟。",
+        "scriptText": "鸟",
+        "fontFamily": "HanziXiaozhuan",
+        "cardColor": "#2F4F4F"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 10,
+        "narrationAudio": "/assets/hanzi/audio/niao-4.mp3",
+        "explanation": "现在的'鸟'字，虽然抽象了，但仍保留了鸟的基本特征。",
+        "scriptText": "鸟",
+        "fontFamily": "HanziKaishu",
+        "cardColor": "#000000"
+      }
+    ]
+  },
+  {
+    "id": "yu",
+    "character": "鱼",
+    "pinyin": "yú",
+    "theme": "nature",
+    "category": "动物王国",
+    "learningStage": "基础层",
+    "meaning": "Fish",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/yu-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/yu-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/yu.json",
+      "realObjectImage": "/assets/hanzi/images/yu-real.png",
+      "realObjectCardColor": "#4682B4"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/yu-1.mp3",
+        "explanation": "古人画出了鱼的样子，有头、身体、鱼鳍和尾巴。",
+        "scriptText": "鱼",
+        "fontFamily": "HanziJiaguwen",
+        "cardColor": "#A52A2A"
+      },
+      {
+        "scriptName": "金文",
+        "timestamp": 5,
+        "narrationAudio": "/assets/hanzi/audio/yu-2.mp3",
+        "explanation": "金文的'鱼'字，更清楚地显示了鱼的各个部分。",
+        "scriptText": "鱼",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/yu-3.mp3",
+        "explanation": "小篆的'鱼'字，简化了鱼的形状，但仍能看出是鱼。",
+        "scriptText": "鱼",
+        "fontFamily": "HanziXiaozhuan",
+        "cardColor": "#2F4F4F"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 10,
+        "narrationAudio": "/assets/hanzi/audio/yu-4.mp3",
+        "explanation": "现在的'鱼'字，虽然抽象了，但仍保留了鱼的基本特征。",
+        "scriptText": "鱼",
+        "fontFamily": "HanziKaishu",
+        "cardColor": "#000000"
+      }
+    ]
+  },
+  {
+    "id": "ma",
+    "character": "马",
+    "pinyin": "mǎ",
+    "theme": "nature",
+    "category": "动物王国",
+    "learningStage": "基础层",
+    "meaning": "Horse",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/ma-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/ma-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/ma.json",
+      "realObjectImage": "/assets/hanzi/images/ma-real.png",
+      "realObjectCardColor": "#8B4513"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/ma-1.mp3",
+        "explanation": "古人画出了马的样子，有头、身体、四条腿和尾巴。",
+        "scriptText": "马",
+        "fontFamily": "HanziJiaguwen",
+        "cardColor": "#A52A2A"
+      },
+      {
+        "scriptName": "金文",
+        "timestamp": 5,
+        "narrationAudio": "/assets/hanzi/audio/ma-2.mp3",
+        "explanation": "金文的'马'字，更清楚地显示了马的鬃毛和四肢。",
+        "scriptText": "马",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/ma-3.mp3",
+        "explanation": "小篆的'马'字，简化了马的形状，但仍能看出是马。",
+        "scriptText": "马",
+        "fontFamily": "HanziXiaozhuan",
+        "cardColor": "#2F4F4F"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 10,
+        "narrationAudio": "/assets/hanzi/audio/ma-4.mp3",
+        "explanation": "现在的'马'字，虽然抽象了，但仍保留了马的基本特征。",
+        "scriptText": "马",
+        "fontFamily": "HanziKaishu",
+        "cardColor": "#000000"
+      }
+    ]
+  },
+  {
+    "id": "niu",
+    "character": "牛",
+    "pinyin": "niú",
+    "theme": "nature",
+    "category": "动物王国",
+    "learningStage": "基础层",
+    "meaning": "Cow",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/niu-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/niu-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/niu.json",
+      "realObjectImage": "/assets/hanzi/images/niu-real.png",
+      "realObjectCardColor": "#8B4513"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/niu-1.mp3",
+        "explanation": "古人画出了牛的样子，特别突出了牛的两只角。",
+        "scriptText": "牛",
+        "fontFamily": "HanziJiaguwen",
+        "cardColor": "#A52A2A"
+      },
+      {
+        "scriptName": "金文",
+        "timestamp": 5,
+        "narrationAudio": "/assets/hanzi/audio/niu-2.mp3",
+        "explanation": "金文的'牛'字，更清楚地显示了牛的头部和角。",
+        "scriptText": "牛",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/niu-3.mp3",
+        "explanation": "小篆的'牛'字，简化了牛的形状，但仍能看出牛角。",
+        "scriptText": "牛",
+        "fontFamily": "HanziXiaozhuan",
+        "cardColor": "#2F4F4F"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 10,
+        "narrationAudio": "/assets/hanzi/audio/niu-4.mp3",
+        "explanation": "现在的'牛'字，虽然抽象了，但仍保留了牛角的特征。",
+        "scriptText": "牛",
+        "fontFamily": "HanziKaishu",
+        "cardColor": "#000000"
+      }
+    ]
+  }
+]
