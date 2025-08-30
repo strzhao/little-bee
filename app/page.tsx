@@ -2,12 +2,18 @@
 
 import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { ImageIcon, ArrowRight } from "lucide-react";
+import { ImageIcon, ArrowRight, BookOpen } from "lucide-react";
 import React from "react";
 
 // 1. 定义工具列表的数据结构
 // 未来添加新工具时，只需在此数组中添加一个新对象即可
 const tools = [
+  {
+    name: "识字小蜜蜂🐝",
+    description: "趣味汉字学习，从甲骨文到现代字体的演变历程。",
+    href: "/hanzi",
+    icon: <BookOpen className="w-8 h-8" />,
+  },
   {
     name: "图像压缩",
     description: "快速减小 JPG、PNG、WEBP 图片的体积。",
@@ -28,7 +34,7 @@ export default function HomePage() {
     <main className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="absolute top-0 left-0 w-full p-4 sm:p-6 md:p-8">
         <div className="font-mono text-sm font-semibold text-gray-600 dark:text-gray-300">
-          keke 专用
+          string & keke 专用
         </div>
       </div>
       <div className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 md:p-8">
@@ -37,9 +43,9 @@ export default function HomePage() {
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100">
             一个工具集
           </h1>
-          <p className="mt-4 max-w-2xl mx-auto text-lg sm:text-xl text-gray-600 dark:text-gray-400">
-            为您的日常数字任务提供安全、高效的解决方案。
-          </p>
+          {/* <p className="mt-4 max-w-2xl mx-auto text-lg sm:text-xl text-gray-600 dark:text-gray-400">
+            这里很有用，也有很有趣和有爱的工具
+          </p> */}
         </div>
 
         {/* 工具网格 */}
