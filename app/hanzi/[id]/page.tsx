@@ -8,6 +8,7 @@ import { Home, Sparkles } from 'lucide-react';
 import CelebrationAnimation from '@/components/hanzi/CelebrationAnimation';
 import VoicePlayer from '@/components/hanzi/VoicePlayer';
 import ExplanationVoicePlayer, { ExplanationVoicePlayerRef } from '@/components/hanzi/ExplanationVoicePlayer';
+import SuccessStars from '@/components/hanzi/SuccessStars';
 import { hanziDataLoader, HanziCharacter } from '@/lib/hanzi-data-loader';
 
 
@@ -452,6 +453,8 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
         )}
       </AnimatePresence>
 
+      {/* 星星计数器 */}
+      <SuccessStars />
     </div>
   );
 };

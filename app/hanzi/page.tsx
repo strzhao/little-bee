@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { hanziDataLoader } from '@/lib/hanzi-data-loader';
 import CategoryTransition from '@/components/hanzi/CategoryTransition';
+import SuccessStars from '@/components/hanzi/SuccessStars';
 
 // 类别配置
 interface CategoryConfig {
@@ -215,6 +216,9 @@ export default function HanziHomePage() {
         clickPosition={clickPosition}
         onReturning={setIsReturning}
       />
+      
+      {/* 星星计数器 */}
+      <SuccessStars />
     </div>
   );
 }
