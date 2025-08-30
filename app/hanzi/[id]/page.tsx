@@ -79,6 +79,7 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
   const [challengeOptions, setChallengeOptions] = useState<HanziData[]>([]);
   const [challengeStatus, setChallengeStatus] = useState<'idle' | 'correct' | 'incorrect'>('idle');
   const [showCelebration, setShowCelebration] = useState(false);
+  const [incorrectOptionId, setIncorrectOptionId] = useState<string | null>(null);
 
   const startChallenge = () => {
     const distractors = allCharacters
@@ -89,17 +90,25 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
     const options = [characterData, ...distractors].sort(() => 0.5 - Math.random());
     setChallengeOptions(options);
     setChallengeStatus('idle');
+    setIncorrectOptionId(null);
     setChallengeModalOpen(true);
   };
 
   const handleOptionClick = (selectedId: string) => {
-    if (challengeStatus !== 'idle') return; // Prevent multiple clicks
+    // Only prevent clicks if already correct (to avoid multiple success animations)
+    if (challengeStatus === 'correct') return;
 
     if (selectedId === characterData.id) {
       setChallengeStatus('correct');
       setShowCelebration(true); // Trigger animation
     } else {
       setChallengeStatus('incorrect');
+      setIncorrectOptionId(selectedId);
+      // Reset incorrect feedback after 1.5 seconds to encourage retry
+      setTimeout(() => {
+        setChallengeStatus('idle');
+        setIncorrectOptionId(null);
+      }, 1500);
     }
   };
 
@@ -141,6 +150,7 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
   const closeChallenge = () => {
     setChallengeModalOpen(false);
     setChallengeStatus('idle');
+    setIncorrectOptionId(null);
   };
 
   useEffect(() => {
@@ -318,20 +328,47 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
               ) : (
                 <>
                   <img src={characterData.assets.realObjectImage} alt={characterData.character} className="w-full h-48 object-cover rounded-lg mb-4"/>
-                  <p className="text-center text-3xl font-bold text-stone-700 mb-8">哪一个是“{characterData.character}”字？</p>
+                  <p className="text-center text-3xl font-bold text-stone-700 mb-8">哪一个是"{characterData.character}"字？</p>
+                  {challengeStatus === 'incorrect' && (
+                    <motion.p 
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-center text-lg text-amber-600 mb-4 font-medium"
+                    >
+                      💭 再想想看，你一定可以的！
+                    </motion.p>
+                  )}
                   <div className="grid grid-cols-3 gap-6">
-                    {challengeOptions.map(option => (
-                      <motion.button
-                        key={option.id}
-                        onClick={() => handleOptionClick(option.id)}
-                        whileTap={{ scale: 0.9 }}
-                        className={`p-6 rounded-2xl text-5xl font-bold flex justify-center items-center shadow-md transition-colors duration-200 ${ 
-                          challengeStatus === 'incorrect' && option.id !== characterData.id ? 'bg-red-200' : 'bg-stone-100 hover:bg-amber-200'
-                        }`}
-                      >
-                        {option.character}
-                      </motion.button>
-                    ))}
+                    {challengeOptions.map(option => {
+                      const isIncorrect = incorrectOptionId === option.id;
+                      const isWrongOption = challengeStatus === 'incorrect' && option.id !== characterData.id && incorrectOptionId !== option.id;
+                      
+                      return (
+                        <motion.button
+                          key={option.id}
+                          onClick={() => handleOptionClick(option.id)}
+                          whileTap={{ scale: 0.9 }}
+                          animate={isIncorrect ? {
+                            x: [0, -8, 8, -8, 8, 0],
+                            backgroundColor: ['#fecaca', '#ef4444', '#fecaca']
+                          } : {}}
+                          transition={isIncorrect ? {
+                            x: { duration: 0.5, ease: "easeInOut" },
+                            backgroundColor: { duration: 1.5, ease: "easeInOut" }
+                          } : {}}
+                          className={`p-6 rounded-2xl text-5xl font-bold flex justify-center items-center shadow-md transition-all duration-300 ${
+                            isIncorrect 
+                              ? 'bg-red-300 text-red-800 shadow-red-200' 
+                              : isWrongOption 
+                                ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                                : 'bg-stone-100 hover:bg-amber-200 hover:shadow-lg'
+                          }`}
+                          disabled={isWrongOption}
+                        >
+                          {option.character}
+                        </motion.button>
+                      );
+                    })}
                   </div>
                 </>
               )}
