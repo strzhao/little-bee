@@ -103,13 +103,13 @@
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
   --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
 }
 
 @layer base {
@@ -119,4 +119,45 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Hanzi Fonts */
+@font-face {
+  font-family: 'HanziJiaguwen';
+  src: url('/fonts/HanziJiaguwen.ttf') format('truetype'),
+       url('/fonts/HanziJiaguwen.woff2') format('woff2'),
+       url('/fonts/HanziJiaguwen.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HanziJinwen';
+  src: url('/fonts/HanziJinwen.ttf') format('truetype'),
+       url('/fonts/HanziJinwen.woff2') format('woff2'),
+       url('/fonts/HanziJinwen.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HanziXiaozhuan';
+  src: url('/fonts/HanziXiaozhuan.otf') format('opentype'),
+       url('/fonts/HanziXiaozhuan.woff2') format('woff2'),
+       url('/fonts/HanziXiaozhuan.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HanziKaishu';
+  src: url('/fonts/HanziKaishu.ttf') format('truetype'),
+       url('/fonts/HanziKaishu.woff2') format('woff2'),
+       url('/fonts/HanziKaishu.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }

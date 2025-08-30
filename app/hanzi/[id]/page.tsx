@@ -12,7 +12,8 @@ interface EvolutionStage {
   timestamp: number;
   narrationAudio: string;
   explanation: string;
-  scriptImage: string;
+  scriptText: string; // Added scriptText
+  fontFamily: string; // Added fontFamily
   cardColor: string;
 }
 
@@ -65,7 +66,7 @@ export default function HanziDetailPage() {
   return <EvolutionPlayer characterData={characterData} />;
 }
 
-// --- Core Player Component ("Breathing Heartbeat" Final Version) ---
+// --- Core Player Component (Hybrid Image/Font Display) ---
 const EvolutionPlayer = ({ characterData }: { characterData: HanziData }) => {
   const [activeStage, setActiveStage] = useState(-2); // -2 for Real Object
   const [currentImageUrl, setCurrentImageUrl] = useState(characterData.assets.realObjectImage);
@@ -84,19 +85,19 @@ const EvolutionPlayer = ({ characterData }: { characterData: HanziData }) => {
 
   const handleCardClick = (stageIndex: number) => {
     setActiveStage(stageIndex);
-    let imageUrl = '';
     let audioUrl = '';
 
-    if (stageIndex === -2) {
-      imageUrl = characterData.assets.realObjectImage;
-    } else {
+    if (stageIndex === -2) { // Real Object
+      setCurrentImageUrl(characterData.assets.realObjectImage);
+    } else { // Evolution Stage (0 and up)
       const stage = characterData.evolutionStages[stageIndex];
       if (stage) {
-        imageUrl = stage.scriptImage;
+        // For font stages, currentImageUrl is not relevant for display
+        // The main display area will use stage.scriptText and stage.fontFamily
+        setCurrentImageUrl(''); // Clear image if switching to font display
         audioUrl = stage.narrationAudio;
       }
     }
-    setCurrentImageUrl(imageUrl);
 
     if (narrationRef.current && audioUrl) {
       narrationRef.current.src = audioUrl;
@@ -134,7 +135,7 @@ const EvolutionPlayer = ({ characterData }: { characterData: HanziData }) => {
             onClick={() => handleCardClick(-2)}
             className="w-24 h-24 rounded-full cursor-pointer flex-shrink-0 shadow-md flex items-center justify-center"
             style={{ backgroundColor: characterData.assets.realObjectCardColor }}
-            animate={{ scale: activeStage === -2 ? 1.15 : 1 }}
+            animate={{ scale: activeStage === -2 ? 1.25 : 1 }}
             transition={{ type: "spring", stiffness: 200, damping: 15 }}
           >
             <p className="text-2xl font-serif font-semibold text-white">实物</p>
@@ -147,9 +148,9 @@ const EvolutionPlayer = ({ characterData }: { characterData: HanziData }) => {
               className="w-24 h-24 rounded-full cursor-pointer flex-shrink-0 shadow-md flex items-center justify-center"
               style={{ backgroundColor: stage.cardColor }}
               animate={{ scale: activeStage === index ? 1.25 : 1 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
+              transition={{ type: "spring", stiffness: 200, damping: 15 }}
             >
-              <p className="text-2xl font-serif font-semibold text-white">{stage.scriptName}</p>
+              <p className="text-2xl font-serif font-semibold text-white" style={{ fontFamily: stage.fontFamily }}>{stage.scriptName}</p>
             </motion.div>
           ))}
         </div>
@@ -157,15 +158,21 @@ const EvolutionPlayer = ({ characterData }: { characterData: HanziData }) => {
 
       <div className="w-full h-full flex-grow flex flex-col items-center justify-center gap-6 bg-white/50 rounded-2xl shadow-lg p-4">
         <div className="w-full flex-grow flex justify-center items-center rounded-lg bg-white shadow-inner overflow-hidden p-4">
-          <motion.img 
-            key={currentImageUrl}
-            src={currentImageUrl} 
-            alt={activeStage !== -1 ? characterData.evolutionStages[activeStage]?.scriptName : 'Object or Illustration'} 
-            className="max-w-full max-h-full object-contain"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-          />
+          {activeStage === -2 ? (
+            <motion.img 
+              key={currentImageUrl}
+              src={currentImageUrl} 
+              alt="实物" 
+              className="max-w-full max-h-full object-contain"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+            />
+          ) : (
+            <p className="text-9xl font-bold" style={{ fontFamily: characterData.evolutionStages[activeStage]?.fontFamily }}>
+              {characterData.evolutionStages[activeStage]?.scriptText}
+            </p>
+          )}
         </div>
         <div className="w-full max-w-3xl text-center h-24 flex items-center justify-center p-2">
           <p className="text-stone-600 text-lg md:text-xl">

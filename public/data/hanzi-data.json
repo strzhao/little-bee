@@ -18,7 +18,8 @@
         "timestamp": 2.5,
         "narrationAudio": "/assets/hanzi/audio/shan-1.mp3",
         "explanation": "很久很久以前，古人看到连绵的山峰，就把它的样子刻在了龟壳上，这就是最早的‘山’字，你看，是不是和真的山一模一样？",
-        "scriptImage": "/assets/hanzi/images/shan-jiaguwen.svg",
+        "scriptText": "山",
+        "fontFamily": "HanziJiaguwen",
         "cardColor": "#A52A2A"
       },
       {
@@ -26,7 +27,8 @@
         "timestamp": 5.0,
         "narrationAudio": "/assets/hanzi/audio/shan-2.mp3",
         "explanation": "后来，人们把字铸在青铜器上，线条变得圆润了一些，这就是金文的‘山’。",
-        "scriptImage": "/assets/hanzi/images/shan-jinwen.svg",
+        "scriptText": "山",
+        "fontFamily": "HanziJinwen",
         "cardColor": "#DAA520"
       },
       {
@@ -34,7 +36,8 @@
         "timestamp": 7.5,
         "narrationAudio": "/assets/hanzi/audio/shan-3.mp3",
         "explanation": "到了秦朝，秦始皇统一了文字，‘山’字就变成了这样，更加整齐了，这叫做小篆。",
-        "scriptImage": "/assets/hanzi/images/shan-xiaozhuan.svg",
+        "scriptText": "山",
+        "fontFamily": "HanziXiaozhuan",
         "cardColor": "#2F4F4F"
       },
       {
@@ -42,7 +45,8 @@
         "timestamp": 10.0,
         "narrationAudio": "/assets/hanzi/audio/shan-4.mp3",
         "explanation": "后来，人们为了书写更方便，也为了印刷，字体变得方方正正，就成了我们今天看到的楷书‘山’。",
-        "scriptImage": "/assets/hanzi/images/shan-kaishu.svg",
+        "scriptText": "山",
+        "fontFamily": "HanziKaishu",
         "cardColor": "#374151"
       }
     ]
@@ -57,8 +61,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/shui-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/shui-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/shui.json",
-      "realObjectImage": "/assets/hanzi/images/shui-real.svg",
-      "realObjectCardColor": "#87CEEB"
+      "realObjectImage": "/assets/hanzi/images/shui-real.svg"
     },
     "evolutionStages": [
       {
@@ -66,7 +69,8 @@
         "timestamp": 2.5,
         "narrationAudio": "/assets/hanzi/audio/shui-1.mp3",
         "explanation": "看，这就是最早的‘水’字，就像一条正在流动的小河。",
-        "scriptImage": "/assets/hanzi/images/shui-jiaguwen.svg",
+        "scriptText": "水",
+        "fontFamily": "HanziJiaguwen",
         "cardColor": "#A52A2A"
       },
       {
@@ -74,7 +78,8 @@
         "timestamp": 5.0,
         "narrationAudio": "/assets/hanzi/audio/shui-2.mp3",
         "explanation": "后来，‘水’字演变成了小篆，线条变得更加优美、对称。",
-        "scriptImage": "/assets/hanzi/images/shui-xiaozhuan.svg",
+        "scriptText": "水",
+        "fontFamily": "HanziXiaozhuan",
         "cardColor": "#2F4F4F"
       },
       {
@@ -82,7 +87,8 @@
         "timestamp": 7.5,
         "narrationAudio": "/assets/hanzi/audio/shui-3.mp3",
         "explanation": "最后，就变成了我们今天书写的楷书‘水’，笔画清晰，方便书写。",
-        "scriptImage": "/assets/hanzi/images/shui-kaishu.svg",
+        "scriptText": "水",
+        "fontFamily": "HanziKaishu",
         "cardColor": "#374151"
       }
     ]
