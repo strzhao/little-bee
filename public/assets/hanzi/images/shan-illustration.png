@@ -1,0 +1,18 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Soft sky background -->
+  <rect width="800" height="600" fill="#F0F9FF"/>
+
+  <!-- Sun -->
+  <circle cx="700" cy="100" r="40" fill="#FFDDA1" opacity="0.8"/>
+
+  <!-- Furthest mountain range (lighter) -->
+  <path d="M -50,500 Q 150,250 400,400 T 850,500 L 850,600 L -50,600 Z" fill="#AAD6A0" opacity="0.6"/>
+
+  <!-- Middle mountain range -->
+  <path d="M -50,550 Q 250,300 550,450 T 950,500 L 950,600 L -50,600 Z" fill="#8BC34A" opacity="0.8"/>
+
+  <!-- Closest mountain (darker) -->
+  <path d="M -50,600 Q 300,350 850,600 L -50,600 Z" fill="#7CB342"/>
+
+  <text x="400" y="50" font-family="sans-serif" font-size="24" fill="#666" text-anchor="middle">山 (shān) - Mountain</text>
+</svg>

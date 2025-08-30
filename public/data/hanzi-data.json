@@ -1,0 +1,73 @@
+
+[
+  {
+    "id": "shan",
+    "character": "山",
+    "pinyin": "shān",
+    "theme": "nature",
+    "meaning": "Mountain",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/shan-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/shan-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/shan.json"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/shan-1.mp3",
+        "explanation": "很久很久以前，古人看到连绵的山峰，就把它的样子刻在了龟壳上，这就是最早的‘山’字，你看，是不是和真的山一模一样？"
+      },
+      {
+        "scriptName": "金文",
+        "timestamp": 5.0,
+        "narrationAudio": "/assets/hanzi/audio/shan-2.mp3",
+        "explanation": "后来，人们把字铸在青铜器上，线条变得圆润了一些，这就是金文的‘山’。"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/shan-3.mp3",
+        "explanation": "到了秦朝，秦始皇统一了文字，‘山’字就变成了这样，更加整齐了，这叫做小篆。"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 10.0,
+        "narrationAudio": "/assets/hanzi/audio/shan-4.mp3",
+        "explanation": "后来，人们为了书写更方便，也为了印刷，字体变得方方正正，就成了我们今天看到的楷书‘山’。"
+      }
+    ]
+  },
+  {
+    "id": "shui",
+    "character": "水",
+    "pinyin": "shuǐ",
+    "theme": "nature",
+    "meaning": "Water",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/shui-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/shui-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/shui.json"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/shui-1.mp3",
+        "explanation": "看，这就是最早的‘水’字，就像一条正在流动的小河。"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 5.0,
+        "narrationAudio": "/assets/hanzi/audio/shui-2.mp3",
+        "explanation": "后来，‘水’字演变成了小篆，线条变得更加优美、对称。"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/shui-3.mp3",
+        "explanation": "最后，就变成了我们今天书写的楷书‘水’，笔画清晰，方便书写。"
+      }
+    ]
+  }
+]

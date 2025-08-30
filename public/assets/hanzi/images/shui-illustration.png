@@ -1,0 +1,7 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#E1F5FE"/>
+  <path d="M 0,300 C 150,200 250,400 400,300 S 550,200 700,300 S 850,400 1000,300" stroke="#4FC3F7" stroke-width="15" fill="none" stroke-linecap="round"/>
+  <path d="M -100,350 C 50,250 150,450 300,350 S 450,250 600,350 S 750,450 900,350" stroke="#29B6F6" stroke-width="20" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <path d="M 0,400 C 150,300 250,500 400,400 S 550,300 700,400 S 850,500 1000,400" stroke="#03A9F4" stroke-width="15" fill="none" stroke-linecap="round"/>
+  <text x="400" y="50" font-family="sans-serif" font-size="24" fill="#01579B" text-anchor="middle">水 (shuǐ) - Water</text>
+</svg>
