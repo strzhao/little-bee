@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { Home } from 'lucide-react';
 
@@ -157,6 +157,23 @@ const EvolutionPlayer = ({ characterData }: { characterData: HanziData }) => {
       </div>
 
       <div className="w-full h-full flex-grow flex flex-col items-center justify-center gap-6 bg-white/50 rounded-2xl shadow-lg p-4">
+        {activeStage >= 0 && (
+          <AnimatePresence>
+            <motion.div
+              key="character-info"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="w-full max-w-md bg-white rounded-lg shadow-md p-4 text-center"
+            >
+              <p className="text-4xl font-bold text-stone-800">{characterData.character}</p>
+              <p className="text-xl text-stone-600">{characterData.pinyin}</p>
+              <p className="text-lg text-stone-500">{characterData.meaning}</p>
+            </motion.div>
+          </AnimatePresence>
+        )}
+
         <div className="w-full flex-grow flex justify-center items-center rounded-lg bg-white shadow-inner overflow-hidden p-4">
           {activeStage === -2 ? (
             <motion.img 
