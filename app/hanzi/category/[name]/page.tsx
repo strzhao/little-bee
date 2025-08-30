@@ -89,7 +89,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 
       {/* 汉字网格 */}
       <main className="max-w-6xl mx-auto px-6 py-8">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-8">
           {hanziList.map((hanzi, index) => (
             <HanziCard key={hanzi.id} hanzi={hanzi} index={index} />
           ))}
@@ -109,18 +109,18 @@ const HanziCard = ({ hanzi, index }: { hanzi: HanziCharacter; index: number }) =
     >
       <Link href={`/hanzi/${hanzi.id}`}>
         <motion.div
-          className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer border border-gray-100"
+          className="bg-white rounded-2xl p-10 shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer border border-gray-100 min-h-[200px] flex items-center justify-center"
           whileHover={{ scale: 1.02, y: -2 }}
           whileTap={{ scale: 0.98 }}
         >
           <div className="text-center">
-            <div className="text-4xl font-serif mb-3 text-gray-800">
+            <div className="text-6xl font-serif mb-4 text-gray-800">
               {hanzi.character}
             </div>
-            <div className="text-sm text-blue-600 mb-1">
+            <div className="text-lg text-blue-600 mb-2 font-medium">
               {hanzi.pinyin}
             </div>
-            <div className="text-xs text-gray-500 line-clamp-2">
+            <div className="text-sm text-gray-500 line-clamp-2 leading-relaxed">
               {hanzi.meaning}
             </div>
           </div>

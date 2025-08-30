@@ -180,7 +180,7 @@ export default function CategoryTransition({
           style={{ opacity: animationPhase === 'closing' ? 0 : 1 }}
         >
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-8">
               {hanziList.map((hanzi, index) => (
                 <CircularHanziCard key={hanzi.id} hanzi={hanzi} index={index} isVisible={animationPhase !== 'expanding'} />
               ))}
@@ -235,7 +235,7 @@ const CircularHanziCard = ({
       }}
     >
       <motion.div
-        className="bg-white/90 backdrop-blur-sm rounded-full aspect-square p-6 shadow-lg hover:shadow-xl transition-all duration-200 cursor-pointer border border-white/20 flex flex-col items-center justify-center"
+        className="bg-white/90 backdrop-blur-sm rounded-full aspect-square p-10 shadow-lg hover:shadow-xl transition-all duration-200 cursor-pointer border border-white/20 flex flex-col items-center justify-center min-h-[200px]"
         whileHover={{ 
           scale: 1.05, 
           y: -4,
@@ -248,13 +248,13 @@ const CircularHanziCard = ({
         }}
       >
         <div className="text-center">
-          <div className="text-3xl font-serif mb-2 text-gray-800">
+          <div className="text-6xl font-serif mb-4 text-gray-800">
             {hanzi.character}
           </div>
-          <div className="text-xs text-blue-600 mb-1 font-medium">
+          <div className="text-lg text-blue-600 mb-2 font-medium">
             {hanzi.pinyin}
           </div>
-          <div className="text-xs text-gray-600 line-clamp-2 leading-tight">
+          <div className="text-sm text-gray-600 line-clamp-2 leading-relaxed">
             {hanzi.meaning}
           </div>
         </div>
