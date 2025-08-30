@@ -63,12 +63,12 @@ const StarProgress = ({ total, learned, size = 'md' }: StarProgressProps) => {
   );
 }
 
-// 简化的星星进度组件（用于卡片右上角）
+// 简化的星星进度组件（用于卡片居中显示）
 const SimpleStarProgress = ({ total, learned }: { total: number; learned: number }) => {
   return (
-    <div className="flex items-center gap-1 text-xs">
-      <span className="text-yellow-400">★</span>
-      <span className="text-gray-600">{learned}/{total}</span>
+    <div className="flex items-center gap-2 text-lg">
+      <span className="text-yellow-400 text-2xl">★</span>
+      <span className="text-gray-700 font-bold">{learned}/{total}</span>
     </div>
   );
 }
@@ -208,27 +208,28 @@ const CategoryCard = ({ category }: { category: CategoryConfig }) => {
 
   return (
     <motion.div
-      className={`${category.bgColor} rounded-2xl p-8 cursor-pointer transition-all duration-200 hover:shadow-lg ${
+      className={`${category.bgColor} rounded-full aspect-square p-12 cursor-pointer transition-all duration-200 hover:shadow-lg ${
         !category.available ? 'opacity-60 cursor-not-allowed' : ''
-      } relative`}
+      } relative flex flex-col items-center justify-center min-h-[280px]`}
       whileHover={category.available ? { scale: 1.02 } : {}}
       whileTap={category.available ? { scale: 0.98 } : {}}
       onClick={handleClick}
     >
-      {/* 右上角进度 */}
-      {category.available && (
-        <div className="absolute top-3 right-3">
-          <SimpleStarProgress total={category.count} learned={category.learnedCount} />
-        </div>
-      )}
-      
-      <div className="text-center">
-        <div className="text-4xl mb-4">{category.emoji}</div>
-        <h3 className="text-xl font-medium text-gray-800 mb-3">{category.name}</h3>
+      <div className="text-center flex flex-col items-center justify-center h-full">
+        <div className="text-8xl mb-6">{category.emoji}</div>
+        <h3 className="text-3xl font-bold text-gray-800 mb-4">{category.name}</h3>
+        
+        {/* 居中的星星进度 */}
+        {category.available && (
+          <div className="mb-4">
+            <SimpleStarProgress total={category.count} learned={category.learnedCount} />
+          </div>
+        )}
+        
         {category.available ? (
-          <p className="text-sm text-gray-500">{category.count}个汉字</p>
+          <p className="text-xl text-gray-600">{category.count}个汉字</p>
         ) : (
-          <p className="text-base text-gray-600">即将开放</p>
+          <p className="text-2xl text-gray-600">即将开放</p>
         )}
       </div>
     </motion.div>
