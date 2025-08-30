@@ -1,6 +1,6 @@
 [
   {
-    "id": "shu",
+    "id": "树_shù",
     "character": "树",
     "pinyin": "shù",
     "theme": "nature",
@@ -55,7 +55,7 @@
     ]
   },
   {
-    "id": "hua",
+    "id": "花_huā",
     "character": "花",
     "pinyin": "huā",
     "theme": "nature",
@@ -110,7 +110,7 @@
     ]
   },
   {
-    "id": "cao",
+    "id": "草_cǎo",
     "character": "草",
     "pinyin": "cǎo",
     "theme": "nature",

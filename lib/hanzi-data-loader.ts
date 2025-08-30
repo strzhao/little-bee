@@ -210,15 +210,25 @@ class HanziDataLoader {
       throw new Error('HanziDataLoader not initialized');
     }
 
+    // 从ID中提取汉字字符（去掉拼音和数字后缀）
+    const character = id.split('_')[0];
+    
     // 从索引中查找汉字所属的类别
-    const characterInfo = Object.values(this.indexConfig.characterIndex).find(info => info.id === id);
+    const characterInfo = this.indexConfig.characterIndex[character];
     if (!characterInfo) {
       return null;
     }
 
     // 加载对应类别的数据
     const categoryData = await this.loadByCategory(characterInfo.category);
-    return categoryData.find(hanzi => hanzi.id === id) || null;
+    const result = categoryData.find(hanzi => hanzi.id === id) || null;
+    
+    // 缓存结果
+    if (result) {
+      this.characterCache.set(id, result);
+    }
+    
+    return result;
   }
 
   /**

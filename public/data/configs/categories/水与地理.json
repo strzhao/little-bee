@@ -1,6 +1,6 @@
 [
   {
-    "id": "he",
+    "id": "河_hé_1",
     "character": "河",
     "pinyin": "hé",
     "theme": "nature",
@@ -55,7 +55,7 @@
     ]
   },
   {
-    "id": "hai",
+    "id": "海_hǎi_1",
     "character": "海",
     "pinyin": "hǎi",
     "theme": "nature",
@@ -110,7 +110,7 @@
     ]
   },
   {
-    "id": "hu",
+    "id": "湖_hú_1",
     "character": "湖",
     "pinyin": "hú",
     "theme": "nature",
@@ -165,7 +165,7 @@
     ]
   },
   {
-    "id": "shan",
+    "id": "山_shān_1",
     "character": "山",
     "pinyin": "shān",
     "theme": "nature",
@@ -220,7 +220,7 @@
     "learningStage": "基础层"
   },
   {
-    "id": "shui",
+    "id": "水_shuǐ_1",
     "character": "水",
     "pinyin": "shuǐ",
     "theme": "nature",

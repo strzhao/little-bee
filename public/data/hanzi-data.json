@@ -1,6 +1,6 @@
 [
   {
-    "id": "shan",
+    "id": "山_shān",
     "character": "山",
     "pinyin": "shān",
     "theme": "nature",
@@ -25,7 +25,7 @@
       },
       {
         "scriptName": "金文",
-        "timestamp": 5.0,
+        "timestamp": 5,
         "narrationAudio": "/assets/hanzi/audio/shan-2.mp3",
         "explanation": "后来，人们把字铸在青铜器上，线条变得圆润了一些，这就是金文的‘山’。",
         "scriptText": "山",
@@ -43,7 +43,7 @@
       },
       {
         "scriptName": "楷书",
-        "timestamp": 10.0,
+        "timestamp": 10,
         "narrationAudio": "/assets/hanzi/audio/shan-4.mp3",
         "explanation": "后来，人们为了书写更方便，也为了印刷，字体变得方方正正，就成了我们今天看到的楷书‘山’。",
         "scriptText": "山",
@@ -53,7 +53,7 @@
     ]
   },
   {
-    "id": "shui",
+    "id": "水_shuǐ",
     "character": "水",
     "pinyin": "shuǐ",
     "theme": "nature",
@@ -77,7 +77,7 @@
       },
       {
         "scriptName": "金文",
-        "timestamp": 5.0,
+        "timestamp": 5,
         "narrationAudio": "/assets/hanzi/audio/shui-jinwen.mp3",
         "explanation": "水字的金文形态，线条更加圆润，展现了水流的柔美。",
         "scriptText": "水",
@@ -95,7 +95,7 @@
       },
       {
         "scriptName": "楷书",
-        "timestamp": 10.0,
+        "timestamp": 10,
         "narrationAudio": "/assets/hanzi/audio/shui-3.mp3",
         "explanation": "最后，就变成了我们今天书写的楷书‘水’，笔画清晰，方便书写。",
         "scriptText": "水",
@@ -105,14 +105,14 @@
     ]
   },
   {
-    "id": "tian",
+    "id": "天_tiān",
     "character": "天",
     "pinyin": "tiān",
     "theme": "nature",
     "category": "天空与气象",
     "learningStage": "基础层",
     "meaning": "Sky, Heaven",
-        "emoji": "🌌",
+    "emoji": "🌌",
     "assets": {
       "pronunciationAudio": "/assets/hanzi/audio/tian-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/tian-illustration.png",
@@ -132,7 +132,7 @@
       },
       {
         "scriptName": "金文",
-        "timestamp": 5.0,
+        "timestamp": 5,
         "narrationAudio": "/assets/hanzi/audio/tian-2.mp3",
         "explanation": "后来，人们把字铸在青铜器上，'天'字变得更加圆润，像一个人顶着大大的头。",
         "scriptText": "天",
@@ -150,563 +150,563 @@
       },
       {
         "scriptName": "楷书",
-        "timestamp": 10.0,
+        "timestamp": 10,
         "narrationAudio": "/assets/hanzi/audio/tian-4.mp3",
         "explanation": "最后，就变成了我们今天看到的楷书'天'，一横代表天空，下面是一个大字，表示人在天地之间。",
         "scriptText": "天",
         "fontFamily": "HanziKaishu",
         "cardColor": "#374151"
       }
-     ]
-   },
-   {
-     "id": "yun",
-     "character": "云",
-     "pinyin": "yún",
-     "theme": "nature",
-     "category": "天空与气象",
-     "learningStage": "基础层",
-     "meaning": "Cloud",
-     "emoji": "☁️",
-     "assets": {
-       "pronunciationAudio": "/assets/hanzi/audio/yun-pronunciation.mp3",
-       "mainIllustration": "/assets/hanzi/images/yun-illustration.png",
-       "lottieAnimation": "/assets/hanzi/lottie/yun.json",
-       "realObjectImage": "/assets/hanzi/images/yun-real.png",
-       "realObjectCardColor": "#F0F8FF"
-     },
-     "evolutionStages": [
-       {
-         "scriptName": "甲骨文",
-         "timestamp": 2.5,
-         "narrationAudio": "/assets/hanzi/audio/yun-1.mp3",
-         "explanation": "古人看到天空中飘浮的云朵，就画出了云的样子，弯弯曲曲的，就像真的云一样。",
-         "scriptText": "云",
-         "fontFamily": "HanziJiaguwen",
-         "cardColor": "#A52A2A"
-       },
-       {
-         "scriptName": "金文",
-         "timestamp": 5.0,
-         "narrationAudio": "/assets/hanzi/audio/yun-2.mp3",
-         "explanation": "金文时期的'云'字，线条变得更加流畅，像云朵在天空中轻柔地飘动。",
-         "scriptText": "云",
-         "fontFamily": "HanziJinwen",
-         "cardColor": "#DAA520"
-       },
-       {
-         "scriptName": "小篆",
-         "timestamp": 7.5,
-         "narrationAudio": "/assets/hanzi/audio/yun-3.mp3",
-         "explanation": "小篆的'云'字变得更加规整，但仍然保持着云朵飘逸的感觉。",
-         "scriptText": "云",
-         "fontFamily": "HanziXiaozhuan",
-         "cardColor": "#2F4F4F"
-       },
-       {
-         "scriptName": "楷书",
-         "timestamp": 10.0,
-         "narrationAudio": "/assets/hanzi/audio/yun-4.mp3",
-         "explanation": "现在的楷书'云'字，笔画清晰，上面是'二'，下面是'厶'，组合起来就是美丽的云朵。",
-         "scriptText": "云",
-         "fontFamily": "HanziKaishu",
-         "cardColor": "#374151"
-       }
-      ]
+    ]
+  },
+  {
+    "id": "云_yún",
+    "character": "云",
+    "pinyin": "yún",
+    "theme": "nature",
+    "category": "天空与气象",
+    "learningStage": "基础层",
+    "meaning": "Cloud",
+    "emoji": "☁️",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/yun-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/yun-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/yun.json",
+      "realObjectImage": "/assets/hanzi/images/yun-real.png",
+      "realObjectCardColor": "#F0F8FF"
     },
-    {
-      "id": "yu",
-      "character": "雨",
-      "pinyin": "yǔ",
-      "theme": "nature",
-      "category": "天空与气象",
-      "learningStage": "基础层",
-      "meaning": "Rain",
-      "emoji": "🌧️",
-      "assets": {
-        "pronunciationAudio": "/assets/hanzi/audio/yu-pronunciation.mp3",
-        "mainIllustration": "/assets/hanzi/images/yu-illustration.png",
-        "lottieAnimation": "/assets/hanzi/lottie/yu.json",
-        "realObjectImage": "/assets/hanzi/images/yu-real.png",
-        "realObjectCardColor": "#4682B4"
-      },
-      "evolutionStages": [
-        {
-          "scriptName": "甲骨文",
-          "timestamp": 2.5,
-          "narrationAudio": "/assets/hanzi/audio/yu-1.mp3",
-          "explanation": "古人看到天空下雨，就画了一朵云，下面有很多小点点，就像雨滴从天空落下来。",
-          "scriptText": "雨",
-          "fontFamily": "HanziJiaguwen",
-          "cardColor": "#A52A2A"
-        },
-        {
-          "scriptName": "金文",
-          "timestamp": 5.0,
-          "narrationAudio": "/assets/hanzi/audio/yu-2.mp3",
-          "explanation": "金文的'雨'字，上面是天空，下面的小点变成了小竖线，更像雨丝了。",
-          "scriptText": "雨",
-          "fontFamily": "HanziJinwen",
-          "cardColor": "#DAA520"
-        },
-        {
-          "scriptName": "小篆",
-          "timestamp": 7.5,
-          "narrationAudio": "/assets/hanzi/audio/yu-3.mp3",
-          "explanation": "小篆的'雨'字变得更加整齐，上面一横代表天空，下面四个点代表雨滴。",
-          "scriptText": "雨",
-          "fontFamily": "HanziXiaozhuan",
-          "cardColor": "#2F4F4F"
-        },
-        {
-          "scriptName": "楷书",
-          "timestamp": 10.0,
-          "narrationAudio": "/assets/hanzi/audio/yu-4.mp3",
-          "explanation": "现在的'雨'字，上面是雨字头，下面四个点就是雨滴，很形象吧！",
-          "scriptText": "雨",
-          "fontFamily": "HanziKaishu",
-          "cardColor": "#374151"
-        }
-      ]
-    },
-    {
-      "id": "feng",
-      "character": "风",
-      "pinyin": "fēng",
-      "theme": "nature",
-      "category": "天空与气象",
-      "learningStage": "基础层",
-      "meaning": "Wind",
-        "emoji": "🌬️",
-      "assets": {
-        "pronunciationAudio": "/assets/hanzi/audio/feng-pronunciation.mp3",
-        "mainIllustration": "/assets/hanzi/images/feng-illustration.png",
-        "lottieAnimation": "/assets/hanzi/lottie/feng.json",
-        "realObjectImage": "/assets/hanzi/images/feng-real.png",
-        "realObjectCardColor": "#E0E0E0"
-      },
-      "evolutionStages": [
-        {
-          "scriptName": "甲骨文",
-          "timestamp": 2.5,
-          "narrationAudio": "/assets/hanzi/audio/feng-1.mp3",
-          "explanation": "古人感受到风的存在，就画了一只鸟的样子，因为鸟儿能感受到风，能在风中飞翔。",
-          "scriptText": "风",
-          "fontFamily": "HanziJiaguwen",
-          "cardColor": "#A52A2A"
-        },
-        {
-          "scriptName": "金文",
-          "timestamp": 5.0,
-          "narrationAudio": "/assets/hanzi/audio/feng-2.mp3",
-          "explanation": "金文的'风'字，还是像一只鸟，但线条变得更加流畅，就像风一样轻柔。",
-          "scriptText": "风",
-          "fontFamily": "HanziJinwen",
-          "cardColor": "#DAA520"
-        },
-        {
-          "scriptName": "小篆",
-          "timestamp": 7.5,
-          "narrationAudio": "/assets/hanzi/audio/feng-3.mp3",
-          "explanation": "小篆的'风'字，外面是个框，里面是虫字，表示风能让小虫子飞起来。",
-          "scriptText": "风",
-          "fontFamily": "HanziXiaozhuan",
-          "cardColor": "#2F4F4F"
-        },
-        {
-          "scriptName": "楷书",
-          "timestamp": 10.0,
-          "narrationAudio": "/assets/hanzi/audio/feng-4.mp3",
-          "explanation": "现在的'风'字，外面是风字框，里面是'乂'，简化后就是我们今天写的样子。",
-          "scriptText": "风",
-          "fontFamily": "HanziKaishu",
-          "cardColor": "#374151"
-        }
-      ]
-    },
-    {
-      "id": "xue",
-      "character": "雪",
-      "pinyin": "xuě",
-      "theme": "nature",
-      "category": "天空与气象",
-      "learningStage": "基础层",
-      "meaning": "Snow",
-      "emoji": "❄️",
-      "assets": {
-        "pronunciationAudio": "/assets/hanzi/audio/xue-pronunciation.mp3",
-        "mainIllustration": "/assets/hanzi/images/xue-illustration.png",
-        "lottieAnimation": "/assets/hanzi/lottie/xue.json",
-        "realObjectImage": "/assets/hanzi/images/xue-real.png",
-        "realObjectCardColor": "#FFFAFA"
-      },
-      "evolutionStages": [
-        {
-          "scriptName": "甲骨文",
-          "timestamp": 2.5,
-          "narrationAudio": "/assets/hanzi/audio/xue-1.mp3",
-          "explanation": "古人看到雪花从天空飘落，就在'雨'字的基础上，加了一些装饰，表示这是特别的雨——雪。",
-          "scriptText": "雪",
-          "fontFamily": "HanziJiaguwen",
-          "cardColor": "#A52A2A"
-        },
-        {
-          "scriptName": "金文",
-          "timestamp": 5.0,
-          "narrationAudio": "/assets/hanzi/audio/xue-2.mp3",
-          "explanation": "金文的'雪'字，上面还是雨字头，下面加了更多的装饰，表示雪花的美丽。",
-          "scriptText": "雪",
-          "fontFamily": "HanziJinwen",
-          "cardColor": "#DAA520"
-        },
-        {
-          "scriptName": "小篆",
-          "timestamp": 7.5,
-          "narrationAudio": "/assets/hanzi/audio/xue-3.mp3",
-          "explanation": "小篆的'雪'字，上面是雨字头，下面是'彗'，整个字看起来很优美。",
-          "scriptText": "雪",
-          "fontFamily": "HanziXiaozhuan",
-          "cardColor": "#2F4F4F"
-        },
-        {
-          "scriptName": "楷书",
-          "timestamp": 10.0,
-          "narrationAudio": "/assets/hanzi/audio/xue-4.mp3",
-          "explanation": "现在的'雪'字，上面是雨字头，下面是'彐'和'ヨ'，组合起来就是美丽的雪花。",
-          "scriptText": "雪",
-          "fontFamily": "HanziKaishu",
-          "cardColor": "#374151"
-        }
-       ]
-     },
-     {
-       "id": "ri",
-       "character": "日",
-       "pinyin": "rì",
-       "theme": "nature",
-       "category": "天空与气象",
-       "learningStage": "基础层",
-       "meaning": "Sun, Day",
-       "emoji": "☀️",
-       "assets": {
-         "pronunciationAudio": "/assets/hanzi/audio/ri-pronunciation.mp3",
-         "mainIllustration": "/assets/hanzi/images/ri-illustration.png",
-         "lottieAnimation": "/assets/hanzi/lottie/ri.json",
-         "realObjectImage": "/assets/hanzi/images/ri-real.png",
-         "realObjectCardColor": "#FFD700"
-       },
-       "evolutionStages": [
-         {
-           "scriptName": "甲骨文",
-           "timestamp": 2.5,
-           "narrationAudio": "/assets/hanzi/audio/ri-1.mp3",
-           "explanation": "古人看到太阳，就画了一个圆圆的太阳，中间还有一个小点，就像太阳的光芒。",
-           "scriptText": "日",
-           "fontFamily": "HanziJiaguwen",
-           "cardColor": "#A52A2A"
-         },
-         {
-           "scriptName": "金文",
-           "timestamp": 5.0,
-           "narrationAudio": "/assets/hanzi/audio/ri-2.mp3",
-           "explanation": "金文的'日'字，还是圆圆的，但线条变得更加圆润，就像真的太阳一样温暖。",
-           "scriptText": "日",
-           "fontFamily": "HanziJinwen",
-           "cardColor": "#DAA520"
-         },
-         {
-           "scriptName": "小篆",
-           "timestamp": 7.5,
-           "narrationAudio": "/assets/hanzi/audio/ri-3.mp3",
-           "explanation": "小篆的'日'字开始变成长方形，中间有一横，更加规整了。",
-           "scriptText": "日",
-           "fontFamily": "HanziXiaozhuan",
-           "cardColor": "#2F4F4F"
-         },
-         {
-           "scriptName": "楷书",
-           "timestamp": 10.0,
-           "narrationAudio": "/assets/hanzi/audio/ri-4.mp3",
-           "explanation": "现在的'日'字，就像一个小窗户，中间一横代表太阳的光芒。",
-           "scriptText": "日",
-           "fontFamily": "HanziKaishu",
-           "cardColor": "#374151"
-         }
-       ]
-     },
-     {
-       "id": "yue",
-       "character": "月",
-       "pinyin": "yuè",
-       "theme": "nature",
-       "category": "天空与气象",
-       "learningStage": "基础层",
-       "meaning": "Moon, Month",
-       "emoji": "🌙",
-       "assets": {
-         "pronunciationAudio": "/assets/hanzi/audio/yue-pronunciation.mp3",
-         "mainIllustration": "/assets/hanzi/images/yue-illustration.png",
-         "lottieAnimation": "/assets/hanzi/lottie/yue.json",
-         "realObjectImage": "/assets/hanzi/images/yue-real.png",
-         "realObjectCardColor": "#F5F5DC"
-       },
-       "evolutionStages": [
-         {
-           "scriptName": "甲骨文",
-           "timestamp": 2.5,
-           "narrationAudio": "/assets/hanzi/audio/yue-1.mp3",
-           "explanation": "古人看到弯弯的月亮，就画了一个弯弯的形状，就像天空中的月牙儿。",
-           "scriptText": "月",
-           "fontFamily": "HanziJiaguwen",
-           "cardColor": "#A52A2A"
-         },
-         {
-           "scriptName": "金文",
-           "timestamp": 5.0,
-           "narrationAudio": "/assets/hanzi/audio/yue-2.mp3",
-           "explanation": "金文的'月'字，还是弯弯的，但线条变得更加优美，像一个美丽的月牙。",
-           "scriptText": "月",
-           "fontFamily": "HanziJinwen",
-           "cardColor": "#DAA520"
-         },
-         {
-           "scriptName": "小篆",
-           "timestamp": 7.5,
-           "narrationAudio": "/assets/hanzi/audio/yue-3.mp3",
-           "explanation": "小篆的'月'字变得更加规整，但还是保持着月亮弯弯的样子。",
-           "scriptText": "月",
-           "fontFamily": "HanziXiaozhuan",
-           "cardColor": "#2F4F4F"
-         },
-         {
-           "scriptName": "楷书",
-           "timestamp": 10.0,
-           "narrationAudio": "/assets/hanzi/audio/yue-4.mp3",
-           "explanation": "现在的'月'字，左边是弯弯的，右边有两横，就像月亮的光芒。",
-           "scriptText": "月",
-           "fontFamily": "HanziKaishu",
-           "cardColor": "#374151"
-         }
-       ]
-     },
-     {
-       "id": "xing",
-       "character": "星",
-       "pinyin": "xīng",
-       "theme": "nature",
-       "category": "天空与气象",
-       "learningStage": "基础层",
-       "meaning": "Star",
-       "emoji": "⭐",
-       "assets": {
-         "pronunciationAudio": "/assets/hanzi/audio/xing-pronunciation.mp3",
-         "mainIllustration": "/assets/hanzi/images/xing-illustration.png",
-         "lottieAnimation": "/assets/hanzi/lottie/xing.json",
-         "realObjectImage": "/assets/hanzi/images/xing-real.png",
-         "realObjectCardColor": "#191970"
-       },
-       "evolutionStages": [
-         {
-           "scriptName": "甲骨文",
-           "timestamp": 2.5,
-           "narrationAudio": "/assets/hanzi/audio/xing-1.mp3",
-           "explanation": "古人看到夜空中闪闪发光的星星，就画了很多小点点，表示满天的星星。",
-           "scriptText": "星",
-           "fontFamily": "HanziJiaguwen",
-           "cardColor": "#A52A2A"
-         },
-         {
-           "scriptName": "金文",
-           "timestamp": 5.0,
-           "narrationAudio": "/assets/hanzi/audio/xing-2.mp3",
-           "explanation": "金文的'星'字，上面是'晶'，下面是'生'，表示星星像水晶一样闪亮。",
-           "scriptText": "星",
-           "fontFamily": "HanziJinwen",
-           "cardColor": "#DAA520"
-         },
-         {
-           "scriptName": "小篆",
-           "timestamp": 7.5,
-           "narrationAudio": "/assets/hanzi/audio/xing-3.mp3",
-           "explanation": "小篆的'星'字，上面是'晶'，下面是'生'，组合起来就是闪亮的星星。",
-           "scriptText": "星",
-           "fontFamily": "HanziXiaozhuan",
-           "cardColor": "#2F4F4F"
-         },
-         {
-           "scriptName": "楷书",
-           "timestamp": 10.0,
-           "narrationAudio": "/assets/hanzi/audio/xing-4.mp3",
-           "explanation": "现在的'星'字，上面是日字，下面是生字，表示像太阳一样发光的星星。",
-           "scriptText": "星",
-           "fontFamily": "HanziKaishu",
-           "cardColor": "#374151"
-         }
-        ]
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/yun-1.mp3",
+        "explanation": "古人看到天空中飘浮的云朵，就画出了云的样子，弯弯曲曲的，就像真的云一样。",
+        "scriptText": "云",
+        "fontFamily": "HanziJiaguwen",
+        "cardColor": "#A52A2A"
       },
       {
-        "id": "he",
-        "character": "河",
-        "pinyin": "hé",
-        "theme": "nature",
-        "category": "水与地理",
-        "learningStage": "基础层",
-        "meaning": "River",
-          "emoji": "🏞️",
-        "assets": {
-          "pronunciationAudio": "/assets/hanzi/audio/he-pronunciation.mp3",
-          "mainIllustration": "/assets/hanzi/images/he-illustration.png",
-          "lottieAnimation": "/assets/hanzi/lottie/he.json",
-          "realObjectImage": "/assets/hanzi/images/he-real.png",
-          "realObjectCardColor": "#4169E1"
-        },
-        "evolutionStages": [
-          {
-            "scriptName": "甲骨文",
-            "timestamp": 2.5,
-            "narrationAudio": "/assets/hanzi/audio/he-1.mp3",
-            "explanation": "古人看到河流，就在水字旁边加了一个'可'字，表示可以流动的水。",
-            "scriptText": "河",
-            "fontFamily": "HanziJiaguwen",
-            "cardColor": "#A52A2A"
-          },
-          {
-            "scriptName": "金文",
-            "timestamp": 5.0,
-            "narrationAudio": "/assets/hanzi/audio/he-2.mp3",
-            "explanation": "金文的'河'字，左边是水，右边是'可'，表示水可以流淌成河。",
-            "scriptText": "河",
-            "fontFamily": "HanziJinwen",
-            "cardColor": "#DAA520"
-          },
-          {
-            "scriptName": "小篆",
-            "timestamp": 7.5,
-            "narrationAudio": "/assets/hanzi/audio/he-3.mp3",
-            "explanation": "小篆的'河'字，左边是三点水，右边是'可'，组合起来就是河流。",
-            "scriptText": "河",
-            "fontFamily": "HanziXiaozhuan",
-            "cardColor": "#2F4F4F"
-          },
-          {
-            "scriptName": "楷书",
-            "timestamp": 10.0,
-            "narrationAudio": "/assets/hanzi/audio/he-4.mp3",
-            "explanation": "现在的'河'字，左边是三点水，右边是'可'，表示可以流动的水就是河。",
-            "scriptText": "河",
-            "fontFamily": "HanziKaishu",
-            "cardColor": "#374151"
-          }
-        ]
+        "scriptName": "金文",
+        "timestamp": 5,
+        "narrationAudio": "/assets/hanzi/audio/yun-2.mp3",
+        "explanation": "金文时期的'云'字，线条变得更加流畅，像云朵在天空中轻柔地飘动。",
+        "scriptText": "云",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
       },
       {
-        "id": "hai",
-        "character": "海",
-        "pinyin": "hǎi",
-        "theme": "nature",
-        "category": "水与地理",
-        "learningStage": "基础层",
-        "meaning": "Sea, Ocean",
-        "emoji": "🌊",
-        "assets": {
-          "pronunciationAudio": "/assets/hanzi/audio/hai-pronunciation.mp3",
-          "mainIllustration": "/assets/hanzi/images/hai-illustration.png",
-          "lottieAnimation": "/assets/hanzi/lottie/hai.json",
-          "realObjectImage": "/assets/hanzi/images/hai-real.png",
-          "realObjectCardColor": "#006994"
-        },
-        "evolutionStages": [
-          {
-            "scriptName": "甲骨文",
-            "timestamp": 2.5,
-            "narrationAudio": "/assets/hanzi/audio/hai-1.mp3",
-            "explanation": "古人看到广阔的大海，就在水字旁边画了很多东西，表示水很多很多。",
-            "scriptText": "海",
-            "fontFamily": "HanziJiaguwen",
-            "cardColor": "#A52A2A"
-          },
-          {
-            "scriptName": "金文",
-            "timestamp": 5.0,
-            "narrationAudio": "/assets/hanzi/audio/hai-2.mp3",
-            "explanation": "金文的'海'字，左边是水，右边表示很多很多，组合起来就是大海。",
-            "scriptText": "海",
-            "fontFamily": "HanziJinwen",
-            "cardColor": "#DAA520"
-          },
-          {
-            "scriptName": "小篆",
-            "timestamp": 7.5,
-            "narrationAudio": "/assets/hanzi/audio/hai-3.mp3",
-            "explanation": "小篆的'海'字，左边是三点水，右边是'每'，表示每天都有很多水。",
-            "scriptText": "海",
-            "fontFamily": "HanziXiaozhuan",
-            "cardColor": "#2F4F4F"
-          },
-          {
-            "scriptName": "楷书",
-            "timestamp": 10.0,
-            "narrationAudio": "/assets/hanzi/audio/hai-4.mp3",
-            "explanation": "现在的'海'字，左边是三点水，右边是'每'，表示每天都能看到的大水就是海。",
-            "scriptText": "海",
-            "fontFamily": "HanziKaishu",
-            "cardColor": "#374151"
-          }
-        ]
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/yun-3.mp3",
+        "explanation": "小篆的'云'字变得更加规整，但仍然保持着云朵飘逸的感觉。",
+        "scriptText": "云",
+        "fontFamily": "HanziXiaozhuan",
+        "cardColor": "#2F4F4F"
       },
       {
-        "id": "hu",
-        "character": "湖",
-        "pinyin": "hú",
-        "theme": "nature",
-        "category": "水与地理",
-        "learningStage": "基础层",
-        "meaning": "Lake",
-          "emoji": "🏞️",
-        "assets": {
-          "pronunciationAudio": "/assets/hanzi/audio/hu-pronunciation.mp3",
-          "mainIllustration": "/assets/hanzi/images/hu-illustration.png",
-          "lottieAnimation": "/assets/hanzi/lottie/hu.json",
-          "realObjectImage": "/assets/hanzi/images/hu-real.png",
-          "realObjectCardColor": "#20B2AA"
-        },
-        "evolutionStages": [
-          {
-            "scriptName": "甲骨文",
-            "timestamp": 2.5,
-            "narrationAudio": "/assets/hanzi/audio/hu-1.mp3",
-            "explanation": "古人看到平静的湖水，就在水字旁边加了表示平静的符号。",
-            "scriptText": "湖",
-            "fontFamily": "HanziJiaguwen",
-            "cardColor": "#A52A2A"
-          },
-          {
-            "scriptName": "金文",
-            "timestamp": 5.0,
-            "narrationAudio": "/assets/hanzi/audio/hu-2.mp3",
-            "explanation": "金文的'湖'字，左边是水，右边表示平静，组合起来就是平静的湖水。",
-            "scriptText": "湖",
-            "fontFamily": "HanziJinwen",
-            "cardColor": "#DAA520"
-          },
-          {
-            "scriptName": "小篆",
-            "timestamp": 7.5,
-            "narrationAudio": "/assets/hanzi/audio/hu-3.mp3",
-            "explanation": "小篆的'湖'字，左边是三点水，右边是'胡'，表示像胡子一样弯曲的水。",
-            "scriptText": "湖",
-            "fontFamily": "HanziXiaozhuan",
-            "cardColor": "#2F4F4F"
-          },
-          {
-            "scriptName": "楷书",
-            "timestamp": 10.0,
-            "narrationAudio": "/assets/hanzi/audio/hu-4.mp3",
-            "explanation": "现在的'湖'字，左边是三点水，右边是'胡'，表示弯弯曲曲的湖水。",
-            "scriptText": "湖",
-            "fontFamily": "HanziKaishu",
-            "cardColor": "#374151"
-          }
-        ]
+        "scriptName": "楷书",
+        "timestamp": 10,
+        "narrationAudio": "/assets/hanzi/audio/yun-4.mp3",
+        "explanation": "现在的楷书'云'字，笔画清晰，上面是'二'，下面是'厶'，组合起来就是美丽的云朵。",
+        "scriptText": "云",
+        "fontFamily": "HanziKaishu",
+        "cardColor": "#374151"
       }
     ]
+  },
+  {
+    "id": "雨_yǔ",
+    "character": "雨",
+    "pinyin": "yǔ",
+    "theme": "nature",
+    "category": "天空与气象",
+    "learningStage": "基础层",
+    "meaning": "Rain",
+    "emoji": "🌧️",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/yu-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/yu-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/yu.json",
+      "realObjectImage": "/assets/hanzi/images/yu-real.png",
+      "realObjectCardColor": "#4682B4"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/yu-1.mp3",
+        "explanation": "古人看到天空下雨，就画了一朵云，下面有很多小点点，就像雨滴从天空落下来。",
+        "scriptText": "雨",
+        "fontFamily": "HanziJiaguwen",
+        "cardColor": "#A52A2A"
+      },
+      {
+        "scriptName": "金文",
+        "timestamp": 5,
+        "narrationAudio": "/assets/hanzi/audio/yu-2.mp3",
+        "explanation": "金文的'雨'字，上面是天空，下面的小点变成了小竖线，更像雨丝了。",
+        "scriptText": "雨",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/yu-3.mp3",
+        "explanation": "小篆的'雨'字变得更加整齐，上面一横代表天空，下面四个点代表雨滴。",
+        "scriptText": "雨",
+        "fontFamily": "HanziXiaozhuan",
+        "cardColor": "#2F4F4F"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 10,
+        "narrationAudio": "/assets/hanzi/audio/yu-4.mp3",
+        "explanation": "现在的'雨'字，上面是雨字头，下面四个点就是雨滴，很形象吧！",
+        "scriptText": "雨",
+        "fontFamily": "HanziKaishu",
+        "cardColor": "#374151"
+      }
+    ]
+  },
+  {
+    "id": "风_fēng",
+    "character": "风",
+    "pinyin": "fēng",
+    "theme": "nature",
+    "category": "天空与气象",
+    "learningStage": "基础层",
+    "meaning": "Wind",
+    "emoji": "🌬️",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/feng-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/feng-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/feng.json",
+      "realObjectImage": "/assets/hanzi/images/feng-real.png",
+      "realObjectCardColor": "#E0E0E0"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/feng-1.mp3",
+        "explanation": "古人感受到风的存在，就画了一只鸟的样子，因为鸟儿能感受到风，能在风中飞翔。",
+        "scriptText": "风",
+        "fontFamily": "HanziJiaguwen",
+        "cardColor": "#A52A2A"
+      },
+      {
+        "scriptName": "金文",
+        "timestamp": 5,
+        "narrationAudio": "/assets/hanzi/audio/feng-2.mp3",
+        "explanation": "金文的'风'字，还是像一只鸟，但线条变得更加流畅，就像风一样轻柔。",
+        "scriptText": "风",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/feng-3.mp3",
+        "explanation": "小篆的'风'字，外面是个框，里面是虫字，表示风能让小虫子飞起来。",
+        "scriptText": "风",
+        "fontFamily": "HanziXiaozhuan",
+        "cardColor": "#2F4F4F"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 10,
+        "narrationAudio": "/assets/hanzi/audio/feng-4.mp3",
+        "explanation": "现在的'风'字，外面是风字框，里面是'乂'，简化后就是我们今天写的样子。",
+        "scriptText": "风",
+        "fontFamily": "HanziKaishu",
+        "cardColor": "#374151"
+      }
+    ]
+  },
+  {
+    "id": "雪_xuě",
+    "character": "雪",
+    "pinyin": "xuě",
+    "theme": "nature",
+    "category": "天空与气象",
+    "learningStage": "基础层",
+    "meaning": "Snow",
+    "emoji": "❄️",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/xue-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/xue-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/xue.json",
+      "realObjectImage": "/assets/hanzi/images/xue-real.png",
+      "realObjectCardColor": "#FFFAFA"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/xue-1.mp3",
+        "explanation": "古人看到雪花从天空飘落，就在'雨'字的基础上，加了一些装饰，表示这是特别的雨——雪。",
+        "scriptText": "雪",
+        "fontFamily": "HanziJiaguwen",
+        "cardColor": "#A52A2A"
+      },
+      {
+        "scriptName": "金文",
+        "timestamp": 5,
+        "narrationAudio": "/assets/hanzi/audio/xue-2.mp3",
+        "explanation": "金文的'雪'字，上面还是雨字头，下面加了更多的装饰，表示雪花的美丽。",
+        "scriptText": "雪",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/xue-3.mp3",
+        "explanation": "小篆的'雪'字，上面是雨字头，下面是'彗'，整个字看起来很优美。",
+        "scriptText": "雪",
+        "fontFamily": "HanziXiaozhuan",
+        "cardColor": "#2F4F4F"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 10,
+        "narrationAudio": "/assets/hanzi/audio/xue-4.mp3",
+        "explanation": "现在的'雪'字，上面是雨字头，下面是'彐'和'ヨ'，组合起来就是美丽的雪花。",
+        "scriptText": "雪",
+        "fontFamily": "HanziKaishu",
+        "cardColor": "#374151"
+      }
+    ]
+  },
+  {
+    "id": "日_rì",
+    "character": "日",
+    "pinyin": "rì",
+    "theme": "nature",
+    "category": "天空与气象",
+    "learningStage": "基础层",
+    "meaning": "Sun, Day",
+    "emoji": "☀️",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/ri-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/ri-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/ri.json",
+      "realObjectImage": "/assets/hanzi/images/ri-real.png",
+      "realObjectCardColor": "#FFD700"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/ri-1.mp3",
+        "explanation": "古人看到太阳，就画了一个圆圆的太阳，中间还有一个小点，就像太阳的光芒。",
+        "scriptText": "日",
+        "fontFamily": "HanziJiaguwen",
+        "cardColor": "#A52A2A"
+      },
+      {
+        "scriptName": "金文",
+        "timestamp": 5,
+        "narrationAudio": "/assets/hanzi/audio/ri-2.mp3",
+        "explanation": "金文的'日'字，还是圆圆的，但线条变得更加圆润，就像真的太阳一样温暖。",
+        "scriptText": "日",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/ri-3.mp3",
+        "explanation": "小篆的'日'字开始变成长方形，中间有一横，更加规整了。",
+        "scriptText": "日",
+        "fontFamily": "HanziXiaozhuan",
+        "cardColor": "#2F4F4F"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 10,
+        "narrationAudio": "/assets/hanzi/audio/ri-4.mp3",
+        "explanation": "现在的'日'字，就像一个小窗户，中间一横代表太阳的光芒。",
+        "scriptText": "日",
+        "fontFamily": "HanziKaishu",
+        "cardColor": "#374151"
+      }
+    ]
+  },
+  {
+    "id": "月_yuè",
+    "character": "月",
+    "pinyin": "yuè",
+    "theme": "nature",
+    "category": "天空与气象",
+    "learningStage": "基础层",
+    "meaning": "Moon, Month",
+    "emoji": "🌙",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/yue-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/yue-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/yue.json",
+      "realObjectImage": "/assets/hanzi/images/yue-real.png",
+      "realObjectCardColor": "#F5F5DC"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/yue-1.mp3",
+        "explanation": "古人看到弯弯的月亮，就画了一个弯弯的形状，就像天空中的月牙儿。",
+        "scriptText": "月",
+        "fontFamily": "HanziJiaguwen",
+        "cardColor": "#A52A2A"
+      },
+      {
+        "scriptName": "金文",
+        "timestamp": 5,
+        "narrationAudio": "/assets/hanzi/audio/yue-2.mp3",
+        "explanation": "金文的'月'字，还是弯弯的，但线条变得更加优美，像一个美丽的月牙。",
+        "scriptText": "月",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/yue-3.mp3",
+        "explanation": "小篆的'月'字变得更加规整，但还是保持着月亮弯弯的样子。",
+        "scriptText": "月",
+        "fontFamily": "HanziXiaozhuan",
+        "cardColor": "#2F4F4F"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 10,
+        "narrationAudio": "/assets/hanzi/audio/yue-4.mp3",
+        "explanation": "现在的'月'字，左边是弯弯的，右边有两横，就像月亮的光芒。",
+        "scriptText": "月",
+        "fontFamily": "HanziKaishu",
+        "cardColor": "#374151"
+      }
+    ]
+  },
+  {
+    "id": "星_xīng",
+    "character": "星",
+    "pinyin": "xīng",
+    "theme": "nature",
+    "category": "天空与气象",
+    "learningStage": "基础层",
+    "meaning": "Star",
+    "emoji": "⭐",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/xing-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/xing-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/xing.json",
+      "realObjectImage": "/assets/hanzi/images/xing-real.png",
+      "realObjectCardColor": "#191970"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/xing-1.mp3",
+        "explanation": "古人看到夜空中闪闪发光的星星，就画了很多小点点，表示满天的星星。",
+        "scriptText": "星",
+        "fontFamily": "HanziJiaguwen",
+        "cardColor": "#A52A2A"
+      },
+      {
+        "scriptName": "金文",
+        "timestamp": 5,
+        "narrationAudio": "/assets/hanzi/audio/xing-2.mp3",
+        "explanation": "金文的'星'字，上面是'晶'，下面是'生'，表示星星像水晶一样闪亮。",
+        "scriptText": "星",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/xing-3.mp3",
+        "explanation": "小篆的'星'字，上面是'晶'，下面是'生'，组合起来就是闪亮的星星。",
+        "scriptText": "星",
+        "fontFamily": "HanziXiaozhuan",
+        "cardColor": "#2F4F4F"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 10,
+        "narrationAudio": "/assets/hanzi/audio/xing-4.mp3",
+        "explanation": "现在的'星'字，上面是日字，下面是生字，表示像太阳一样发光的星星。",
+        "scriptText": "星",
+        "fontFamily": "HanziKaishu",
+        "cardColor": "#374151"
+      }
+    ]
+  },
+  {
+    "id": "河_hé",
+    "character": "河",
+    "pinyin": "hé",
+    "theme": "nature",
+    "category": "水与地理",
+    "learningStage": "基础层",
+    "meaning": "River",
+    "emoji": "🏞️",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/he-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/he-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/he.json",
+      "realObjectImage": "/assets/hanzi/images/he-real.png",
+      "realObjectCardColor": "#4169E1"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/he-1.mp3",
+        "explanation": "古人看到河流，就在水字旁边加了一个'可'字，表示可以流动的水。",
+        "scriptText": "河",
+        "fontFamily": "HanziJiaguwen",
+        "cardColor": "#A52A2A"
+      },
+      {
+        "scriptName": "金文",
+        "timestamp": 5,
+        "narrationAudio": "/assets/hanzi/audio/he-2.mp3",
+        "explanation": "金文的'河'字，左边是水，右边是'可'，表示水可以流淌成河。",
+        "scriptText": "河",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/he-3.mp3",
+        "explanation": "小篆的'河'字，左边是三点水，右边是'可'，组合起来就是河流。",
+        "scriptText": "河",
+        "fontFamily": "HanziXiaozhuan",
+        "cardColor": "#2F4F4F"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 10,
+        "narrationAudio": "/assets/hanzi/audio/he-4.mp3",
+        "explanation": "现在的'河'字，左边是三点水，右边是'可'，表示可以流动的水就是河。",
+        "scriptText": "河",
+        "fontFamily": "HanziKaishu",
+        "cardColor": "#374151"
+      }
+    ]
+  },
+  {
+    "id": "海_hǎi",
+    "character": "海",
+    "pinyin": "hǎi",
+    "theme": "nature",
+    "category": "水与地理",
+    "learningStage": "基础层",
+    "meaning": "Sea, Ocean",
+    "emoji": "🌊",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/hai-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/hai-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/hai.json",
+      "realObjectImage": "/assets/hanzi/images/hai-real.png",
+      "realObjectCardColor": "#006994"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/hai-1.mp3",
+        "explanation": "古人看到广阔的大海，就在水字旁边画了很多东西，表示水很多很多。",
+        "scriptText": "海",
+        "fontFamily": "HanziJiaguwen",
+        "cardColor": "#A52A2A"
+      },
+      {
+        "scriptName": "金文",
+        "timestamp": 5,
+        "narrationAudio": "/assets/hanzi/audio/hai-2.mp3",
+        "explanation": "金文的'海'字，左边是水，右边表示很多很多，组合起来就是大海。",
+        "scriptText": "海",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/hai-3.mp3",
+        "explanation": "小篆的'海'字，左边是三点水，右边是'每'，表示每天都有很多水。",
+        "scriptText": "海",
+        "fontFamily": "HanziXiaozhuan",
+        "cardColor": "#2F4F4F"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 10,
+        "narrationAudio": "/assets/hanzi/audio/hai-4.mp3",
+        "explanation": "现在的'海'字，左边是三点水，右边是'每'，表示每天都能看到的大水就是海。",
+        "scriptText": "海",
+        "fontFamily": "HanziKaishu",
+        "cardColor": "#374151"
+      }
+    ]
+  },
+  {
+    "id": "湖_hú",
+    "character": "湖",
+    "pinyin": "hú",
+    "theme": "nature",
+    "category": "水与地理",
+    "learningStage": "基础层",
+    "meaning": "Lake",
+    "emoji": "🏞️",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/hu-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/hu-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/hu.json",
+      "realObjectImage": "/assets/hanzi/images/hu-real.png",
+      "realObjectCardColor": "#20B2AA"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/hu-1.mp3",
+        "explanation": "古人看到平静的湖水，就在水字旁边加了表示平静的符号。",
+        "scriptText": "湖",
+        "fontFamily": "HanziJiaguwen",
+        "cardColor": "#A52A2A"
+      },
+      {
+        "scriptName": "金文",
+        "timestamp": 5,
+        "narrationAudio": "/assets/hanzi/audio/hu-2.mp3",
+        "explanation": "金文的'湖'字，左边是水，右边表示平静，组合起来就是平静的湖水。",
+        "scriptText": "湖",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/hu-3.mp3",
+        "explanation": "小篆的'湖'字，左边是三点水，右边是'胡'，表示像胡子一样弯曲的水。",
+        "scriptText": "湖",
+        "fontFamily": "HanziXiaozhuan",
+        "cardColor": "#2F4F4F"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 10,
+        "narrationAudio": "/assets/hanzi/audio/hu-4.mp3",
+        "explanation": "现在的'湖'字，左边是三点水，右边是'胡'，表示弯弯曲曲的湖水。",
+        "scriptText": "湖",
+        "fontFamily": "HanziKaishu",
+        "cardColor": "#374151"
+      }
+    ]
+  }
+]

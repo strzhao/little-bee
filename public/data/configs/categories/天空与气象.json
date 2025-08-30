@@ -1,6 +1,6 @@
 [
   {
-    "id": "tian",
+    "id": "天_tiān_1",
     "character": "天",
     "pinyin": "tiān",
     "theme": "nature",
@@ -55,7 +55,7 @@
     ]
   },
   {
-    "id": "yun",
+    "id": "云_yún_1",
     "character": "云",
     "pinyin": "yún",
     "theme": "nature",
@@ -110,7 +110,7 @@
     ]
   },
   {
-    "id": "yu",
+    "id": "雨_yǔ_1",
     "character": "雨",
     "pinyin": "yǔ",
     "theme": "nature",
@@ -165,7 +165,7 @@
     ]
   },
   {
-    "id": "feng",
+    "id": "风_fēng_1",
     "character": "风",
     "pinyin": "fēng",
     "theme": "nature",
@@ -220,7 +220,7 @@
     ]
   },
   {
-    "id": "xue",
+    "id": "雪_xuě_1",
     "character": "雪",
     "pinyin": "xuě",
     "theme": "nature",
@@ -275,7 +275,7 @@
     ]
   },
   {
-    "id": "ri",
+    "id": "日_rì_1",
     "character": "日",
     "pinyin": "rì",
     "theme": "nature",
@@ -330,7 +330,7 @@
     ]
   },
   {
-    "id": "yue",
+    "id": "月_yuè_1",
     "character": "月",
     "pinyin": "yuè",
     "theme": "nature",
@@ -385,7 +385,7 @@
     ]
   },
   {
-    "id": "xing",
+    "id": "星_xīng_1",
     "character": "星",
     "pinyin": "xīng",
     "theme": "nature",

@@ -243,8 +243,8 @@ const CircularHanziCard = ({
         }}
         whileTap={{ scale: 0.95 }}
         onClick={() => {
-          // 跳转到汉字详情页
-          window.location.href = `/hanzi/${hanzi.id}`;
+          // 跳转到汉字详情页，确保ID正确编码
+          window.location.href = `/hanzi/${encodeURIComponent(hanzi.id)}`;
         }}
       >
         <div className="text-center">

@@ -1,13 +1,13 @@
 [
   {
-    "id": "niao",
+    "id": "鸟_niǎo",
     "character": "鸟",
     "pinyin": "niǎo",
     "theme": "nature",
     "category": "动物王国",
     "learningStage": "基础层",
     "meaning": "Bird",
-    "emoji": "🐦",
+    "emoji": "🦜",
     "assets": {
       "pronunciationAudio": "/assets/hanzi/audio/niao-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/niao-illustration.png",
@@ -55,7 +55,7 @@
     ]
   },
   {
-    "id": "yu",
+    "id": "雨_yǔ_1",
     "character": "鱼",
     "pinyin": "yú",
     "theme": "nature",
@@ -110,7 +110,7 @@
     ]
   },
   {
-    "id": "ma",
+    "id": "马_mǎ",
     "character": "马",
     "pinyin": "mǎ",
     "theme": "nature",
@@ -165,7 +165,7 @@
     ]
   },
   {
-    "id": "niu",
+    "id": "牛_niú",
     "character": "牛",
     "pinyin": "niú",
     "theme": "nature",

@@ -45,7 +45,7 @@ interface HanziData {
 // --- Main Page Component ---
 export default function HanziDetailPage() {
   const params = useParams();
-  const id = params.id as string;
+  const id = decodeURIComponent(params.id as string);
   const [characterData, setCharacterData] = useState<HanziData | null>(null);
   const [allCharacters, setAllCharacters] = useState<HanziData[]>([]);
   const [loading, setLoading] = useState(true);
