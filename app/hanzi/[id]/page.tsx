@@ -319,7 +319,7 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
                 >
                   <div className="flex items-center justify-center gap-3 mb-2">
                     <p className="text-3xl md:text-4xl font-bold text-stone-800">{characterData.character}</p>
-                    <VoicePlayer text={characterData.character} size="md" />
+                    <VoicePlayer text={characterData.character} size="md" preferredCNVoice />
                   </div>
                   <div className="flex items-center justify-center gap-2 mb-1">
                     <p className="text-lg md:text-xl text-stone-600">{characterData.pinyin}</p>
