@@ -74,8 +74,17 @@
         "cardColor": "#A52A2A"
       },
       {
-        "scriptName": "小篆",
+        "scriptName": "金文",
         "timestamp": 5.0,
+        "narrationAudio": "/assets/hanzi/audio/shui-jinwen.mp3",
+        "explanation": "水字的金文形态，线条更加圆润，展现了水流的柔美。",
+        "scriptText": "水",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
         "narrationAudio": "/assets/hanzi/audio/shui-2.mp3",
         "explanation": "后来，‘水’字演变成了小篆，线条变得更加优美、对称。",
         "scriptText": "水",
@@ -84,7 +93,7 @@
       },
       {
         "scriptName": "楷书",
-        "timestamp": 7.5,
+        "timestamp": 10.0,
         "narrationAudio": "/assets/hanzi/audio/shui-3.mp3",
         "explanation": "最后，就变成了我们今天书写的楷书‘水’，笔画清晰，方便书写。",
         "scriptText": "水",

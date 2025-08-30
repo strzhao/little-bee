@@ -133,7 +133,7 @@ const EvolutionPlayer = ({ characterData }: { characterData: HanziData }) => {
           {/* Real Object Card */}
           <motion.div
             onClick={() => handleCardClick(-2)}
-            className="w-24 h-24 rounded-full cursor-pointer flex-shrink-0 shadow-md flex items-center justify-center"
+            className="w-24 h-24 rounded-full cursor-pointer flex-shrink-0 shadow-md flex items-center justify-center bg-blue-300"
             style={{ backgroundColor: characterData.assets.realObjectCardColor }}
             animate={{ scale: activeStage === -2 ? 1.25 : 1 }}
             transition={{ type: "spring", stiffness: 200, damping: 15 }}
@@ -150,7 +150,7 @@ const EvolutionPlayer = ({ characterData }: { characterData: HanziData }) => {
               animate={{ scale: activeStage === index ? 1.25 : 1 }}
               transition={{ type: "spring", stiffness: 200, damping: 15 }}
             >
-              <p className="text-2xl font-serif font-semibold text-white" style={{ fontFamily: stage.fontFamily }}>{stage.scriptName}</p>
+              <p className="text-2xl font-serif font-semibold text-white">{stage.scriptName}</p>
             </motion.div>
           ))}
         </div>
