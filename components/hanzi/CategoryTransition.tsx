@@ -88,20 +88,21 @@ export default function CategoryTransition({
           className="absolute rounded-full"
           style={{
             backgroundColor: bgColor,
-            left: clickPosition.x - 140, // 140是卡片半径的近似值
-            top: clickPosition.y - 140,
-            width: 280,
-            height: 280,
+            left: clickPosition.x,
+            top: clickPosition.y,
+            width: 20,
+            height: 20,
+            transformOrigin: 'center',
           }}
           initial={{
             scale: 1,
-            x: 0,
-            y: 0,
+            x: '-50%',
+            y: '-50%',
           }}
           animate={{
-            scale: animationPhase === 'closing' ? 1 : 20,
-            x: animationPhase === 'closing' ? 0 : -clickPosition.x + 140,
-            y: animationPhase === 'closing' ? 0 : -clickPosition.y + 140,
+            scale: animationPhase === 'closing' ? 1 : 100,
+            x: '-50%',
+            y: '-50%',
           }}
           transition={{
             duration: 0.8,
@@ -111,59 +112,45 @@ export default function CategoryTransition({
 
         {/* 移动到左上角的标题和图标 */}
         <motion.div
-          className="absolute top-8 left-8 flex items-center space-x-4 z-10"
+          className="absolute z-10"
+          style={{
+            left: clickPosition.x,
+            top: clickPosition.y,
+          }}
           initial={{
-            x: clickPosition.x - 32,
-            y: clickPosition.y - 32,
-            scale: 2,
+            x: '-50%',
+            y: '-50%',
+            scale: 1,
           }}
           animate={{
-            x: animationPhase === 'closing' ? clickPosition.x - 32 : 0,
-            y: animationPhase === 'closing' ? clickPosition.y - 32 : 0,
-            scale: animationPhase === 'closing' ? 2 : 1,
+            x: animationPhase === 'content' ? (32 - clickPosition.x) : '-50%',
+            y: animationPhase === 'content' ? (32 - clickPosition.y) : '-50%',
+            scale: animationPhase === 'closing' ? 1 : 1,
+            opacity: animationPhase === 'closing' ? [1, 0, 1] : 1,
           }}
           transition={{
             duration: 0.8,
             ease: [0.4, 0, 0.2, 1],
-            delay: animationPhase === 'closing' ? 0 : 0,
           }}
         >
-          <motion.button
-            onClick={handleClose}
-            className="hover:scale-110 transition-transform"
-            initial={{ fontSize: '2rem' }}
-            animate={{ fontSize: animationPhase === 'closing' ? '2rem' : '3rem' }}
-            transition={{
-              duration: 0.8,
-              ease: [0.4, 0, 0.2, 1],
-            }}
-          >
-            {category.emoji}
-          </motion.button>
-          <div>
-            <motion.h1 
-              className="font-bold text-gray-800"
-              initial={{ fontSize: '1.5rem' }}
-              animate={{ fontSize: animationPhase === 'closing' ? '1.5rem' : '1.875rem' }}
-              transition={{
-                duration: 0.8,
-                ease: [0.4, 0, 0.2, 1],
-              }}
-            >
-              {category.name}
-            </motion.h1>
-            <motion.p 
-              className="text-gray-600"
-              initial={{ fontSize: '0.875rem' }}
-              animate={{ fontSize: animationPhase === 'closing' ? '0.875rem' : '1rem' }}
-              transition={{
-                duration: 0.8,
-                ease: [0.4, 0, 0.2, 1],
-              }}
-            >
-              共 {hanziList.length} 个汉字
-            </motion.p>
-          </div>
+          <div className="flex flex-col items-center text-center">
+             <button
+               onClick={handleClose}
+               className="hover:scale-110 transition-transform text-8xl mb-6"
+             >
+               {category.emoji}
+             </button>
+             <h1 className="text-3xl font-bold text-gray-800 mb-4">
+               {category.name}
+             </h1>
+             {/* 添加星星进度组件以匹配分类卡片布局 */}
+             <div className="mb-4">
+               <div className="flex items-center gap-2 text-lg">
+                 <span className="text-yellow-400 text-2xl">★</span>
+                 <span className="text-gray-700 font-bold">{category.learnedCount}/{category.count}</span>
+               </div>
+             </div>
+           </div>
         </motion.div>
 
         {/* 返回按钮 - 增大尺寸方便小朋友使用 */}
