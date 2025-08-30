@@ -7,6 +7,7 @@
     "category": "水与地理",
     "learningStage": "基础层",
     "meaning": "River",
+    "emoji": "🏞️",
     "assets": {
       "pronunciationAudio": "/assets/hanzi/audio/he-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/he-illustration.png",
@@ -61,6 +62,7 @@
     "category": "水与地理",
     "learningStage": "基础层",
     "meaning": "Sea, Ocean",
+    "emoji": "🌊",
     "assets": {
       "pronunciationAudio": "/assets/hanzi/audio/hai-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/hai-illustration.png",
@@ -115,6 +117,7 @@
     "category": "水与地理",
     "learningStage": "基础层",
     "meaning": "Lake",
+    "emoji": "🏞️",
     "assets": {
       "pronunciationAudio": "/assets/hanzi/audio/hu-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/hu-illustration.png",
@@ -167,6 +170,7 @@
     "pinyin": "shān",
     "theme": "nature",
     "meaning": "Mountain",
+    "emoji": "⛰️",
     "assets": {
       "pronunciationAudio": "/assets/hanzi/audio/shan-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/shan-illustration.png",
@@ -221,6 +225,7 @@
     "pinyin": "shuǐ",
     "theme": "nature",
     "meaning": "Water",
+    "emoji": "💧",
     "assets": {
       "pronunciationAudio": "/assets/hanzi/audio/shui-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/shui-illustration.png",

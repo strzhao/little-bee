@@ -7,6 +7,7 @@
     "category": "动物王国",
     "learningStage": "基础层",
     "meaning": "Bird",
+    "emoji": "🐦",
     "assets": {
       "pronunciationAudio": "/assets/hanzi/audio/niao-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/niao-illustration.png",
@@ -61,6 +62,7 @@
     "category": "动物王国",
     "learningStage": "基础层",
     "meaning": "Fish",
+    "emoji": "🐟",
     "assets": {
       "pronunciationAudio": "/assets/hanzi/audio/yu-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/yu-illustration.png",
@@ -115,6 +117,7 @@
     "category": "动物王国",
     "learningStage": "基础层",
     "meaning": "Horse",
+    "emoji": "🐎",
     "assets": {
       "pronunciationAudio": "/assets/hanzi/audio/ma-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/ma-illustration.png",
@@ -169,6 +172,7 @@
     "category": "动物王国",
     "learningStage": "基础层",
     "meaning": "Cow",
+    "emoji": "🐄",
     "assets": {
       "pronunciationAudio": "/assets/hanzi/audio/niu-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/niu-illustration.png",

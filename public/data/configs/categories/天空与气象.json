@@ -7,6 +7,7 @@
     "category": "天空与气象",
     "learningStage": "基础层",
     "meaning": "Sky, Heaven",
+    "emoji": "🌌",
     "assets": {
       "pronunciationAudio": "/assets/hanzi/audio/tian-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/tian-illustration.png",
@@ -61,6 +62,7 @@
     "category": "天空与气象",
     "learningStage": "基础层",
     "meaning": "Cloud",
+    "emoji": "☁️",
     "assets": {
       "pronunciationAudio": "/assets/hanzi/audio/yun-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/yun-illustration.png",
@@ -115,6 +117,7 @@
     "category": "天空与气象",
     "learningStage": "基础层",
     "meaning": "Rain",
+    "emoji": "🌧️",
     "assets": {
       "pronunciationAudio": "/assets/hanzi/audio/yu-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/yu-illustration.png",
@@ -169,6 +172,7 @@
     "category": "天空与气象",
     "learningStage": "基础层",
     "meaning": "Wind",
+    "emoji": "🌬️",
     "assets": {
       "pronunciationAudio": "/assets/hanzi/audio/feng-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/feng-illustration.png",
@@ -223,6 +227,7 @@
     "category": "天空与气象",
     "learningStage": "基础层",
     "meaning": "Snow",
+    "emoji": "❄️",
     "assets": {
       "pronunciationAudio": "/assets/hanzi/audio/xue-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/xue-illustration.png",
@@ -277,6 +282,7 @@
     "category": "天空与气象",
     "learningStage": "基础层",
     "meaning": "Sun, Day",
+    "emoji": "☀️",
     "assets": {
       "pronunciationAudio": "/assets/hanzi/audio/ri-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/ri-illustration.png",
@@ -331,6 +337,7 @@
     "category": "天空与气象",
     "learningStage": "基础层",
     "meaning": "Moon, Month",
+    "emoji": "🌙",
     "assets": {
       "pronunciationAudio": "/assets/hanzi/audio/yue-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/yue-illustration.png",
@@ -385,6 +392,7 @@
     "category": "天空与气象",
     "learningStage": "基础层",
     "meaning": "Star",
+    "emoji": "⭐",
     "assets": {
       "pronunciationAudio": "/assets/hanzi/audio/xing-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/xing-illustration.png",
