@@ -82,36 +82,45 @@ const VoicePlayer = ({ text, className = '', size = 'md', autoPlay = false }: Vo
       // 逐个播放每个部分
       for (let i = 0; i < parts.length; i++) {
         await new Promise<void>((resolve) => {
-          const utterance = new SpeechSynthesisUtterance(parts[i])
-          
-          // 设置拼音教学语音参数
-          utterance.lang = 'zh-CN'
-          utterance.rate = 0.8 // 适合儿童的语速
-          utterance.pitch = 1.1 // 稍高音调，更亲和
-          utterance.volume = 0.9
-          
-          if (preferredVoice) {
-            utterance.voice = preferredVoice
-          }
+           // 为拼音部分添加中文语音标记，确保按拼音发音
+           let textToSpeak = parts[i]
+           
+           // 如果是声母或韵母，添加拼音语音提示
+           if (i < parts.length - 1) {
+             // 对于声母和韵母，使用拼音发音方式
+             textToSpeak = parts[i] + '音'
+           }
+           
+           const utterance = new SpeechSynthesisUtterance(textToSpeak)
+           
+           // 设置拼音教学语音参数
+           utterance.lang = 'zh-CN'
+           utterance.rate = 0.8 // 适合儿童的语速
+           utterance.pitch = 1.1 // 稍高音调，更亲和
+           utterance.volume = 0.9
+           
+           if (preferredVoice) {
+             utterance.voice = preferredVoice
+           }
 
-          utterance.onend = () => {
-            resolve()
-          }
+           utterance.onend = () => {
+             resolve()
+           }
 
-          utterance.onerror = (event) => {
-            console.error('语音播放错误:', event.error)
-            resolve()
-          }
+           utterance.onerror = (event) => {
+             console.error('语音播放错误:', event.error)
+             resolve()
+           }
 
-          // 确保语音列表已加载
-          if (speechSynthesis.getVoices().length === 0) {
-            speechSynthesis.addEventListener('voiceschanged', () => {
-              speechSynthesis.speak(utterance)
-            }, { once: true })
-          } else {
-            speechSynthesis.speak(utterance)
-          }
-        })
+           // 确保语音列表已加载
+           if (speechSynthesis.getVoices().length === 0) {
+             speechSynthesis.addEventListener('voiceschanged', () => {
+               speechSynthesis.speak(utterance)
+             }, { once: true })
+           } else {
+             speechSynthesis.speak(utterance)
+           }
+         })
         
         // 在部分之间添加短暂停顿
         if (i < parts.length - 1) {
