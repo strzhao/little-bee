@@ -9,7 +9,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/shan-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/shan-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/shan.json",
-      "realObjectImage": "/assets/hanzi/images/shan-real.svg",
+      "realObjectImage": "/assets/hanzi/images/shan-real.png",
       "realObjectCardColor": "#87CEEB"
     },
     "evolutionStages": [
@@ -61,7 +61,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/shui-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/shui-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/shui.json",
-      "realObjectImage": "/assets/hanzi/images/shui-real.svg"
+      "realObjectImage": "/assets/hanzi/images/shui-real.png"
     },
     "evolutionStages": [
       {

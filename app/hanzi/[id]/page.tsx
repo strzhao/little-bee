@@ -237,59 +237,87 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
         </div>
       </div>
 
-      <div className="w-full h-full flex-grow flex flex-col items-center justify-center gap-6 bg-white/50 rounded-2xl shadow-lg p-4">
-        <div className="w-full flex-grow flex flex-col md:flex-row gap-6">
-          {/* 左侧：字符展示区 */}
-          <div className="w-full md:w-2/3 flex justify-center items-center rounded-lg bg-white shadow-inner overflow-hidden p-4">
-            {activeStage === -2 ? (
-              <motion.img 
-                key={currentImageUrl}
-                src={currentImageUrl} 
-                alt="实物" 
-                className="max-w-full max-h-full object-contain"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-              />
-            ) : (
-              <p className="text-9xl font-bold" style={{ fontFamily: characterData.evolutionStages[activeStage]?.fontFamily }}>
-                {characterData.evolutionStages[activeStage]?.scriptText}
-              </p>
-            )}
-          </div>
-          
-          {/* 右侧：信息区 */}
-          <div className="w-full md:w-1/3 flex flex-col gap-4">
+      {/* 主要内容区域 - 上下布局 */}
+      <div className="w-full h-full flex-grow flex flex-col gap-6">
+        
+        {/* 上部分：字符展示区 (70%高度) */}
+        <div className="w-full h-[70%] flex justify-center items-center rounded-2xl bg-white shadow-lg overflow-hidden p-8">
+          {activeStage === -2 ? (
+            <motion.img 
+              key={currentImageUrl}
+              src={currentImageUrl} 
+              alt="实物" 
+              className="max-w-full max-h-full object-contain"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+            />
+          ) : (
+            <motion.p 
+              key={activeStage}
+              className="text-8xl md:text-9xl font-bold text-stone-800" 
+              style={{ fontFamily: characterData.evolutionStages[activeStage]?.fontFamily }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              {characterData.evolutionStages[activeStage]?.scriptText}
+            </motion.p>
+          )}
+        </div>
+
+        {/* 下部分：信息展示区 (30%高度) */}
+        <div className="w-full h-[30%] bg-stone-50 rounded-2xl shadow-lg p-6">
+          <div className="w-full h-full flex flex-col md:flex-row gap-4">
+            
+            {/* 汉字信息卡片 */}
             {activeStage >= 0 && (
               <AnimatePresence>
                 <motion.div
                   key="character-info"
-                  initial={{ opacity: 0, x: 20 }}
+                  initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  transition={{ duration: 0.3 }}
-                  className="w-full bg-white rounded-lg shadow-md p-4 text-center"
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  className="w-full md:w-1/3 bg-white rounded-xl shadow-sm p-6 text-center flex flex-col justify-center"
                 >
-                  <p className="text-4xl font-bold text-stone-800">{characterData.character}</p>
-                  <p className="text-xl text-stone-600">{characterData.pinyin}</p>
-                  <p className="text-lg text-stone-500">{characterData.meaning}</p>
+                  <p className="text-3xl md:text-4xl font-bold text-stone-800 mb-2">{characterData.character}</p>
+                  <p className="text-lg md:text-xl text-stone-600 mb-1">{characterData.pinyin}</p>
+                  <p className="text-base md:text-lg text-stone-500">{characterData.meaning}</p>
                 </motion.div>
               </AnimatePresence>
             )}
             
-            <div className="flex-grow bg-white rounded-lg shadow-md p-4 flex items-center justify-center">
-              <p className="text-stone-600 text-lg md:text-xl text-center">
+            {/* 解释说明卡片 */}
+            <motion.div 
+              key={activeStage}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className={`${activeStage >= 0 ? 'w-full md:w-1/2' : 'w-full md:w-2/3'} bg-white rounded-xl shadow-sm p-6 flex items-center justify-center`}
+            >
+              <p className="text-stone-600 text-base md:text-lg text-center leading-relaxed">
                 {getExplanation()}
               </p>
-            </div>
-            <motion.button 
-              whileTap={{ scale: 0.95 }}
-              onClick={startChallenge}
-              className="w-full p-4 bg-amber-400 hover:bg-amber-500 text-white font-bold rounded-lg shadow-md flex items-center justify-center gap-2 text-lg"
+            </motion.div>
+            
+            {/* 游戏按钮 */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className={`${activeStage >= 0 ? 'w-full md:w-1/6' : 'w-full md:w-1/3'} flex items-center justify-center`}
             >
-              <Sparkles className="w-6 h-6" />
-              开始小游戏
-            </motion.button>
+              <motion.button 
+                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.02 }}
+                onClick={startChallenge}
+                className="w-full h-full min-h-[80px] bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-white font-bold rounded-xl shadow-md flex flex-col items-center justify-center gap-2 text-sm md:text-base transition-all duration-200"
+              >
+                <Sparkles className="w-5 h-5 md:w-6 md:h-6" />
+                <span>开始小游戏</span>
+              </motion.button>
+            </motion.div>
           </div>
         </div>
       </div>
