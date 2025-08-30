@@ -29,6 +29,7 @@ interface HanziData {
   pinyin: string;
   theme: string;
   meaning: string;
+  emoji: string;
   category?: string;
   learningStage?: string;
   assets: {
@@ -60,6 +61,29 @@ export default function HanziDetailPage() {
         const character = await hanziDataLoader.loadCharacterById(id);
         if (character) {
           setCharacterData(character as HanziData);
+          
+          // 预加载字体
+          const fontFamilies = character.evolutionStages.map(stage => stage.fontFamily);
+          const uniqueFonts = [...new Set(fontFamilies)];
+          
+          uniqueFonts.forEach(fontFamily => {
+            if (fontFamily && !document.fonts.check(`16px "${fontFamily}"`)) {
+              const preloadDiv = document.createElement('div');
+              preloadDiv.style.fontFamily = fontFamily;
+              preloadDiv.style.position = 'absolute';
+              preloadDiv.style.left = '-9999px';
+              preloadDiv.style.visibility = 'hidden';
+              preloadDiv.textContent = character.character;
+              document.body.appendChild(preloadDiv);
+              
+              // 移除预加载元素
+              setTimeout(() => {
+                if (preloadDiv.parentNode) {
+                  preloadDiv.parentNode.removeChild(preloadDiv);
+                }
+              }, 100);
+            }
+          });
         }
         
         // Load all characters for navigation
@@ -96,6 +120,8 @@ export default function HanziDetailPage() {
 const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: HanziData, allCharacters: HanziData[] }) => {
   const [activeStage, setActiveStage] = useState(-2); // -2 for Real Object
   const [currentImageUrl, setCurrentImageUrl] = useState(characterData.assets.realObjectImage);
+  const [imageLoadError, setImageLoadError] = useState(false);
+  const [challengeImageError, setChallengeImageError] = useState(false);
   const narrationRef = useRef<HTMLAudioElement>(null);
   const [isChallengeModalOpen, setChallengeModalOpen] = useState(false);
   const [challengeOptions, setChallengeOptions] = useState<HanziData[]>([]);
@@ -114,6 +140,7 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
     setChallengeOptions(options);
     setChallengeStatus('idle');
     setIncorrectOptionId(null);
+    setChallengeImageError(false);
     setChallengeModalOpen(true);
   };
 
@@ -178,7 +205,16 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
 
   useEffect(() => {
     setCurrentImageUrl(characterData.assets.realObjectImage);
+    setImageLoadError(false);
     setActiveStage(-2);
+    
+    // 页面加载完成后自动播放实物按钮的解释
+    setTimeout(() => {
+      const explanation = `我们生活中看到的"${characterData.character}"是这个样子的。`;
+      if (explanationVoiceRef.current) {
+        explanationVoiceRef.current.speak(explanation);
+      }
+    }, 1000);
   }, [characterData]);
 
   useEffect(() => {
@@ -280,15 +316,29 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
         {/* 上部分：字符展示区 (70%高度) */}
         <div className="w-full h-[70%] flex justify-center items-center rounded-2xl bg-white shadow-lg overflow-hidden p-8">
           {activeStage === -2 ? (
-            <motion.img 
-              key={currentImageUrl}
-              src={currentImageUrl} 
-              alt="实物" 
-              className="max-w-full max-h-full object-contain"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-            />
+            imageLoadError ? (
+              <motion.div
+                key="emoji-fallback"
+                className="text-9xl flex flex-col items-center gap-4"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+              >
+                <span>{characterData.emoji}</span>
+                <p className="text-2xl text-gray-500 font-medium">实物图片</p>
+              </motion.div>
+            ) : (
+              <motion.img 
+                key={currentImageUrl}
+                src={currentImageUrl} 
+                alt="实物" 
+                className="max-w-full max-h-full object-contain"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+                onError={() => setImageLoadError(true)}
+              />
+            )
           ) : (
             <motion.p 
               key={activeStage}
@@ -403,7 +453,19 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
                 </div>
               ) : (
                 <>
-                  <img src={characterData.assets.realObjectImage} alt={characterData.character} className="w-full h-64 object-contain rounded-lg mb-6 bg-stone-50"/>
+                  {challengeImageError ? (
+                    <div className="w-full h-64 flex flex-col items-center justify-center rounded-lg mb-6 bg-stone-50">
+                      <span className="text-6xl mb-2">{characterData.emoji}</span>
+                      <p className="text-lg text-gray-500 font-medium">实物图片</p>
+                    </div>
+                  ) : (
+                    <img 
+                      src={characterData.assets.realObjectImage} 
+                      alt={characterData.character} 
+                      className="w-full h-64 object-contain rounded-lg mb-6 bg-stone-50"
+                      onError={() => setChallengeImageError(true)}
+                    />
+                  )}
                   <p className="text-center text-3xl font-bold text-stone-700 mb-8">哪一个是"{characterData.character}"字？</p>
                   {challengeStatus === 'incorrect' && (
                     <motion.p 
