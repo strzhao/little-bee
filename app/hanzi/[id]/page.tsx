@@ -104,13 +104,33 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
   };
 
   const handleAnimationComplete = () => {
-    const currentCount = parseInt(localStorage.getItem('hanzi-challenge-success') || '0', 10);
-    const newCount = currentCount + 1;
-    localStorage.setItem('hanzi-challenge-success', newCount.toString());
-    // Manually dispatch a storage event so the SuccessStars component updates
+    // Update total star count
+    const totalStarCount = parseInt(localStorage.getItem('hanzi-challenge-success') || '0', 10) + 1;
+    localStorage.setItem('hanzi-challenge-success', totalStarCount.toString());
+
+    // Update character-specific star count
+    const successfulCharacters: { id: string; character: string; count: number; }[] = JSON.parse(localStorage.getItem('hanzi-successful-characters') || '[]');
+    const charIndex = successfulCharacters.findIndex(c => c.id === characterData.id);
+
+    if (charIndex > -1) {
+      successfulCharacters[charIndex].count += 1;
+    } else {
+      successfulCharacters.push({
+        id: characterData.id,
+        character: characterData.character,
+        count: 1,
+      });
+    }
+    localStorage.setItem('hanzi-successful-characters', JSON.stringify(successfulCharacters));
+
+    // Dispatch events to update UI
     window.dispatchEvent(new StorageEvent('storage', {
         key: 'hanzi-challenge-success',
-        newValue: newCount.toString(),
+        newValue: totalStarCount.toString(),
+    }));
+    window.dispatchEvent(new StorageEvent('storage', {
+        key: 'hanzi-successful-characters',
+        newValue: JSON.stringify(successfulCharacters),
     }));
 
     setShowCelebration(false);
@@ -258,7 +278,7 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
               className="w-full p-4 bg-amber-400 hover:bg-amber-500 text-white font-bold rounded-lg shadow-md flex items-center justify-center gap-2 text-lg"
             >
               <Sparkles className="w-6 h-6" />
-              开始小挑战
+              开始小游戏
             </motion.button>
           </div>
         </div>
@@ -272,9 +292,13 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
         {isChallengeModalOpen && (
           <motion.div 
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            animate={{ 
+              opacity: challengeStatus === 'correct' ? 0 : 1,
+              backgroundColor: challengeStatus === 'correct' ? 'rgba(0, 0, 0, 0)' : 'rgba(0, 0, 0, 0.6)'
+            }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4"
+            transition={{ duration: challengeStatus === 'correct' ? 1.5 : 0.3 }}
+            className="fixed inset-0 flex justify-center items-center z-50 p-4"
             onClick={closeChallenge}
           >
             <motion.div
@@ -282,11 +306,13 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.7, opacity: 0 }}
               transition={{ type: "spring", damping: 15, stiffness: 200 }}
-              className="w-full max-w-xl bg-white rounded-2xl p-8 shadow-xl relative"
+              className={`w-full max-w-xl rounded-2xl p-8 shadow-xl relative ${
+                challengeStatus === 'correct' ? 'bg-transparent' : 'bg-white'
+              }`}
               onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
             >
               {challengeStatus === 'correct' ? (
-                <div className="w-full h-64 flex justify-center items-center">
+                <div className="w-full h-64 flex justify-center items-center bg-transparent">
                    {/* Now the celebration animation is handled outside the modal */}
                 </div>
               ) : (
