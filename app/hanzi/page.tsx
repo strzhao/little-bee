@@ -176,7 +176,7 @@ export default function HanziHomePage() {
     <div className="min-h-screen bg-white">
       {/* 顶部导航 */}
       <header className="h-20 flex items-center justify-between px-6 border-b border-gray-100">
-        <h1 className="text-2xl font-medium text-gray-800">汉字演变乐园</h1>
+        <h1 className="text-2xl font-medium text-gray-800">识字小蜜蜂🐝</h1>
         <div className="text-base text-gray-600 mr-24">
           总进度: {learnedCount}/{totalCharacters}
         </div>
