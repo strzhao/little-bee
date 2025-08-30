@@ -271,7 +271,7 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
           <div className="w-full h-full flex flex-col md:flex-row gap-4">
             
             {/* 汉字信息卡片 */}
-            {activeStage >= 0 && (
+            {activeStage >= -2 && (
               <AnimatePresence>
                 <motion.div
                   key="character-info"
@@ -294,7 +294,7 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className={`${activeStage >= 0 ? 'w-full md:w-1/2' : 'w-full md:w-2/3'} bg-white rounded-xl shadow-sm p-6 flex items-center justify-center`}
+              className={`${activeStage >= -2 ? 'w-full md:w-1/2' : 'w-full md:w-2/3'} bg-white rounded-xl shadow-sm p-6 flex items-center justify-center`}
             >
               <p className="text-stone-600 text-base md:text-lg text-center leading-relaxed">
                 {getExplanation()}
@@ -306,7 +306,7 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className={`${activeStage >= 0 ? 'w-full md:w-1/6' : 'w-full md:w-1/3'} flex items-center justify-center`}
+              className={`${activeStage >= -2 ? 'w-full md:w-1/6' : 'w-full md:w-1/3'} flex items-center justify-center`}
             >
               <motion.button 
                 whileTap={{ scale: 0.95 }}
@@ -344,7 +344,7 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.7, opacity: 0 }}
               transition={{ type: "spring", damping: 15, stiffness: 200 }}
-              className={`w-full max-w-xl rounded-2xl p-8 shadow-xl relative ${
+              className={`w-full max-w-4xl rounded-2xl p-8 shadow-xl relative ${
                 challengeStatus === 'correct' ? 'bg-transparent' : 'bg-white'
               }`}
               onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
@@ -355,7 +355,7 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
                 </div>
               ) : (
                 <>
-                  <img src={characterData.assets.realObjectImage} alt={characterData.character} className="w-full h-48 object-cover rounded-lg mb-4"/>
+                  <img src={characterData.assets.realObjectImage} alt={characterData.character} className="w-full h-64 object-contain rounded-lg mb-6 bg-stone-50"/>
                   <p className="text-center text-3xl font-bold text-stone-700 mb-8">哪一个是"{characterData.character}"字？</p>
                   {challengeStatus === 'incorrect' && (
                     <motion.p 
