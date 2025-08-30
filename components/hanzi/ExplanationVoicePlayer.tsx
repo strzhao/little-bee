@@ -41,13 +41,39 @@ const ExplanationVoicePlayer = forwardRef<ExplanationVoicePlayerRef, Explanation
       // 停止当前播放
       speechSynthesis.cancel()
 
-      const utterance = new SpeechSynthesisUtterance(textToSpeak)
+      // 处理文本，添加自然停顿
+      const processedText = textToSpeak
+        .replace(/，/g, '，') // 逗号后稍作停顿
+        .replace(/。/g, '。') // 句号后停顿
+        .replace(/！/g, '！') // 感叹号后停顿
+        .replace(/？/g, '？') // 问号后停顿
+        .replace(/：/g, '：') // 冒号后停顿
+
+      const utterance = new SpeechSynthesisUtterance(processedText)
       
-      // 设置中文语音参数
+      // 设置更自然的老师语音参数
       utterance.lang = 'zh-CN'
-      utterance.rate = 0.7 // 稍慢的语速，适合说明文字
-      utterance.pitch = 1.0 // 自然音调
-      utterance.volume = 0.9
+      utterance.rate = 0.75 // 老师讲课的适中语速
+      utterance.pitch = 0.95 // 稍低沉稳的音调，更有权威感
+      utterance.volume = 0.85 // 适中音量，不会太突兀
+
+      // 尝试选择更自然的中文语音
+      const voices = speechSynthesis.getVoices()
+      const chineseVoices = voices.filter(voice => 
+        voice.lang.includes('zh') || voice.lang.includes('CN')
+      )
+      
+      // 优先选择女性声音（通常更适合教学）
+      const preferredVoice = chineseVoices.find(voice => 
+        voice.name.includes('Female') || 
+        voice.name.includes('女') ||
+        voice.name.includes('Xiaoxiao') ||
+        voice.name.includes('Yaoyao')
+      ) || chineseVoices[0]
+      
+      if (preferredVoice) {
+        utterance.voice = preferredVoice
+      }
 
       // 播放状态管理
       utterance.onstart = () => {
@@ -64,7 +90,14 @@ const ExplanationVoicePlayer = forwardRef<ExplanationVoicePlayerRef, Explanation
         setIsSupported(false)
       }
 
-      speechSynthesis.speak(utterance)
+      // 确保语音列表已加载
+      if (speechSynthesis.getVoices().length === 0) {
+        speechSynthesis.addEventListener('voiceschanged', () => {
+          speechSynthesis.speak(utterance)
+        }, { once: true })
+      } else {
+        speechSynthesis.speak(utterance)
+      }
     }, [])
 
     // 暴露speak方法给父组件
