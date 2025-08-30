@@ -39,11 +39,29 @@ const VoicePlayer = ({ text, className = '', size = 'md', autoPlay = false }: Vo
 
     const utterance = new SpeechSynthesisUtterance(textToSpeak)
     
-    // 设置中文语音参数
+    // 设置更自然的老师语音参数
     utterance.lang = 'zh-CN'
-    utterance.rate = 0.8 // 适合儿童的语速
-    utterance.pitch = 1.1 // 稍高音调，更亲和
-    utterance.volume = 0.9
+    utterance.rate = 0.75 // 老师讲课的适中语速
+    utterance.pitch = 0.95 // 稍低沉稳的音调，更有权威感
+    utterance.volume = 0.85 // 适中音量，不会太突兀
+
+    // 尝试选择更自然的中文语音
+    const voices = speechSynthesis.getVoices()
+    const chineseVoices = voices.filter(voice => 
+      voice.lang.includes('zh') || voice.lang.includes('CN')
+    )
+    
+    // 优先选择女性声音（通常更适合教学）
+    const preferredVoice = chineseVoices.find(voice => 
+      voice.name.includes('Female') || 
+      voice.name.includes('女') ||
+      voice.name.includes('Xiaoxiao') ||
+      voice.name.includes('Yaoyao')
+    ) || chineseVoices[0]
+    
+    if (preferredVoice) {
+      utterance.voice = preferredVoice
+    }
 
     // 播放状态管理
     utterance.onstart = () => {
@@ -60,7 +78,14 @@ const VoicePlayer = ({ text, className = '', size = 'md', autoPlay = false }: Vo
       setIsSupported(false)
     }
 
-    speechSynthesis.speak(utterance)
+    // 确保语音列表已加载
+    if (speechSynthesis.getVoices().length === 0) {
+      speechSynthesis.addEventListener('voiceschanged', () => {
+        speechSynthesis.speak(utterance)
+      }, { once: true })
+    } else {
+      speechSynthesis.speak(utterance)
+    }
   }, [])
 
   const handleClick = useCallback(() => {
