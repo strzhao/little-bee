@@ -2,182 +2,153 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
-import { hanziDataLoader, HanziCharacter } from '@/lib/hanzi-data-loader';
+import { motion } from 'framer-motion';
+import { hanziDataLoader } from '@/lib/hanzi-data-loader';
 
-// Define the types based on our JSON structure
-interface HanziData {
-  id: string;
-  character: string;
-  pinyin: string;
-  theme: string;
-  meaning: string;
-  category?: string;
-  learningStage?: string;
+// 类别配置
+interface CategoryConfig {
+  name: string;
+  emoji: string;
+  count: number;
+  bgColor: string;
+  available: boolean;
 }
 
 // Main Page Component
 export default function HanziHomePage() {
-  const [data, setData] = useState<HanziData[]>([]);
+  const [categories, setCategories] = useState<CategoryConfig[]>([]);
+  const [totalCharacters, setTotalCharacters] = useState(0);
+  const [learnedCount, setLearnedCount] = useState(8); // 模拟已学习数量
   const [loading, setLoading] = useState(true);
-  const [categories, setCategories] = useState<string[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   useEffect(() => {
-    const loadData = async () => {
+    const loadCategories = async () => {
       try {
         await hanziDataLoader.initialize();
-        const availableCategories = hanziDataLoader.getAvailableCategories();
-        setCategories(availableCategories);
+        const masterConfig = await hanziDataLoader.getMasterConfig();
         
-        // Load all data by default
-        const allData: HanziCharacter[] = [];
-        for (const category of availableCategories) {
-          const categoryData = await hanziDataLoader.loadByCategory(category);
-          allData.push(...categoryData);
+        if (!masterConfig) {
+          throw new Error('Failed to load master config');
         }
         
-        setData(allData);
+        const categoryConfigs: CategoryConfig[] = [
+          {
+            name: '天空与气象',
+            emoji: '🌤️',
+            count: masterConfig.categories.find(c => c.name === '天空与气象')?.count || 0,
+            bgColor: 'bg-blue-50',
+            available: true
+          },
+          {
+            name: '水与地理',
+            emoji: '🌊',
+            count: masterConfig.categories.find(c => c.name === '水与地理')?.count || 0,
+            bgColor: 'bg-cyan-50',
+            available: true
+          },
+          {
+            name: '植物世界',
+            emoji: '🌱',
+            count: masterConfig.categories.find(c => c.name === '植物世界')?.count || 0,
+            bgColor: 'bg-green-50',
+            available: true
+          },
+          {
+            name: '动物王国',
+            emoji: '🐾',
+            count: masterConfig.categories.find(c => c.name === '动物王国')?.count || 0,
+            bgColor: 'bg-orange-50',
+            available: true
+          },
+          {
+            name: '基础汉字',
+            emoji: '📚',
+            count: masterConfig.categories.find(c => c.name === '基础汉字')?.count || 0,
+            bgColor: 'bg-gray-50',
+            available: false
+          }
+        ];
+        
+        setCategories(categoryConfigs);
+        setTotalCharacters(masterConfig.totalCharacters);
         setLoading(false);
       } catch (error) {
-        console.error('Failed to load hanzi data:', error);
+        console.error('Failed to load categories:', error);
         setLoading(false);
       }
     };
     
-    loadData();
+    loadCategories();
   }, []);
-  
-  const handleCategoryChange = async (category: string) => {
-    setSelectedCategory(category);
-    setLoading(true);
-    
-    try {
-      if (category === 'all') {
-        const allData: HanziCharacter[] = [];
-        for (const cat of categories) {
-          const categoryData = await hanziDataLoader.loadByCategory(cat);
-          allData.push(...categoryData);
-        }
-        setData(allData);
-      } else {
-        const categoryData = await hanziDataLoader.loadByCategory(category);
-        setData(categoryData);
-      }
-    } catch (error) {
-      console.error('Failed to load category data:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (loading) {
-    return <div className="w-screen h-screen flex justify-center items-center bg-amber-50">Loading...</div>;
+    return (
+      <div className="min-h-screen bg-white flex justify-center items-center">
+        <div className="text-xl text-gray-600">加载中...</div>
+      </div>
+    );
   }
 
   return (
-    <div className="w-full h-screen bg-amber-50">
-      {/* Category Filter */}
-      <div className="absolute top-4 right-4 z-10">
-        <div className="bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-lg">
-          <label className="block text-sm font-medium text-amber-800 mb-2">选择类别</label>
-          <select 
-            value={selectedCategory} 
-            onChange={(e) => handleCategoryChange(e.target.value)}
-            className="block w-full px-3 py-2 border border-amber-200 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500 text-sm"
-          >
-            <option value="all">全部汉字</option>
-            {categories.map(category => (
-              <option key={category} value={category}>{category}</option>
-            ))}
-          </select>
-          <div className="mt-2 text-xs text-amber-600">
-            共 {data.length} 个汉字
+    <div className="min-h-screen bg-white">
+      {/* 顶部导航 */}
+      <header className="h-20 flex items-center justify-between px-6 border-b border-gray-100">
+        <h1 className="text-2xl font-medium text-gray-800">汉字演变乐园</h1>
+        <div className="text-base text-gray-600">
+          学习进度: {learnedCount}/{totalCharacters}
+        </div>
+      </header>
+
+      {/* 主内容区 */}
+      <main className="px-6 py-8">
+        <div className="max-w-4xl mx-auto">
+          {/* 类别网格 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* 第一行：2个大卡片 */}
+            <div className="md:col-span-2 lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+              {categories.slice(0, 2).map((category) => (
+                <CategoryCard key={category.name} category={category} />
+              ))}
+            </div>
+            
+            {/* 第二行：3个卡片 */}
+            <div className="md:col-span-2 lg:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-6">
+              {categories.slice(2).map((category) => (
+                <CategoryCard key={category.name} category={category} />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-      
-      <ExplorationWorld characters={data} />
+      </main>
     </div>
   );
 }
 
-// --- Child Components (kept in the same file for simplicity for now) ---
-
-const ExplorationWorld = ({ characters }: { characters: HanziData[] }) => {
-  const themes = [...new Set(characters.map(c => c.theme))];
-
-  return (
-    <div className="w-full h-screen overflow-hidden bg-amber-50 flex items-center">
-      <motion.div
-        className="flex gap-40 px-20 h-full items-center"
-        drag="x"
-        dragConstraints={{ right: 0, left: -1000 }} // Adjust as needed
-      >
-        <div className='text-center w-64 flex-shrink-0'>
-            <h1 className='text-4xl font-serif text-amber-800'>汉字演变乐园</h1>
-            <p className='text-amber-600 mt-2'>拖动以探索</p>
-        </div>
-        {themes.map(theme => (
-          <ThematicIsland key={theme} theme={theme} characters={characters.filter(c => c.theme === theme)} />
-        ))}
-      </motion.div>
-    </div>
-  );
-};
-
-const ThematicIsland = ({ theme, characters }: { theme: string; characters: HanziData[] }) => {
-  const themeColors: { [key: string]: string } = {
-    nature: 'bg-green-200',
+// 类别卡片组件
+const CategoryCard = ({ category }: { category: CategoryConfig }) => {
+  const handleClick = () => {
+    if (category.available) {
+      // 跳转到类别详情页面
+      window.location.href = `/hanzi/category/${encodeURIComponent(category.name)}`;
+    }
   };
 
   return (
-    <div className="relative w-96 h-96 flex-shrink-0">
-      {/* The Island itself */}
-      <motion.div 
-        className={`w-full h-full rounded-full ${themeColors[theme] || 'bg-gray-200'} shadow-lg`}
-      />
-      <h2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl font-bold text-white select-none">
-        {theme === 'nature' ? '自然' : theme}
-      </h2>
-
-      {/* Character Sprites floating around the island */}
-      {characters.map((char, index) => (
-        <CharacterSprite key={char.id} character={char} index={index} total={characters.length} />
-      ))}
-    </div>
-  );
-};
-
-const CharacterSprite = ({ character, index, total }: { character: HanziData; index: number; total: number }) => {
-  const angle = (index / total) * 2 * Math.PI;
-  const radius = 220; // Distance from center
-  const x = Math.cos(angle) * radius;
-  const y = Math.sin(angle) * radius;
-
-  return (
     <motion.div
-      className="absolute top-1/2 left-1/2"
-      style={{ x: `${x-25}px`, y: `${y-25}px` }} // Center the sprite
-      animate={{
-        y: [`${y - 35}px`, `${y - 15}px`, `${y - 35}px`],
-      }}
-      transition={{
-        duration: 3 + Math.random() * 2,
-        repeat: Infinity,
-        repeatType: 'reverse',
-        ease: 'easeInOut',
-      }}
+      className={`${category.bgColor} rounded-2xl p-8 cursor-pointer transition-all duration-200 hover:shadow-lg ${
+        !category.available ? 'opacity-60 cursor-not-allowed' : ''
+      }`}
+      whileHover={category.available ? { scale: 1.02 } : {}}
+      whileTap={category.available ? { scale: 0.98 } : {}}
+      onClick={handleClick}
     >
-      <Link href={`/hanzi/${character.id}`} passHref>
-        <motion.div
-          className="w-20 h-20 bg-white/80 backdrop-blur-sm rounded-2xl shadow-md flex justify-center items-center text-4xl font-serif cursor-pointer"
-          whileHover={{ scale: 1.2, rotate: 5 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          {character.character}
-        </motion.div>
-      </Link>
+      <div className="text-center">
+        <div className="text-4xl mb-4">{category.emoji}</div>
+        <h3 className="text-xl font-medium text-gray-800 mb-2">{category.name}</h3>
+        <p className="text-base text-gray-600">
+          {category.available ? `${category.count}个汉字` : '即将开放'}
+        </p>
+      </div>
     </motion.div>
   );
 };
