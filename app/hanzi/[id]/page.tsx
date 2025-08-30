@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { Home, Sparkles } from 'lucide-react';
 import CelebrationAnimation from '@/components/hanzi/CelebrationAnimation';
+import VoicePlayer from '@/components/hanzi/VoicePlayer';
 
 
 // --- Type Definitions ---
@@ -281,8 +282,14 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
                   transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                   className="w-full md:w-1/3 bg-white rounded-xl shadow-sm p-6 text-center flex flex-col justify-center"
                 >
-                  <p className="text-3xl md:text-4xl font-bold text-stone-800 mb-2">{characterData.character}</p>
-                  <p className="text-lg md:text-xl text-stone-600 mb-1">{characterData.pinyin}</p>
+                  <div className="flex items-center justify-center gap-3 mb-2">
+                    <p className="text-3xl md:text-4xl font-bold text-stone-800">{characterData.character}</p>
+                    <VoicePlayer text={characterData.character} size="md" />
+                  </div>
+                  <div className="flex items-center justify-center gap-2 mb-1">
+                    <p className="text-lg md:text-xl text-stone-600">{characterData.pinyin}</p>
+                    <VoicePlayer text={characterData.pinyin} size="sm" />
+                  </div>
                   <p className="text-base md:text-lg text-stone-500">{characterData.meaning}</p>
                 </motion.div>
               </AnimatePresence>
