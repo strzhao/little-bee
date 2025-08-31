@@ -325,14 +325,43 @@ const EvolutionPlayer = ({
     setIncorrectOptionId(null);
   };
 
+  // 根据汉字含义生成个性化语音内容
+  const generatePersonalizedExplanation = (character: HanziData) => {
+    const meaningMap: Record<string, string> = {
+      'Mountain': `看，这就是高高的山峰！"${character.character}"字就像真的山一样，有高有低，非常壮观！`,
+      'Water': `这是清澈的水！"${character.character}"字就像流动的河水，生命离不开水哦！`,
+      'Cloud': `天空中飘着白白的云朵！"${character.character}"字就像天上的云，轻飘飘的很美丽！`,
+      'Rain': `下雨啦！小雨滴从天空落下来！"${character.character}"字就像雨点一样，滋润着大地！`,
+      'Wind': `感受一下风的力量！"${character.character}"字代表看不见但能感受到的风！`,
+      'Sun': `温暖的太阳照耀着大地！"${character.character}"字就像明亮的太阳，给我们光明和温暖！`,
+      'Moon': `夜晚的月亮多么美丽！"${character.character}"字就像弯弯的月牙，照亮黑夜！`,
+      'Star': `闪闪发光的星星！"${character.character}"字就像夜空中的小星星，一闪一闪亮晶晶！`,
+      'River': `这是流淌的河流！"${character.character}"字代表着生命之源，河水哗哗地流着！`,
+      'Lake': `平静的湖水像镜子一样！"${character.character}"字就像宁静的湖面，倒映着天空！`,
+      'Sea': `广阔的大海无边无际！"${character.character}"字代表着浩瀚的海洋，波浪翻滚！`,
+      'Ocean': `深蓝的海洋神秘又美丽！"${character.character}"字就像无边的大海，充满奥秘！`,
+      'Land': `脚下踩着的就是大地！"${character.character}"字代表我们生活的土地，孕育万物！`,
+      'Tree': `高大的树木绿油油的！"${character.character}"字就像茂盛的大树，为我们遮阴！`,
+      'Flower': `美丽的花朵五颜六色！"${character.character}"字就像盛开的花儿，散发着香味！`,
+      'Grass': `绿绿的小草遍地都是！"${character.character}"字就像嫩绿的草地，软软的很舒服！`,
+      'Bird': `可爱的小鸟在天空飞翔！"${character.character}"字就像自由的鸟儿，唱着美妙的歌！`,
+      'Fish': `活泼的鱼儿在水中游泳！"${character.character}"字就像快乐的小鱼，在水里游来游去！`,
+      'Dog': `忠诚的狗狗是人类的好朋友！"${character.character}"字代表可爱的小狗，摇着尾巴！`,
+      'Cat': `可爱的小猫咪软软的！"${character.character}"字就像温顺的猫咪，喵喵地叫着！`
+    };
+    
+    // 如果有对应的个性化解释，使用它；否则使用通用解释
+    return meaningMap[character.meaning] || `我们生活中看到的"${character.character}"是这个样子的。这个字的意思是${character.meaning}，让我们一起来认识它吧！`;
+  };
+
   useEffect(() => {
     setCurrentImageUrl(characterData.assets.realObjectImage);
     setImageLoadError(false);
     setActiveStage(-2);
     
-    // 页面加载完成后自动播放实物按钮的解释
+    // 页面加载完成后自动播放实物按钮的个性化解释
     setTimeout(() => {
-      const explanation = `我们生活中看到的"${characterData.character}"是这个样子的。`;
+      const explanation = generatePersonalizedExplanation(characterData);
       if (explanationVoiceRef.current) {
         explanationVoiceRef.current.speak(explanation);
       }
