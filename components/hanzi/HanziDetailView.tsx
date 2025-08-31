@@ -376,15 +376,20 @@ const EvolutionPlayer = ({
     setCurrentImageUrl(characterData.assets.realObjectImage);
     setImageLoadError(false);
     setActiveStage(-2);
-    
-    // 页面加载完成后自动播放实物按钮的个性化解释
-    setTimeout(() => {
-      const explanation = generatePersonalizedExplanation(characterData);
-      if (explanationVoiceRef.current) {
-        explanationVoiceRef.current.speak(explanation);
-      }
-    }, 1000);
   }, [characterData]);
+
+  // 配置加载完成后播放个性化解释
+  useEffect(() => {
+    if (explanationsConfig) {
+      // 配置加载完成后自动播放实物按钮的个性化解释
+      setTimeout(() => {
+        const explanation = generatePersonalizedExplanation(characterData);
+        if (explanationVoiceRef.current) {
+          explanationVoiceRef.current.speak(explanation);
+        }
+      }, 1000);
+    }
+  }, [explanationsConfig, characterData]);
 
   useEffect(() => {
     if (!narrationRef.current) {
