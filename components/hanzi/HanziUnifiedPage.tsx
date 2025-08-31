@@ -250,7 +250,7 @@ const HanziHomeView = ({ onNavigateToDetail }: { onNavigateToDetail: (characterI
         const categoryConfigs = allCategoryConfigs.filter(category => category.count > 0);
         
         setCategories(categoryConfigs);
-        setTotalCharacters(masterConfig.totalCharacters);
+        setTotalCharacters(overallProgress.total);
         setLearnedCount(totalLearned);
         setLoading(false);
       } catch (error) {
