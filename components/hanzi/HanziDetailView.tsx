@@ -14,6 +14,16 @@ import SuccessStars from '@/components/hanzi/SuccessStars';
 import { useHanziState, useLearningProgress } from '@/lib/hooks/use-hanzi-state';
 import { HanziCharacter } from '@/lib/atoms/hanzi-atoms';
 
+// 个性化解释配置类型
+interface PersonalizedExplanationsConfig {
+  realObjectExplanations: Record<string, string>;
+  characterExplanations: Record<string, string>;
+  fallbackTemplates: {
+    realObject: string;
+    character: string;
+  };
+}
+
 // 类型定义
 interface EvolutionStage {
   scriptName: string;
@@ -222,6 +232,24 @@ const EvolutionPlayer = ({
   const [showCelebration, setShowCelebration] = useState(false);
   const [incorrectOptionId, setIncorrectOptionId] = useState<string | null>(null);
   const explanationVoiceRef = useRef<ExplanationVoicePlayerRef>(null);
+  const [explanationsConfig, setExplanationsConfig] = useState<PersonalizedExplanationsConfig | null>(null);
+
+  // 加载个性化解释配置
+  useEffect(() => {
+    const loadExplanationsConfig = async () => {
+      try {
+        const response = await fetch('/data/configs/personalized-explanations.json');
+        if (response.ok) {
+          const config = await response.json();
+          setExplanationsConfig(config);
+        }
+      } catch (error) {
+        console.error('Failed to load personalized explanations config:', error);
+      }
+    };
+    
+    loadExplanationsConfig();
+  }, []);
 
   const startChallenge = () => {
     const distractors = allCharacters
@@ -327,31 +355,21 @@ const EvolutionPlayer = ({
 
   // 根据汉字含义生成个性化语音内容
   const generatePersonalizedExplanation = (character: HanziData) => {
-    const meaningMap: Record<string, string> = {
-      'Mountain': `看，这就是高高的山峰！"${character.character}"字就像真的山一样，有高有低，非常壮观！`,
-      'Water': `这是清澈的水！"${character.character}"字就像流动的河水，生命离不开水哦！`,
-      'Cloud': `天空中飘着白白的云朵！"${character.character}"字就像天上的云，轻飘飘的很美丽！`,
-      'Rain': `下雨啦！小雨滴从天空落下来！"${character.character}"字就像雨点一样，滋润着大地！`,
-      'Wind': `感受一下风的力量！"${character.character}"字代表看不见但能感受到的风！`,
-      'Sun': `温暖的太阳照耀着大地！"${character.character}"字就像明亮的太阳，给我们光明和温暖！`,
-      'Moon': `夜晚的月亮多么美丽！"${character.character}"字就像弯弯的月牙，照亮黑夜！`,
-      'Star': `闪闪发光的星星！"${character.character}"字就像夜空中的小星星，一闪一闪亮晶晶！`,
-      'River': `这是流淌的河流！"${character.character}"字代表着生命之源，河水哗哗地流着！`,
-      'Lake': `平静的湖水像镜子一样！"${character.character}"字就像宁静的湖面，倒映着天空！`,
-      'Sea': `广阔的大海无边无际！"${character.character}"字代表着浩瀚的海洋，波浪翻滚！`,
-      'Ocean': `深蓝的海洋神秘又美丽！"${character.character}"字就像无边的大海，充满奥秘！`,
-      'Land': `脚下踩着的就是大地！"${character.character}"字代表我们生活的土地，孕育万物！`,
-      'Tree': `高大的树木绿油油的！"${character.character}"字就像茂盛的大树，为我们遮阴！`,
-      'Flower': `美丽的花朵五颜六色！"${character.character}"字就像盛开的花儿，散发着香味！`,
-      'Grass': `绿绿的小草遍地都是！"${character.character}"字就像嫩绿的草地，软软的很舒服！`,
-      'Bird': `可爱的小鸟在天空飞翔！"${character.character}"字就像自由的鸟儿，唱着美妙的歌！`,
-      'Fish': `活泼的鱼儿在水中游泳！"${character.character}"字就像快乐的小鱼，在水里游来游去！`,
-      'Dog': `忠诚的狗狗是人类的好朋友！"${character.character}"字代表可爱的小狗，摇着尾巴！`,
-      'Cat': `可爱的小猫咪软软的！"${character.character}"字就像温顺的猫咪，喵喵地叫着！`
-    };
-    
-    // 如果有对应的个性化解释，使用它；否则使用通用解释
-    return meaningMap[character.meaning] || `我们生活中看到的"${character.character}"是这个样子的。这个字的意思是${character.meaning}，让我们一起来认识它吧！`;
+    if (!explanationsConfig) {
+      // 配置未加载时使用默认解释
+      return `我们生活中看到的"${character.character}"是这个样子的。这个字的意思是${character.meaning}，让我们一起来认识它吧！`;
+    }
+
+    // 优先使用meaning映射的解释
+    const meaningExplanation = explanationsConfig.realObjectExplanations[character.meaning];
+    if (meaningExplanation) {
+      return meaningExplanation.replace('{character}', character.character);
+    }
+
+    // 使用fallback模板
+    return explanationsConfig.fallbackTemplates.realObject
+      .replace('{character}', character.character)
+      .replace('{meaning}', character.meaning);
   };
 
   useEffect(() => {
@@ -401,7 +419,7 @@ const EvolutionPlayer = ({
     setTimeout(() => {
       let explanation = '';
       if (stageIndex === -2) {
-        explanation = `我们生活中看到的"${characterData.character}"是这个样子的。`;
+        explanation = generatePersonalizedExplanationText(characterData.character, characterData.meaning);
       } else if (stageIndex >= 0 && characterData.evolutionStages[stageIndex]) {
         explanation = characterData.evolutionStages[stageIndex].explanation;
       }
@@ -413,30 +431,21 @@ const EvolutionPlayer = ({
   };
   
   const generatePersonalizedExplanationText = (character: string, meaning: string) => {
-    const explanationMap: { [key: string]: string } = {
-      '山': '看，这就是高高的山峰！山有高有低，有的像巨人一样高大。',
-      '水': '这是清澈的水！水可以流动，可以喝，也可以洗手洗脸。',
-      '云': '天空中飘着白白的云朵！云朵有时像棉花，有时像小动物。',
-      '雨': '下雨啦！雨滴从天空落下来，滋润着大地上的花草树木。',
-      '风': '感受一下风的力量！风可以吹动树叶，也可以帮助风车转动。',
-      '日': '这是温暖的太阳！太阳给我们光明和温暖，让植物茁壮成长。',
-      '月': '夜空中的月亮真美！月亮有时圆圆的，有时弯弯的像小船。',
-      '星': '夜空中闪闪发光的星星！每颗星星都像小钻石一样闪亮。',
-      '火': '红红的火焰在跳舞！火可以给我们温暖，也可以帮我们做饭。',
-      '土': '这是肥沃的土地！土壤里可以种植物，让它们健康成长。',
-      '石': '坚硬的石头！石头可以用来建房子，也可以铺路。',
-      '木': '高大的树木！树木给我们新鲜空气，还可以做成各种有用的东西。',
-      '草': '绿绿的小草！草地就像大自然的地毯，软软的很舒服。',
-      '花': '美丽的花朵！花儿有各种颜色，还散发着香香的味道。',
-      '鸟': '会飞的小鸟！鸟儿在天空中自由飞翔，还会唱好听的歌。',
-      '鱼': '游来游去的鱼儿！鱼儿在水里快乐地游泳，有各种美丽的颜色。',
-      '马': '奔跑的马儿！马跑得很快，古时候人们骑马去很远的地方。',
-      '牛': '勤劳的牛！牛很强壮，可以帮农民伯伯耕田种地。',
-      '羊': '温顺的小羊！羊身上的毛很软很暖，可以做成毛衣。',
-      '虫': '小小的虫子！有些虫子会飞，有些会爬，它们都是大自然的一部分。'
-    };
-    
-    return explanationMap[character] || `我们生活中看到的"${character}"是这个样子的。它的意思是${meaning}。`;
+    if (!explanationsConfig) {
+      // 配置未加载时使用默认解释
+      return `"${character}"字的意思是${meaning}。古人通过观察生活中的事物，创造了这个汉字来表达这个概念。`;
+    }
+
+    // 优先使用meaning映射的解释
+    const meaningExplanation = explanationsConfig.characterExplanations[meaning];
+    if (meaningExplanation) {
+      return meaningExplanation.replace('{character}', character);
+    }
+
+    // 使用fallback模板
+    return explanationsConfig.fallbackTemplates.character
+      .replace('{character}', character)
+      .replace('{meaning}', meaning);
   };
 
   const getExplanation = () => {
