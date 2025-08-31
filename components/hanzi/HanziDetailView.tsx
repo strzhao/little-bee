@@ -412,8 +412,37 @@ const EvolutionPlayer = ({
     }, 800);
   };
   
+  const generatePersonalizedExplanationText = (character: string, meaning: string) => {
+    const explanationMap: { [key: string]: string } = {
+      '山': '看，这就是高高的山峰！山有高有低，有的像巨人一样高大。',
+      '水': '这是清澈的水！水可以流动，可以喝，也可以洗手洗脸。',
+      '云': '天空中飘着白白的云朵！云朵有时像棉花，有时像小动物。',
+      '雨': '下雨啦！雨滴从天空落下来，滋润着大地上的花草树木。',
+      '风': '感受一下风的力量！风可以吹动树叶，也可以帮助风车转动。',
+      '日': '这是温暖的太阳！太阳给我们光明和温暖，让植物茁壮成长。',
+      '月': '夜空中的月亮真美！月亮有时圆圆的，有时弯弯的像小船。',
+      '星': '夜空中闪闪发光的星星！每颗星星都像小钻石一样闪亮。',
+      '火': '红红的火焰在跳舞！火可以给我们温暖，也可以帮我们做饭。',
+      '土': '这是肥沃的土地！土壤里可以种植物，让它们健康成长。',
+      '石': '坚硬的石头！石头可以用来建房子，也可以铺路。',
+      '木': '高大的树木！树木给我们新鲜空气，还可以做成各种有用的东西。',
+      '草': '绿绿的小草！草地就像大自然的地毯，软软的很舒服。',
+      '花': '美丽的花朵！花儿有各种颜色，还散发着香香的味道。',
+      '鸟': '会飞的小鸟！鸟儿在天空中自由飞翔，还会唱好听的歌。',
+      '鱼': '游来游去的鱼儿！鱼儿在水里快乐地游泳，有各种美丽的颜色。',
+      '马': '奔跑的马儿！马跑得很快，古时候人们骑马去很远的地方。',
+      '牛': '勤劳的牛！牛很强壮，可以帮农民伯伯耕田种地。',
+      '羊': '温顺的小羊！羊身上的毛很软很暖，可以做成毛衣。',
+      '虫': '小小的虫子！有些虫子会飞，有些会爬，它们都是大自然的一部分。'
+    };
+    
+    return explanationMap[character] || `我们生活中看到的"${character}"是这个样子的。它的意思是${meaning}。`;
+  };
+
   const getExplanation = () => {
-    if (activeStage === -2) return `我们生活中看到的"${characterData.character}"是这个样子的。`;
+    if (activeStage === -2) {
+      return generatePersonalizedExplanationText(characterData.character, characterData.meaning);
+    }
     if (activeStage >= 0 && characterData.evolutionStages[activeStage]) {
       return characterData.evolutionStages[activeStage].explanation;
     }
