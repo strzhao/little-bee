@@ -167,17 +167,20 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
     const totalStarCount = parseInt(localStorage.getItem('hanzi-challenge-success') || '0', 10) + 1;
     localStorage.setItem('hanzi-challenge-success', totalStarCount.toString());
 
-    // Update character-specific star count
-    const successfulCharacters: { id: string; character: string; count: number; }[] = JSON.parse(localStorage.getItem('hanzi-successful-characters') || '[]');
+    // Update character-specific star count with timestamp
+    const successfulCharacters: { id: string; character: string; count: number; lastLearned?: string; }[] = JSON.parse(localStorage.getItem('hanzi-successful-characters') || '[]');
     const charIndex = successfulCharacters.findIndex(c => c.id === characterData.id);
+    const currentTime = new Date().toISOString();
 
     if (charIndex > -1) {
       successfulCharacters[charIndex].count += 1;
+      successfulCharacters[charIndex].lastLearned = currentTime;
     } else {
       successfulCharacters.push({
         id: characterData.id,
         character: characterData.character,
         count: 1,
+        lastLearned: currentTime,
       });
     }
     localStorage.setItem('hanzi-successful-characters', JSON.stringify(successfulCharacters));

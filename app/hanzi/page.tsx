@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { hanziDataLoader } from '@/lib/hanzi-data-loader';
+import { learningProgressManager, CategoryProgress } from '@/lib/learning-progress';
 import CategoryTransition from '@/components/hanzi/CategoryTransition';
 import SuccessStars from '@/components/hanzi/SuccessStars';
 
@@ -79,8 +80,9 @@ const SimpleStarProgress = ({ total, learned }: { total: number; learned: number
 export default function HanziHomePage() {
   const [categories, setCategories] = useState<CategoryConfig[]>([]);
   const [totalCharacters, setTotalCharacters] = useState(0);
-  const [learnedCount, setLearnedCount] = useState(8); // 模拟已学习数量
+  const [learnedCount, setLearnedCount] = useState(0); // 已学习数量
   const [loading, setLoading] = useState(true);
+  const [categoryProgress, setCategoryProgress] = useState<Record<string, CategoryProgress>>({});
   
   // 过渡动画状态
   const [selectedCategory, setSelectedCategory] = useState<CategoryConfig | null>(null);
@@ -98,14 +100,12 @@ export default function HanziHomePage() {
           throw new Error('Failed to load master config');
         }
         
-        // 模拟每个类别的学习进度
-        const mockProgress = {
-          '天空与气象': 2,
-          '水与地理': 3,
-          '植物世界': 1,
-          '动物王国': 2,
-          '基础汉字': 0
-        };
+        // 获取真实的学习进度数据
+        const progressData = await learningProgressManager.calculateAllCategoryProgress(masterConfig);
+        setCategoryProgress(progressData);
+        
+        // 计算总的已学习数量
+        const totalLearned = Object.values(progressData).reduce((sum, progress) => sum + progress.learnedCount, 0);
         
         const allCategoryConfigs: CategoryConfig[] = [
           {
@@ -114,7 +114,7 @@ export default function HanziHomePage() {
             count: masterConfig.categories.find(c => c.name === '天空与气象')?.count || 0,
             bgColor: 'bg-blue-50',
             available: true,
-            learnedCount: mockProgress['天空与气象']
+            learnedCount: progressData['天空与气象']?.learnedCount || 0
           },
           {
             name: '水与地理',
@@ -122,7 +122,7 @@ export default function HanziHomePage() {
             count: masterConfig.categories.find(c => c.name === '水与地理')?.count || 0,
             bgColor: 'bg-cyan-50',
             available: true,
-            learnedCount: mockProgress['水与地理']
+            learnedCount: progressData['水与地理']?.learnedCount || 0
           },
           {
             name: '植物世界',
@@ -130,7 +130,7 @@ export default function HanziHomePage() {
             count: masterConfig.categories.find(c => c.name === '植物世界')?.count || 0,
             bgColor: 'bg-green-50',
             available: true,
-            learnedCount: mockProgress['植物世界']
+            learnedCount: progressData['植物世界']?.learnedCount || 0
           },
           {
             name: '动物王国',
@@ -138,7 +138,7 @@ export default function HanziHomePage() {
             count: masterConfig.categories.find(c => c.name === '动物王国')?.count || 0,
             bgColor: 'bg-orange-50',
             available: true,
-            learnedCount: mockProgress['动物王国']
+            learnedCount: progressData['动物王国']?.learnedCount || 0
           },
           {
             name: '基础汉字',
@@ -146,7 +146,7 @@ export default function HanziHomePage() {
             count: masterConfig.categories.find(c => c.name === '基础汉字')?.count || 0,
             bgColor: 'bg-gray-50',
             available: false,
-            learnedCount: mockProgress['基础汉字']
+            learnedCount: progressData['基础汉字']?.learnedCount || 0
           }
         ];
         
@@ -155,6 +155,7 @@ export default function HanziHomePage() {
         
         setCategories(categoryConfigs);
         setTotalCharacters(masterConfig.totalCharacters);
+        setLearnedCount(totalLearned);
         setLoading(false);
       } catch (error) {
         console.error('Failed to load categories:', error);
@@ -163,6 +164,14 @@ export default function HanziHomePage() {
     };
     
     loadCategories();
+    
+    // 监听学习进度变化
+    const unsubscribe = learningProgressManager.onProgressChange(() => {
+      // 当学习进度发生变化时，重新加载类别数据
+      loadCategories();
+    });
+    
+    return unsubscribe;
   }, []);
 
   if (loading) {
