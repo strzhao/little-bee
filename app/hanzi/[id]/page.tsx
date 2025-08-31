@@ -170,7 +170,8 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
 
   const handleAnimationComplete = () => {
     // Use new Jotai-based learning progress system
-    completeCharacterLearning(characterData.id, characterData.character);
+    // Each successful challenge earns 1 star
+    completeCharacterLearning(characterData.id, characterData.character, 1);
 
     setShowCelebration(false);
     setChallengeModalOpen(false);

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Star from './Star';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { useLearningProgress } from '@/lib/hooks/use-hanzi-state';
 
 interface SuccessfulCharacter {
   id: string;
@@ -12,33 +13,27 @@ interface SuccessfulCharacter {
 }
 
 const SuccessStars = () => {
-  const [starCount, setStarCount] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [successfulChars, setSuccessfulChars] = useState<SuccessfulCharacter[]>([]);
-
+  
+  // 使用新的Jotai状态管理获取学习进度
+  const { progress } = useLearningProgress();
+  
+  // 计算总星数
+  const starCount = Object.values(progress).reduce((sum, char) => sum + char.starsEarned, 0);
+  
   useEffect(() => {
-    const updateStars = () => {
-      const chars: SuccessfulCharacter[] = JSON.parse(localStorage.getItem('hanzi-successful-characters') || '[]');
-      const validChars = chars.filter(c => c.id && c.character);
-      const totalStars = validChars.reduce((sum, char) => sum + char.count, 0);
-
-      setStarCount(totalStars);
-      setSuccessfulChars(validChars);
-
-      // Sync localStorage
-      localStorage.setItem('hanzi-challenge-success', totalStars.toString());
-      if (validChars.length !== chars.length) {
-        localStorage.setItem('hanzi-successful-characters', JSON.stringify(validChars));
-      }
-    };
-
-    updateStars(); // Initial load
-
-    window.addEventListener('storage', updateStars);
-    return () => {
-      window.removeEventListener('storage', updateStars);
-    };
-  }, []);
+    // 转换进度数据为成功字符格式，用于显示详情
+    const chars: SuccessfulCharacter[] = Object.values(progress)
+      .filter(p => p.completed && p.starsEarned > 0)
+      .map(p => ({
+        id: p.characterId,
+        character: p.characterId, // 这里可能需要从汉字数据中获取实际字符
+        count: p.starsEarned
+      }));
+    
+    setSuccessfulChars(chars);
+  }, [progress]);
 
   return (
     <>

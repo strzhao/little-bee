@@ -74,6 +74,8 @@ export const updateCharacterProgressAtom = atom(
   null,
   (get, set, update: { characterId: string; completed: boolean; starsEarned: number; lastLearned?: string }) => {
     const currentProgress = get(learningProgressAtom)
+    const existingProgress = currentProgress[update.characterId]
+    
     const newProgress = {
       ...currentProgress,
       [update.characterId]: {
@@ -81,7 +83,8 @@ export const updateCharacterProgressAtom = atom(
         completed: update.completed,
         completedAt: update.completed ? new Date().toISOString() : undefined,
         lastLearned: update.lastLearned,
-        starsEarned: update.starsEarned
+        // 累加星数而不是覆盖
+        starsEarned: (existingProgress?.starsEarned || 0) + update.starsEarned
       }
     }
     set(learningProgressAtom, newProgress)

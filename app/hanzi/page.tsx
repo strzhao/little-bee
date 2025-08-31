@@ -7,6 +7,7 @@ import { hanziDataLoader } from '@/lib/hanzi-data-loader';
 import { learningProgressManager, CategoryProgress } from '@/lib/learning-progress';
 import CategoryTransition from '@/components/hanzi/CategoryTransition';
 import SuccessStars from '@/components/hanzi/SuccessStars';
+import { useLearningProgress, useHanziData } from '@/lib/hooks/use-hanzi-state';
 
 // 类别配置
 interface CategoryConfig {
@@ -84,6 +85,10 @@ export default function HanziHomePage() {
   const [loading, setLoading] = useState(true);
   const [categoryProgress, setCategoryProgress] = useState<Record<string, CategoryProgress>>({});
   
+  // 使用新的Jotai状态管理
+  const { categoryProgress: jotaiCategoryProgress, overallProgress } = useLearningProgress();
+  const { reload: loadAllCharacters } = useHanziData();
+  
   // 过渡动画状态
   const [selectedCategory, setSelectedCategory] = useState<CategoryConfig | null>(null);
   const [isTransitionOpen, setIsTransitionOpen] = useState(false);
@@ -93,6 +98,9 @@ export default function HanziHomePage() {
   useEffect(() => {
     const loadCategories = async () => {
       try {
+        // 加载所有汉字数据到Jotai状态
+        await loadAllCharacters();
+        
         await hanziDataLoader.initialize();
         const masterConfig = await hanziDataLoader.getMasterConfig();
         
@@ -100,12 +108,20 @@ export default function HanziHomePage() {
           throw new Error('Failed to load master config');
         }
         
-        // 获取真实的学习进度数据
-        const progressData = await learningProgressManager.calculateAllCategoryProgress(masterConfig);
+        // 使用Jotai的分类进度数据
+         const progressData: Record<string, CategoryProgress> = {};
+         Object.entries(jotaiCategoryProgress).forEach(([category, stats]) => {
+           progressData[category] = {
+             categoryName: category,
+             learnedCount: stats.completed,
+             totalCount: stats.total,
+             learnedCharacters: [] // 这里可以根据需要填充具体的字符ID
+           };
+         });
         setCategoryProgress(progressData);
         
-        // 计算总的已学习数量
-        const totalLearned = Object.values(progressData).reduce((sum, progress) => sum + progress.learnedCount, 0);
+        // 使用Jotai的总体进度
+        const totalLearned = overallProgress.completed;
         
         const allCategoryConfigs: CategoryConfig[] = [
           {
@@ -164,15 +180,7 @@ export default function HanziHomePage() {
     };
     
     loadCategories();
-    
-    // 监听学习进度变化
-    const unsubscribe = learningProgressManager.onProgressChange(() => {
-      // 当学习进度发生变化时，重新加载类别数据
-      loadCategories();
-    });
-    
-    return unsubscribe;
-  }, []);
+  }, [jotaiCategoryProgress, overallProgress, loadAllCharacters]); // 依赖Jotai状态变化
 
   if (loading) {
     return (
