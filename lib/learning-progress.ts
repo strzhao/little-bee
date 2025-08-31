@@ -23,6 +23,13 @@ export class LearningProgressManager {
     TOTAL_STARS: 'hanzi-challenge-success',
     LEARNED_CHARACTERS: 'hanzi-successful-characters',
     CATEGORY_PROGRESS: 'hanzi-category-progress'
+  }
+
+  /**
+   * 重置单例实例（仅用于测试）
+   */
+  public static resetInstance(): void {
+    LearningProgressManager.instance = undefined as any;
   };
 
   private constructor() {}

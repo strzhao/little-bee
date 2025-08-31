@@ -79,6 +79,11 @@ class HanziDataLoader {
    * 初始化加载器，加载主配置和索引
    */
   public async initialize(): Promise<void> {
+    // 如果已经初始化，跳过
+    if (this.masterConfig && this.indexConfig) {
+      return;
+    }
+
     try {
       // 加载主配置
       const masterResponse = await fetch(`${this.baseUrl}/master-config.json`);
@@ -112,7 +117,10 @@ class HanziDataLoader {
    * 获取所有可用的类别
    */
   public getAvailableCategories(): string[] {
-    return this.masterConfig?.categories.map(cat => cat.name) || [];
+    if (!this.masterConfig || !this.masterConfig.categories) {
+      return [];
+    }
+    return this.masterConfig.categories.map(cat => cat.name);
   }
 
   /**
@@ -146,6 +154,15 @@ class HanziDataLoader {
       }
       
       const data: HanziCharacter[] = await response.json();
+      
+      // 验证数据格式
+      if (!Array.isArray(data)) {
+        console.warn(`Invalid data format for category '${categoryName}', expected array`);
+        const emptyData: HanziCharacter[] = [];
+        this.categoryCache.set(categoryName, emptyData);
+        return emptyData;
+      }
+      
       this.categoryCache.set(categoryName, data);
       
       // 同时缓存单个汉字
@@ -273,21 +290,21 @@ class HanziDataLoader {
    */
   public getStatistics() {
     if (!this.masterConfig) {
-      return null;
+      throw new Error('HanziDataLoader not initialized');
     }
 
     return {
-      totalCharacters: this.masterConfig.totalCharacters,
-      categoriesCount: this.masterConfig.categories.length,
-      learningStagesCount: this.masterConfig.learningStages.length,
-      categories: this.masterConfig.categories.map(cat => ({
+      totalCharacters: this.masterConfig.totalCharacters || 0,
+      categoriesCount: this.masterConfig.categories?.length || 0,
+      learningStagesCount: this.masterConfig.learningStages?.length || 0,
+      categories: this.masterConfig.categories?.map(cat => ({
         name: cat.name,
         count: cat.count
-      })),
-      learningStages: this.masterConfig.learningStages.map(stage => ({
+      })) || [],
+      learningStages: this.masterConfig.learningStages?.map(stage => ({
         name: stage.name,
         count: stage.count
-      }))
+      })) || []
     };
   }
 
@@ -298,6 +315,8 @@ class HanziDataLoader {
     this.categoryCache.clear();
     this.learningStageCache.clear();
     this.characterCache.clear();
+    this.masterConfig = null;
+    this.indexConfig = null;
   }
 }
 
