@@ -235,6 +235,47 @@ const EvolutionPlayer = ({
     setIncorrectOptionId(null);
     setChallengeImageError(false);
     setChallengeModalOpen(true);
+    
+    // 延迟0.8秒播放语音引导，确保弹框动画完成
+    setTimeout(() => {
+      // 停止其他可能正在播放的音频，避免冲突
+      if (narrationRef.current) {
+        narrationRef.current.pause();
+      }
+      
+      const guideText = `请找出刚才看到的${characterData.character}字，点击下面正确的选项`;
+      if (explanationVoiceRef.current) {
+        explanationVoiceRef.current.speak(guideText);
+      }
+    }, 800);
+  };
+
+  // 语音反馈语料池
+  const getRandomFeedback = (type: 'success' | 'error') => {
+    const successMessages = [
+      "太棒了！你答对了！",
+      "真聪明！完全正确！",
+      "做得很好！继续加油！",
+      "哇，你真厉害！",
+      "答对了！你学得真快！",
+      "非常棒！你记住了！",
+      "太好了！你找到了正确答案！",
+      "真不错！你很仔细！"
+    ];
+    
+    const errorMessages = [
+      "这个不对哦，再试试其他的吧！",
+      "没关系，再仔细看看！",
+      "不是这个呢，换一个试试！",
+      "再想想，你一定能找到的！",
+      "别着急，慢慢来！",
+      "试试别的选项吧！",
+      "没关系，学习需要耐心！",
+      "再看看，哪个更像呢？"
+    ];
+    
+    const messages = type === 'success' ? successMessages : errorMessages;
+    return messages[Math.floor(Math.random() * messages.length)];
   };
 
   const handleOptionClick = (selectedId: string) => {
@@ -244,9 +285,22 @@ const EvolutionPlayer = ({
     if (selectedId === characterData.id) {
       setChallengeStatus('correct');
       setShowCelebration(true); // Trigger animation
+      
+      // 播放成功赞赏语音
+      const successFeedback = getRandomFeedback('success');
+      if (explanationVoiceRef.current) {
+        explanationVoiceRef.current.speak(successFeedback);
+      }
     } else {
       setChallengeStatus('incorrect');
       setIncorrectOptionId(selectedId);
+      
+      // 播放错误反馈语音
+      const errorFeedback = getRandomFeedback('error');
+      if (explanationVoiceRef.current) {
+        explanationVoiceRef.current.speak(errorFeedback);
+      }
+      
       // Reset incorrect feedback after 1.5 seconds to encourage retry
       setTimeout(() => {
         setChallengeStatus('idle');
