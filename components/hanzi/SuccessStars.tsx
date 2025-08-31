@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Star from './Star';
 import { motion, AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
+// import Link from 'next/link'; // 不再需要Link组件
 import { useLearningProgress } from '@/lib/hooks/use-hanzi-state';
 
 interface SuccessfulCharacter {
@@ -12,7 +12,11 @@ interface SuccessfulCharacter {
   count: number;
 }
 
-const SuccessStars = () => {
+interface SuccessStarsProps {
+  onNavigateToDetail?: (characterId: string) => void;
+}
+
+const SuccessStars = ({ onNavigateToDetail }: SuccessStarsProps = {}) => {
   const [showModal, setShowModal] = useState(false);
   const [successfulChars, setSuccessfulChars] = useState<SuccessfulCharacter[]>([]);
   
@@ -68,19 +72,23 @@ const SuccessStars = () => {
               {successfulChars.length > 0 ? (
                 <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 overflow-y-auto">
                   {successfulChars.map((char) => (
-                    <Link href={`/hanzi/${char.id}`} key={char.id} passHref>
-                      <motion.div 
-                        className="flex flex-col items-center justify-center p-2 rounded-lg bg-amber-50 cursor-pointer"
-                        whileHover={{ scale: 1.05 }}
-                        onClick={() => setShowModal(false)}
-                      >
+                    <motion.div 
+                      key={char.id}
+                      className="flex flex-col items-center justify-center p-2 rounded-lg bg-amber-50 cursor-pointer"
+                      whileHover={{ scale: 1.05 }}
+                      onClick={() => {
+                        setShowModal(false);
+                        if (onNavigateToDetail) {
+                          onNavigateToDetail(char.id);
+                        }
+                      }}
+                    >
                         <span className="text-5xl font-bold text-amber-600">{char.character}</span>
                         <div className="flex items-center mt-2">
                           <Star size={16} color="#FFC700" />
                           <span className="ml-1 text-sm font-semibold text-yellow-600">{char.count}</span>
                         </div>
-                      </motion.div>
-                    </Link>
+                    </motion.div>
                   ))}
                 </div>
               ) : (

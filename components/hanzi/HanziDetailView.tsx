@@ -1,26 +1,27 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
 import { Home, Sparkles } from 'lucide-react';
+
+// 导入组件
 import CelebrationAnimation from '@/components/hanzi/CelebrationAnimation';
 import VoicePlayer from '@/components/hanzi/VoicePlayer';
 import ExplanationVoicePlayer, { ExplanationVoicePlayerRef } from '@/components/hanzi/ExplanationVoicePlayer';
 import SuccessStars from '@/components/hanzi/SuccessStars';
+
+// 导入状态管理
 import { useHanziState, useLearningProgress } from '@/lib/hooks/use-hanzi-state';
 import { HanziCharacter } from '@/lib/atoms/hanzi-atoms';
 
-
-// --- Type Definitions ---
+// 类型定义
 interface EvolutionStage {
   scriptName: string;
   timestamp: number;
   narrationAudio: string;
   explanation: string;
-  scriptText: string; // Added scriptText
-  fontFamily: string; // Added fontFamily
+  scriptText: string;
+  fontFamily: string;
   cardColor: string;
 }
 
@@ -43,12 +44,15 @@ interface HanziData {
   evolutionStages: EvolutionStage[];
 }
 
-// --- Main Page Component ---
-export default function HanziDetailPage() {
-  const params = useParams();
-  const id = decodeURIComponent(params.id as string);
-  
-  // 使用新的状态管理
+// 详情页视图组件
+export default function HanziDetailView({ 
+  characterId, 
+  onNavigateHome 
+}: { 
+  characterId: string;
+  onNavigateHome: () => void;
+}) {
+  // 状态管理
   const { 
     currentHanzi, 
     allHanzi, 
@@ -57,15 +61,16 @@ export default function HanziDetailPage() {
     loadAllCharacters
   } = useHanziState();
   
-  const { isCharacterCompleted, getCharacterStars, completeCharacterLearning } = useLearningProgress();
+  const { completeCharacterLearning } = useLearningProgress();
   
-  // 兼容性：映射到旧的变量名
-  const characterData = currentHanzi;
-  const allCharacters = allHanzi;
+  // 本地状态
   const [loading, setLoading] = useState(true);
+  const [characterData, setCharacterData] = useState<HanziData | null>(null);
+  const [allCharacters, setAllCharacters] = useState<HanziData[]>([]);
 
+  // 加载汉字数据
   useEffect(() => {
-    if (!id) return;
+    if (!characterId) return;
     
     const loadData = async () => {
       try {
@@ -73,11 +78,71 @@ export default function HanziDetailPage() {
         await loadAllCharacters();
         
         // 加载特定汉字
-        const character = await loadCharacterById(id);
+        const character = await loadCharacterById(characterId);
         
         if (character) {
+          // 转换数据格式
+          const hanziData: HanziData = {
+            id: character.id,
+            character: character.character,
+            pinyin: character.pinyin,
+            theme: character.theme || '',
+            meaning: character.meaning,
+            emoji: character.emoji,
+            category: character.category,
+            learningStage: character.learningStage,
+            assets: {
+              pronunciationAudio: character.assets.pronunciationAudio,
+              mainIllustration: character.assets.mainIllustration,
+              realObjectImage: character.assets.realObjectImage,
+              realObjectCardColor: character.assets.realObjectCardColor,
+              lottieAnimation: character.assets.lottieAnimation
+            },
+            evolutionStages: character.evolutionStages.map(stage => ({
+              scriptName: stage.scriptName,
+              timestamp: stage.timestamp,
+              narrationAudio: stage.narrationAudio,
+              explanation: stage.explanation,
+              scriptText: stage.scriptText,
+              fontFamily: stage.fontFamily,
+              cardColor: stage.cardColor
+            }))
+          };
+          
+          setCharacterData(hanziData);
+          
+          // 转换所有汉字数据
+          const allHanziData: HanziData[] = allHanzi.map(char => ({
+            id: char.id,
+            character: char.character,
+            pinyin: char.pinyin,
+            theme: char.theme || '',
+            meaning: char.meaning,
+            emoji: char.emoji,
+            category: char.category,
+            learningStage: char.learningStage,
+            assets: {
+              pronunciationAudio: char.assets.pronunciationAudio,
+              mainIllustration: char.assets.mainIllustration,
+              realObjectImage: char.assets.realObjectImage,
+              realObjectCardColor: char.assets.realObjectCardColor,
+              lottieAnimation: char.assets.lottieAnimation
+            },
+            evolutionStages: char.evolutionStages.map(stage => ({
+              scriptName: stage.scriptName,
+              timestamp: stage.timestamp,
+              narrationAudio: stage.narrationAudio,
+              explanation: stage.explanation,
+              scriptText: stage.scriptText,
+              fontFamily: stage.fontFamily,
+              cardColor: stage.cardColor
+            }))
+          }));
+          
+          setAllCharacters(allHanziData);
+          
           // 预加载字体
-          const fontFamilies = character.evolutionStages.map((stage: any) => stage.fontFamily);
+          const fontFamilies = hanziData.evolutionStages.map(stage => stage.fontFamily);
           const uniqueFonts = [...new Set(fontFamilies)];
           
           uniqueFonts.forEach(fontFamily => {
@@ -87,7 +152,7 @@ export default function HanziDetailPage() {
               preloadDiv.style.position = 'absolute';
               preloadDiv.style.left = '-9999px';
               preloadDiv.style.visibility = 'hidden';
-              preloadDiv.textContent = character.character;
+              preloadDiv.textContent = hanziData.character;
               document.body.appendChild(preloadDiv);
               
               // 移除预加载元素
@@ -108,21 +173,43 @@ export default function HanziDetailPage() {
     };
     
     loadData();
-  }, [id, loadCharacterById, loadAllCharacters]);
+  }, [characterId, loadCharacterById, loadAllCharacters, allHanzi]);
 
-  if (loadingState.isLoading) {
-    return <div className="w-screen h-screen flex justify-center items-center bg-amber-50">Loading Character...</div>;
+  if (loadingState.isLoading || loading) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center bg-amber-50">
+        <div className="text-xl text-gray-600">加载汉字中...</div>
+      </div>
+    );
   }
 
   if (!characterData) {
-    return <div className="w-screen h-screen flex justify-center items-center bg-amber-50">Character not found.</div>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center bg-amber-50">
+        <div className="text-xl text-gray-600">汉字未找到</div>
+      </div>
+    );
   }
 
-  return <EvolutionPlayer characterData={characterData} allCharacters={allCharacters} />;
+  return (
+    <EvolutionPlayer 
+      characterData={characterData} 
+      allCharacters={allCharacters}
+      onNavigateHome={onNavigateHome}
+    />
+  );
 }
 
-// --- Core Player Component (Hybrid Image/Font Display) ---
-const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: HanziData, allCharacters: HanziData[] }) => {
+// 核心播放器组件
+const EvolutionPlayer = ({ 
+  characterData, 
+  allCharacters, 
+  onNavigateHome 
+}: { 
+  characterData: HanziData;
+  allCharacters: HanziData[];
+  onNavigateHome: () => void;
+}) => {
   const { completeCharacterLearning } = useLearningProgress();
   const [activeStage, setActiveStage] = useState(-2); // -2 for Real Object
   const [currentImageUrl, setCurrentImageUrl] = useState(characterData.assets.realObjectImage);
@@ -243,23 +330,25 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
   };
   
   const getExplanation = () => {
-      if (activeStage === -2) return `我们生活中看到的“${characterData.character}”是这个样子的。`;
-      if (activeStage >= 0 && characterData.evolutionStages[activeStage]) {
-          return characterData.evolutionStages[activeStage].explanation;
-      }
-      return '点击左侧的彩色圆圈，开始探索它的故事吧！';
-  }
+    if (activeStage === -2) return `我们生活中看到的"${characterData.character}"是这个样子的。`;
+    if (activeStage >= 0 && characterData.evolutionStages[activeStage]) {
+      return characterData.evolutionStages[activeStage].explanation;
+    }
+    return '点击左侧的彩色圆圈，开始探索它的故事吧！';
+  };
 
   return (
     <div className="w-screen h-screen bg-stone-100 flex flex-col md:flex-row p-4 sm:p-6 md:p-8 gap-6 md:gap-8">
       
       <div className="w-full md:w-auto flex flex-col gap-4 flex-shrink-0 items-center">
-        <Link href="/hanzi" passHref>
-          <motion.button whileTap={{ scale: 0.95 }} className="w-28 p-3 bg-white/70 backdrop-blur-sm rounded-lg shadow-md flex items-center justify-center gap-2">
-            <Home className="w-5 h-5 text-stone-700"/>
-            <span className="font-semibold">首页</span>
-          </motion.button>
-        </Link>
+        <motion.button 
+          whileTap={{ scale: 0.95 }} 
+          onClick={onNavigateHome}
+          className="w-28 p-3 bg-white/70 backdrop-blur-sm rounded-lg shadow-md flex items-center justify-center gap-2"
+        >
+          <Home className="w-5 h-5 text-stone-700"/>
+          <span className="font-semibold">首页</span>
+        </motion.button>
 
         <div className="hidden md:block h-px w-full bg-stone-300 my-2"></div>
 

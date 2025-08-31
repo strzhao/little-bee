@@ -19,6 +19,7 @@ interface CategoryTransitionProps {
   onClose: () => void;
   clickPosition: { x: number; y: number } | null;
   onReturning?: (isReturning: boolean) => void;
+  onNavigateToDetail?: (characterId: string) => void;
 }
 
 export default function CategoryTransition({ 
@@ -26,7 +27,8 @@ export default function CategoryTransition({
   isOpen, 
   onClose, 
   clickPosition,
-  onReturning 
+  onReturning,
+  onNavigateToDetail 
 }: CategoryTransitionProps) {
   const [hanziList, setHanziList] = useState<HanziCharacter[]>([]);
   const [loading, setLoading] = useState(false);
@@ -182,7 +184,7 @@ export default function CategoryTransition({
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-8">
               {hanziList.map((hanzi, index) => (
-                <CircularHanziCard key={hanzi.id} hanzi={hanzi} index={index} isVisible={animationPhase !== 'expanding'} />
+                <CircularHanziCard key={hanzi.id} hanzi={hanzi} index={index} isVisible={animationPhase !== 'expanding'} onNavigateToDetail={onNavigateToDetail} />
               ))}
             </div>
           </div>
@@ -210,11 +212,13 @@ export default function CategoryTransition({
 const CircularHanziCard = ({ 
   hanzi, 
   index, 
-  isVisible 
+  isVisible,
+  onNavigateToDetail 
 }: { 
   hanzi: HanziCharacter; 
   index: number; 
-  isVisible: boolean; 
+  isVisible: boolean;
+  onNavigateToDetail?: (characterId: string) => void; 
 }) => {
   return (
     <motion.div
@@ -243,8 +247,10 @@ const CircularHanziCard = ({
         }}
         whileTap={{ scale: 0.95 }}
         onClick={() => {
-          // 跳转到汉字详情页，确保ID正确编码
-          window.location.href = `/hanzi/${encodeURIComponent(hanzi.id)}`;
+          // 使用状态管理跳转到汉字详情页
+          if (onNavigateToDetail) {
+            onNavigateToDetail(hanzi.id);
+          }
         }}
       >
         <div className="text-center">
