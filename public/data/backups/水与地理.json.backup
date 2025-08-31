@@ -1,6 +1,6 @@
 [
   {
-    "id": "河_hé",
+    "id": "河_hé_1",
     "character": "河",
     "pinyin": "hé",
     "theme": "nature",
@@ -12,7 +12,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/he-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/he-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/he.json",
-      "realObjectImage": "/assets/hanzi/images/river-real.png",
+      "realObjectImage": "/assets/hanzi/images/he-real.png",
       "realObjectCardColor": "#4169E1"
     },
     "evolutionStages": [
@@ -55,7 +55,7 @@
     ]
   },
   {
-    "id": "海_hǎi",
+    "id": "海_hǎi_1",
     "character": "海",
     "pinyin": "hǎi",
     "theme": "nature",
@@ -67,7 +67,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/hai-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/hai-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/hai.json",
-      "realObjectImage": "/assets/hanzi/images/sea-real.png",
+      "realObjectImage": "/assets/hanzi/images/hai-real.png",
       "realObjectCardColor": "#006994"
     },
     "evolutionStages": [
@@ -110,7 +110,7 @@
     ]
   },
   {
-    "id": "湖_hú",
+    "id": "湖_hú_1",
     "character": "湖",
     "pinyin": "hú",
     "theme": "nature",
@@ -122,7 +122,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/hu-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/hu-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/hu.json",
-      "realObjectImage": "/assets/hanzi/images/lake-real.png",
+      "realObjectImage": "/assets/hanzi/images/hu-real.png",
       "realObjectCardColor": "#20B2AA"
     },
     "evolutionStages": [
@@ -163,5 +163,114 @@
         "cardColor": "#374151"
       }
     ]
+  },
+  {
+    "id": "山_shān_1",
+    "character": "山",
+    "pinyin": "shān",
+    "theme": "nature",
+    "meaning": "Mountain",
+    "emoji": "⛰️",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/shan-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/shan-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/shan.json",
+      "realObjectImage": "/assets/hanzi/images/shan-real.png",
+      "realObjectCardColor": "#87CEEB"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/shan-1.mp3",
+        "explanation": "很久很久以前，古人看到连绵的山峰，就把它的样子刻在了龟壳上，这就是最早的‘山’字，你看，是不是和真的山一模一样？",
+        "scriptText": "山",
+        "fontFamily": "HanziJiaguwen",
+        "cardColor": "#A52A2A"
+      },
+      {
+        "scriptName": "金文",
+        "timestamp": 5,
+        "narrationAudio": "/assets/hanzi/audio/shan-2.mp3",
+        "explanation": "后来，人们把字铸在青铜器上，线条变得圆润了一些，这就是金文的‘山’。",
+        "scriptText": "山",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/shan-3.mp3",
+        "explanation": "到了秦朝，秦始皇统一了文字，‘山’字就变成了这样，更加整齐了，这叫做小篆。",
+        "scriptText": "山",
+        "fontFamily": "HanziXiaozhuan",
+        "cardColor": "#2F4F4F"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 10,
+        "narrationAudio": "/assets/hanzi/audio/shan-4.mp3",
+        "explanation": "后来，人们为了书写更方便，也为了印刷，字体变得方方正正，就成了我们今天看到的楷书‘山’。",
+        "scriptText": "山",
+        "fontFamily": "HanziKaishu",
+        "cardColor": "#374151"
+      }
+    ],
+    "category": "水与地理",
+    "learningStage": "基础层"
+  },
+  {
+    "id": "水_shuǐ_1",
+    "character": "水",
+    "pinyin": "shuǐ",
+    "theme": "nature",
+    "meaning": "Water",
+    "emoji": "💧",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/shui-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/shui-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/shui.json",
+      "realObjectImage": "/assets/hanzi/images/shui-real.png"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/shui-1.mp3",
+        "explanation": "看，这就是最早的‘水’字，就像一条正在流动的小河。",
+        "scriptText": "水",
+        "fontFamily": "HanziJiaguwen",
+        "cardColor": "#A52A2A"
+      },
+      {
+        "scriptName": "金文",
+        "timestamp": 5,
+        "narrationAudio": "/assets/hanzi/audio/shui-jinwen.mp3",
+        "explanation": "水字的金文形态，线条更加圆润，展现了水流的柔美。",
+        "scriptText": "水",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/shui-2.mp3",
+        "explanation": "后来，‘水’字演变成了小篆，线条变得更加优美、对称。",
+        "scriptText": "水",
+        "fontFamily": "HanziXiaozhuan",
+        "cardColor": "#2F4F4F"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 10,
+        "narrationAudio": "/assets/hanzi/audio/shui-3.mp3",
+        "explanation": "最后，就变成了我们今天书写的楷书‘水’，笔画清晰，方便书写。",
+        "scriptText": "水",
+        "fontFamily": "HanziKaishu",
+        "cardColor": "#374151"
+      }
+    ],
+    "category": "水与地理",
+    "learningStage": "基础层"
   }
 ]

@@ -10,7 +10,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/shan-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/shan-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/shan.json",
-      "realObjectImage": "/assets/hanzi/images/mountain-real.png",
+      "realObjectImage": "/assets/hanzi/images/shan-real.png",
       "realObjectCardColor": "#87CEEB"
     },
     "evolutionStages": [
@@ -50,9 +50,7 @@
         "fontFamily": "HanziKaishu",
         "cardColor": "#374151"
       }
-    ],
-    "category": "天空与气象",
-    "learningStage": "基础层"
+    ]
   },
   {
     "id": "水_shuǐ",
@@ -65,7 +63,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/shui-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/shui-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/shui.json",
-      "realObjectImage": "/assets/hanzi/images/water-real.png"
+      "realObjectImage": "/assets/hanzi/images/shui-real.png"
     },
     "evolutionStages": [
       {
@@ -104,9 +102,7 @@
         "fontFamily": "HanziKaishu",
         "cardColor": "#374151"
       }
-    ],
-    "category": "天空与气象",
-    "learningStage": "基础层"
+    ]
   },
   {
     "id": "天_tiān",
@@ -121,7 +117,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/tian-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/tian-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/tian.json",
-      "realObjectImage": "/assets/hanzi/images/sky-real.png",
+      "realObjectImage": "/assets/hanzi/images/tian-real.png",
       "realObjectCardColor": "#87CEEB"
     },
     "evolutionStages": [
@@ -176,7 +172,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/yun-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/yun-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/yun.json",
-      "realObjectImage": "/assets/hanzi/images/cloud-real.png",
+      "realObjectImage": "/assets/hanzi/images/yun-real.png",
       "realObjectCardColor": "#F0F8FF"
     },
     "evolutionStages": [
@@ -231,7 +227,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/yu-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/yu-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/yu.json",
-      "realObjectImage": "/assets/hanzi/images/rain-real.png",
+      "realObjectImage": "/assets/hanzi/images/yu-real.png",
       "realObjectCardColor": "#4682B4"
     },
     "evolutionStages": [
@@ -286,7 +282,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/feng-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/feng-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/feng.json",
-      "realObjectImage": "/assets/hanzi/images/wind-real.png",
+      "realObjectImage": "/assets/hanzi/images/feng-real.png",
       "realObjectCardColor": "#E0E0E0"
     },
     "evolutionStages": [
@@ -341,7 +337,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/xue-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/xue-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/xue.json",
-      "realObjectImage": "/assets/hanzi/images/snow-real.png",
+      "realObjectImage": "/assets/hanzi/images/xue-real.png",
       "realObjectCardColor": "#FFFAFA"
     },
     "evolutionStages": [
@@ -396,7 +392,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/ri-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/ri-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/ri.json",
-      "realObjectImage": "/assets/hanzi/images/sun-real.png",
+      "realObjectImage": "/assets/hanzi/images/ri-real.png",
       "realObjectCardColor": "#FFD700"
     },
     "evolutionStages": [
@@ -451,7 +447,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/yue-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/yue-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/yue.json",
-      "realObjectImage": "/assets/hanzi/images/moon-real.png",
+      "realObjectImage": "/assets/hanzi/images/yue-real.png",
       "realObjectCardColor": "#F5F5DC"
     },
     "evolutionStages": [
@@ -506,7 +502,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/xing-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/xing-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/xing.json",
-      "realObjectImage": "/assets/hanzi/images/star-real.png",
+      "realObjectImage": "/assets/hanzi/images/xing-real.png",
       "realObjectCardColor": "#191970"
     },
     "evolutionStages": [
@@ -543,6 +539,171 @@
         "narrationAudio": "/assets/hanzi/audio/xing-4.mp3",
         "explanation": "现在的'星'字，上面是日字，下面是生字，表示像太阳一样发光的星星。",
         "scriptText": "星",
+        "fontFamily": "HanziKaishu",
+        "cardColor": "#374151"
+      }
+    ]
+  },
+  {
+    "id": "河_hé",
+    "character": "河",
+    "pinyin": "hé",
+    "theme": "nature",
+    "category": "水与地理",
+    "learningStage": "基础层",
+    "meaning": "River",
+    "emoji": "🏞️",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/he-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/he-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/he.json",
+      "realObjectImage": "/assets/hanzi/images/he-real.png",
+      "realObjectCardColor": "#4169E1"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/he-1.mp3",
+        "explanation": "古人看到河流，就在水字旁边加了一个'可'字，表示可以流动的水。",
+        "scriptText": "河",
+        "fontFamily": "HanziJiaguwen",
+        "cardColor": "#A52A2A"
+      },
+      {
+        "scriptName": "金文",
+        "timestamp": 5,
+        "narrationAudio": "/assets/hanzi/audio/he-2.mp3",
+        "explanation": "金文的'河'字，左边是水，右边是'可'，表示水可以流淌成河。",
+        "scriptText": "河",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/he-3.mp3",
+        "explanation": "小篆的'河'字，左边是三点水，右边是'可'，组合起来就是河流。",
+        "scriptText": "河",
+        "fontFamily": "HanziXiaozhuan",
+        "cardColor": "#2F4F4F"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 10,
+        "narrationAudio": "/assets/hanzi/audio/he-4.mp3",
+        "explanation": "现在的'河'字，左边是三点水，右边是'可'，表示可以流动的水就是河。",
+        "scriptText": "河",
+        "fontFamily": "HanziKaishu",
+        "cardColor": "#374151"
+      }
+    ]
+  },
+  {
+    "id": "海_hǎi",
+    "character": "海",
+    "pinyin": "hǎi",
+    "theme": "nature",
+    "category": "水与地理",
+    "learningStage": "基础层",
+    "meaning": "Sea, Ocean",
+    "emoji": "🌊",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/hai-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/hai-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/hai.json",
+      "realObjectImage": "/assets/hanzi/images/hai-real.png",
+      "realObjectCardColor": "#006994"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/hai-1.mp3",
+        "explanation": "古人看到广阔的大海，就在水字旁边画了很多东西，表示水很多很多。",
+        "scriptText": "海",
+        "fontFamily": "HanziJiaguwen",
+        "cardColor": "#A52A2A"
+      },
+      {
+        "scriptName": "金文",
+        "timestamp": 5,
+        "narrationAudio": "/assets/hanzi/audio/hai-2.mp3",
+        "explanation": "金文的'海'字，左边是水，右边表示很多很多，组合起来就是大海。",
+        "scriptText": "海",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/hai-3.mp3",
+        "explanation": "小篆的'海'字，左边是三点水，右边是'每'，表示每天都有很多水。",
+        "scriptText": "海",
+        "fontFamily": "HanziXiaozhuan",
+        "cardColor": "#2F4F4F"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 10,
+        "narrationAudio": "/assets/hanzi/audio/hai-4.mp3",
+        "explanation": "现在的'海'字，左边是三点水，右边是'每'，表示每天都能看到的大水就是海。",
+        "scriptText": "海",
+        "fontFamily": "HanziKaishu",
+        "cardColor": "#374151"
+      }
+    ]
+  },
+  {
+    "id": "湖_hú",
+    "character": "湖",
+    "pinyin": "hú",
+    "theme": "nature",
+    "category": "水与地理",
+    "learningStage": "基础层",
+    "meaning": "Lake",
+    "emoji": "🏞️",
+    "assets": {
+      "pronunciationAudio": "/assets/hanzi/audio/hu-pronunciation.mp3",
+      "mainIllustration": "/assets/hanzi/images/hu-illustration.png",
+      "lottieAnimation": "/assets/hanzi/lottie/hu.json",
+      "realObjectImage": "/assets/hanzi/images/hu-real.png",
+      "realObjectCardColor": "#20B2AA"
+    },
+    "evolutionStages": [
+      {
+        "scriptName": "甲骨文",
+        "timestamp": 2.5,
+        "narrationAudio": "/assets/hanzi/audio/hu-1.mp3",
+        "explanation": "古人看到平静的湖水，就在水字旁边加了表示平静的符号。",
+        "scriptText": "湖",
+        "fontFamily": "HanziJiaguwen",
+        "cardColor": "#A52A2A"
+      },
+      {
+        "scriptName": "金文",
+        "timestamp": 5,
+        "narrationAudio": "/assets/hanzi/audio/hu-2.mp3",
+        "explanation": "金文的'湖'字，左边是水，右边表示平静，组合起来就是平静的湖水。",
+        "scriptText": "湖",
+        "fontFamily": "HanziJinwen",
+        "cardColor": "#DAA520"
+      },
+      {
+        "scriptName": "小篆",
+        "timestamp": 7.5,
+        "narrationAudio": "/assets/hanzi/audio/hu-3.mp3",
+        "explanation": "小篆的'湖'字，左边是三点水，右边是'胡'，表示像胡子一样弯曲的水。",
+        "scriptText": "湖",
+        "fontFamily": "HanziXiaozhuan",
+        "cardColor": "#2F4F4F"
+      },
+      {
+        "scriptName": "楷书",
+        "timestamp": 10,
+        "narrationAudio": "/assets/hanzi/audio/hu-4.mp3",
+        "explanation": "现在的'湖'字，左边是三点水，右边是'胡'，表示弯弯曲曲的湖水。",
+        "scriptText": "湖",
         "fontFamily": "HanziKaishu",
         "cardColor": "#374151"
       }

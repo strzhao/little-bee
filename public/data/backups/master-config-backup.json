@@ -1,7 +1,7 @@
 {
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "汉字学习数据主配置文件",
-  "lastUpdated": "2025-08-31T11:12:50.793Z",
+  "lastUpdated": "2025-08-30T12:41:28.212Z",
   "categories": [
     {
       "name": "基础汉字",
@@ -36,5 +36,5 @@
       "count": 20
     }
   ],
-  "totalCharacters": 0
+  "totalCharacters": 20
 }

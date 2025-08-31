@@ -12,7 +12,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/shu-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/shu-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/shu.json",
-      "realObjectImage": "/assets/hanzi/images/shu-real.png",
+      "realObjectImage": "/assets/hanzi/images/tree-real.png",
       "realObjectCardColor": "#228B22"
     },
     "evolutionStages": [
@@ -67,7 +67,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/hua-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/hua-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/hua.json",
-      "realObjectImage": "/assets/hanzi/images/hua-real.png",
+      "realObjectImage": "/assets/hanzi/images/flower-real.png",
       "realObjectCardColor": "#FF69B4"
     },
     "evolutionStages": [
@@ -122,7 +122,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/cao-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/cao-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/cao.json",
-      "realObjectImage": "/assets/hanzi/images/cao-real.png",
+      "realObjectImage": "/assets/hanzi/images/grass-real.png",
       "realObjectCardColor": "#90EE90"
     },
     "evolutionStages": [

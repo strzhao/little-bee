@@ -1,115 +1,6 @@
 [
   {
-    "id": "山_shān",
-    "character": "山",
-    "pinyin": "shān",
-    "theme": "nature",
-    "meaning": "Mountain",
-    "emoji": "🏔️",
-    "assets": {
-      "pronunciationAudio": "/assets/hanzi/audio/shan-pronunciation.mp3",
-      "mainIllustration": "/assets/hanzi/images/shan-illustration.png",
-      "lottieAnimation": "/assets/hanzi/lottie/shan.json",
-      "realObjectImage": "/assets/hanzi/images/mountain-real.png",
-      "realObjectCardColor": "#87CEEB"
-    },
-    "evolutionStages": [
-      {
-        "scriptName": "甲骨文",
-        "timestamp": 2.5,
-        "narrationAudio": "/assets/hanzi/audio/shan-1.mp3",
-        "explanation": "很久很久以前，古人看到连绵的山峰，就把它的样子刻在了龟壳上，这就是最早的‘山’字，你看，是不是和真的山一模一样？",
-        "scriptText": "山",
-        "fontFamily": "HanziJiaguwen",
-        "cardColor": "#A52A2A"
-      },
-      {
-        "scriptName": "金文",
-        "timestamp": 5,
-        "narrationAudio": "/assets/hanzi/audio/shan-2.mp3",
-        "explanation": "后来，人们把字铸在青铜器上，线条变得圆润了一些，这就是金文的‘山’。",
-        "scriptText": "山",
-        "fontFamily": "HanziJinwen",
-        "cardColor": "#DAA520"
-      },
-      {
-        "scriptName": "小篆",
-        "timestamp": 7.5,
-        "narrationAudio": "/assets/hanzi/audio/shan-3.mp3",
-        "explanation": "到了秦朝，秦始皇统一了文字，‘山’字就变成了这样，更加整齐了，这叫做小篆。",
-        "scriptText": "山",
-        "fontFamily": "HanziXiaozhuan",
-        "cardColor": "#2F4F4F"
-      },
-      {
-        "scriptName": "楷书",
-        "timestamp": 10,
-        "narrationAudio": "/assets/hanzi/audio/shan-4.mp3",
-        "explanation": "后来，人们为了书写更方便，也为了印刷，字体变得方方正正，就成了我们今天看到的楷书‘山’。",
-        "scriptText": "山",
-        "fontFamily": "HanziKaishu",
-        "cardColor": "#374151"
-      }
-    ],
-    "category": "天空与气象",
-    "learningStage": "基础层"
-  },
-  {
-    "id": "水_shuǐ",
-    "character": "水",
-    "pinyin": "shuǐ",
-    "theme": "nature",
-    "meaning": "Water",
-    "emoji": "💧",
-    "assets": {
-      "pronunciationAudio": "/assets/hanzi/audio/shui-pronunciation.mp3",
-      "mainIllustration": "/assets/hanzi/images/shui-illustration.png",
-      "lottieAnimation": "/assets/hanzi/lottie/shui.json",
-      "realObjectImage": "/assets/hanzi/images/water-real.png"
-    },
-    "evolutionStages": [
-      {
-        "scriptName": "甲骨文",
-        "timestamp": 2.5,
-        "narrationAudio": "/assets/hanzi/audio/shui-1.mp3",
-        "explanation": "看，这就是最早的‘水’字，就像一条正在流动的小河。",
-        "scriptText": "水",
-        "fontFamily": "HanziJiaguwen",
-        "cardColor": "#A52A2A"
-      },
-      {
-        "scriptName": "金文",
-        "timestamp": 5,
-        "narrationAudio": "/assets/hanzi/audio/shui-jinwen.mp3",
-        "explanation": "水字的金文形态，线条更加圆润，展现了水流的柔美。",
-        "scriptText": "水",
-        "fontFamily": "HanziJinwen",
-        "cardColor": "#DAA520"
-      },
-      {
-        "scriptName": "小篆",
-        "timestamp": 7.5,
-        "narrationAudio": "/assets/hanzi/audio/shui-2.mp3",
-        "explanation": "后来，‘水’字演变成了小篆，线条变得更加优美、对称。",
-        "scriptText": "水",
-        "fontFamily": "HanziXiaozhuan",
-        "cardColor": "#2F4F4F"
-      },
-      {
-        "scriptName": "楷书",
-        "timestamp": 10,
-        "narrationAudio": "/assets/hanzi/audio/shui-3.mp3",
-        "explanation": "最后，就变成了我们今天书写的楷书‘水’，笔画清晰，方便书写。",
-        "scriptText": "水",
-        "fontFamily": "HanziKaishu",
-        "cardColor": "#374151"
-      }
-    ],
-    "category": "天空与气象",
-    "learningStage": "基础层"
-  },
-  {
-    "id": "天_tiān",
+    "id": "天_tiān_1",
     "character": "天",
     "pinyin": "tiān",
     "theme": "nature",
@@ -121,7 +12,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/tian-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/tian-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/tian.json",
-      "realObjectImage": "/assets/hanzi/images/sky-real.png",
+      "realObjectImage": "/assets/hanzi/images/tian-real.png",
       "realObjectCardColor": "#87CEEB"
     },
     "evolutionStages": [
@@ -164,7 +55,7 @@
     ]
   },
   {
-    "id": "云_yún",
+    "id": "云_yún_1",
     "character": "云",
     "pinyin": "yún",
     "theme": "nature",
@@ -176,7 +67,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/yun-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/yun-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/yun.json",
-      "realObjectImage": "/assets/hanzi/images/cloud-real.png",
+      "realObjectImage": "/assets/hanzi/images/yun-real.png",
       "realObjectCardColor": "#F0F8FF"
     },
     "evolutionStages": [
@@ -219,7 +110,7 @@
     ]
   },
   {
-    "id": "雨_yǔ",
+    "id": "雨_yǔ_1",
     "character": "雨",
     "pinyin": "yǔ",
     "theme": "nature",
@@ -231,7 +122,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/yu-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/yu-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/yu.json",
-      "realObjectImage": "/assets/hanzi/images/rain-real.png",
+      "realObjectImage": "/assets/hanzi/images/yu-real.png",
       "realObjectCardColor": "#4682B4"
     },
     "evolutionStages": [
@@ -274,7 +165,7 @@
     ]
   },
   {
-    "id": "风_fēng",
+    "id": "风_fēng_1",
     "character": "风",
     "pinyin": "fēng",
     "theme": "nature",
@@ -286,7 +177,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/feng-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/feng-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/feng.json",
-      "realObjectImage": "/assets/hanzi/images/wind-real.png",
+      "realObjectImage": "/assets/hanzi/images/feng-real.png",
       "realObjectCardColor": "#E0E0E0"
     },
     "evolutionStages": [
@@ -329,7 +220,7 @@
     ]
   },
   {
-    "id": "雪_xuě",
+    "id": "雪_xuě_1",
     "character": "雪",
     "pinyin": "xuě",
     "theme": "nature",
@@ -341,7 +232,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/xue-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/xue-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/xue.json",
-      "realObjectImage": "/assets/hanzi/images/snow-real.png",
+      "realObjectImage": "/assets/hanzi/images/xue-real.png",
       "realObjectCardColor": "#FFFAFA"
     },
     "evolutionStages": [
@@ -384,7 +275,7 @@
     ]
   },
   {
-    "id": "日_rì",
+    "id": "日_rì_1",
     "character": "日",
     "pinyin": "rì",
     "theme": "nature",
@@ -396,7 +287,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/ri-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/ri-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/ri.json",
-      "realObjectImage": "/assets/hanzi/images/sun-real.png",
+      "realObjectImage": "/assets/hanzi/images/ri-real.png",
       "realObjectCardColor": "#FFD700"
     },
     "evolutionStages": [
@@ -439,7 +330,7 @@
     ]
   },
   {
-    "id": "月_yuè",
+    "id": "月_yuè_1",
     "character": "月",
     "pinyin": "yuè",
     "theme": "nature",
@@ -451,7 +342,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/yue-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/yue-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/yue.json",
-      "realObjectImage": "/assets/hanzi/images/moon-real.png",
+      "realObjectImage": "/assets/hanzi/images/yue-real.png",
       "realObjectCardColor": "#F5F5DC"
     },
     "evolutionStages": [
@@ -494,7 +385,7 @@
     ]
   },
   {
-    "id": "星_xīng",
+    "id": "星_xīng_1",
     "character": "星",
     "pinyin": "xīng",
     "theme": "nature",
@@ -506,7 +397,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/xing-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/xing-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/xing.json",
-      "realObjectImage": "/assets/hanzi/images/star-real.png",
+      "realObjectImage": "/assets/hanzi/images/xing-real.png",
       "realObjectCardColor": "#191970"
     },
     "evolutionStages": [

@@ -12,7 +12,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/niao-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/niao-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/niao.json",
-      "realObjectImage": "/assets/hanzi/images/niao-real.png",
+      "realObjectImage": "/assets/hanzi/images/bird-real.png",
       "realObjectCardColor": "#87CEEB"
     },
     "evolutionStages": [
@@ -67,7 +67,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/yu-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/yu-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/yu.json",
-      "realObjectImage": "/assets/hanzi/images/yu-real.png",
+      "realObjectImage": "/assets/hanzi/images/fish-real.png",
       "realObjectCardColor": "#4682B4"
     },
     "evolutionStages": [
@@ -122,7 +122,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/ma-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/ma-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/ma.json",
-      "realObjectImage": "/assets/hanzi/images/ma-real.png",
+      "realObjectImage": "/assets/hanzi/images/horse-real.png",
       "realObjectCardColor": "#8B4513"
     },
     "evolutionStages": [
@@ -177,7 +177,7 @@
       "pronunciationAudio": "/assets/hanzi/audio/niu-pronunciation.mp3",
       "mainIllustration": "/assets/hanzi/images/niu-illustration.png",
       "lottieAnimation": "/assets/hanzi/lottie/niu.json",
-      "realObjectImage": "/assets/hanzi/images/niu-real.png",
+      "realObjectImage": "/assets/hanzi/images/cow-real.png",
       "realObjectCardColor": "#8B4513"
     },
     "evolutionStages": [
