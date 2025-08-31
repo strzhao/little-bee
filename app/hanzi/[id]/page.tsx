@@ -9,7 +9,8 @@ import CelebrationAnimation from '@/components/hanzi/CelebrationAnimation';
 import VoicePlayer from '@/components/hanzi/VoicePlayer';
 import ExplanationVoicePlayer, { ExplanationVoicePlayerRef } from '@/components/hanzi/ExplanationVoicePlayer';
 import SuccessStars from '@/components/hanzi/SuccessStars';
-import { hanziDataLoader, HanziCharacter } from '@/lib/hanzi-data-loader';
+import { useHanziState, useLearningProgress } from '@/lib/hooks/use-hanzi-state';
+import { HanziCharacter } from '@/lib/atoms/hanzi-atoms';
 
 
 // --- Type Definitions ---
@@ -46,8 +47,21 @@ interface HanziData {
 export default function HanziDetailPage() {
   const params = useParams();
   const id = decodeURIComponent(params.id as string);
-  const [characterData, setCharacterData] = useState<HanziData | null>(null);
-  const [allCharacters, setAllCharacters] = useState<HanziData[]>([]);
+  
+  // 使用新的状态管理
+  const { 
+    currentHanzi, 
+    allHanzi, 
+    loadingState, 
+    loadCharacterById, 
+    loadAllCharacters
+  } = useHanziState();
+  
+  const { isCharacterCompleted, getCharacterStars, completeCharacterLearning } = useLearningProgress();
+  
+  // 兼容性：映射到旧的变量名
+  const characterData = currentHanzi;
+  const allCharacters = allHanzi;
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -55,15 +69,15 @@ export default function HanziDetailPage() {
     
     const loadData = async () => {
       try {
-        await hanziDataLoader.initialize();
+        // 加载所有汉字数据（如果还没有加载）
+        await loadAllCharacters();
         
-        // Load specific character
-        const character = await hanziDataLoader.loadCharacterById(id);
+        // 加载特定汉字
+        const character = await loadCharacterById(id);
+        
         if (character) {
-          setCharacterData(character as HanziData);
-          
           // 预加载字体
-          const fontFamilies = character.evolutionStages.map(stage => stage.fontFamily);
+          const fontFamilies = character.evolutionStages.map((stage: any) => stage.fontFamily);
           const uniqueFonts = [...new Set(fontFamilies)];
           
           uniqueFonts.forEach(fontFamily => {
@@ -86,15 +100,6 @@ export default function HanziDetailPage() {
           });
         }
         
-        // Load all characters for navigation
-        const categories = hanziDataLoader.getAvailableCategories();
-        const allData: HanziCharacter[] = [];
-        for (const category of categories) {
-          const categoryData = await hanziDataLoader.loadByCategory(category);
-          allData.push(...categoryData);
-        }
-        setAllCharacters(allData as HanziData[]);
-        
         setLoading(false);
       } catch (error) {
         console.error('Failed to load character data:', error);
@@ -103,9 +108,9 @@ export default function HanziDetailPage() {
     };
     
     loadData();
-  }, [id]);
+  }, [id, loadCharacterById, loadAllCharacters]);
 
-  if (loading) {
+  if (loadingState.isLoading) {
     return <div className="w-screen h-screen flex justify-center items-center bg-amber-50">Loading Character...</div>;
   }
 
@@ -118,6 +123,7 @@ export default function HanziDetailPage() {
 
 // --- Core Player Component (Hybrid Image/Font Display) ---
 const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: HanziData, allCharacters: HanziData[] }) => {
+  const { completeCharacterLearning } = useLearningProgress();
   const [activeStage, setActiveStage] = useState(-2); // -2 for Real Object
   const [currentImageUrl, setCurrentImageUrl] = useState(characterData.assets.realObjectImage);
   const [imageLoadError, setImageLoadError] = useState(false);
@@ -163,37 +169,8 @@ const EvolutionPlayer = ({ characterData, allCharacters }: { characterData: Hanz
   };
 
   const handleAnimationComplete = () => {
-    // Update total star count
-    const totalStarCount = parseInt(localStorage.getItem('hanzi-challenge-success') || '0', 10) + 1;
-    localStorage.setItem('hanzi-challenge-success', totalStarCount.toString());
-
-    // Update character-specific star count with timestamp
-    const successfulCharacters: { id: string; character: string; count: number; lastLearned?: string; }[] = JSON.parse(localStorage.getItem('hanzi-successful-characters') || '[]');
-    const charIndex = successfulCharacters.findIndex(c => c.id === characterData.id);
-    const currentTime = new Date().toISOString();
-
-    if (charIndex > -1) {
-      successfulCharacters[charIndex].count += 1;
-      successfulCharacters[charIndex].lastLearned = currentTime;
-    } else {
-      successfulCharacters.push({
-        id: characterData.id,
-        character: characterData.character,
-        count: 1,
-        lastLearned: currentTime,
-      });
-    }
-    localStorage.setItem('hanzi-successful-characters', JSON.stringify(successfulCharacters));
-
-    // Dispatch events to update UI
-    window.dispatchEvent(new StorageEvent('storage', {
-        key: 'hanzi-challenge-success',
-        newValue: totalStarCount.toString(),
-    }));
-    window.dispatchEvent(new StorageEvent('storage', {
-        key: 'hanzi-successful-characters',
-        newValue: JSON.stringify(successfulCharacters),
-    }));
+    // Use new Jotai-based learning progress system
+    completeCharacterLearning(characterData.id, characterData.character);
 
     setShowCelebration(false);
     setChallengeModalOpen(false);

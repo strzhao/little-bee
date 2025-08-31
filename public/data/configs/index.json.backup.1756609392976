@@ -1,113 +1,108 @@
 {
   "characterIndex": {
-    "鸟": {
-      "id": "鸟_niǎo",
-      "category": "动物王国",
+    "山": {
+      "id": "山_shān",
+      "category": "基础汉字",
       "learningStage": "基础层"
     },
-    "鱼": {
-      "id": "鱼_yú_1",
-      "category": "动物王国",
-      "learningStage": "基础层"
-    },
-    "马": {
-      "id": "马_mǎ",
-      "category": "动物王国",
-      "learningStage": "基础层"
-    },
-    "牛": {
-      "id": "牛_niú",
-      "category": "动物王国",
+    "水": {
+      "id": "水_shuǐ",
+      "category": "基础汉字",
       "learningStage": "基础层"
     },
     "天": {
-      "id": "天_tiān_1",
+      "id": "天_tiān",
       "category": "天空与气象",
       "learningStage": "基础层"
     },
     "云": {
-      "id": "云_yún_1",
+      "id": "云_yún",
       "category": "天空与气象",
       "learningStage": "基础层"
     },
     "雨": {
-      "id": "雨_yǔ_1",
+      "id": "雨_yǔ",
       "category": "天空与气象",
       "learningStage": "基础层"
     },
     "风": {
-      "id": "风_fēng_1",
+      "id": "风_fēng",
       "category": "天空与气象",
       "learningStage": "基础层"
     },
     "雪": {
-      "id": "雪_xuě_1",
+      "id": "雪_xuě",
       "category": "天空与气象",
       "learningStage": "基础层"
     },
     "日": {
-      "id": "日_rì_1",
+      "id": "日_rì",
       "category": "天空与气象",
       "learningStage": "基础层"
     },
     "月": {
-      "id": "月_yuè_1",
+      "id": "月_yuè",
       "category": "天空与气象",
       "learningStage": "基础层"
     },
     "星": {
-      "id": "星_xīng_1",
+      "id": "星_xīng",
       "category": "天空与气象",
       "learningStage": "基础层"
     },
-    "树": {
-      "id": "树_shù",
-      "category": "植物世界",
-      "learningStage": "基础层"
-    },
-    "花": {
-      "id": "花_huā",
-      "category": "植物世界",
-      "learningStage": "基础层"
-    },
-    "草": {
-      "id": "草_cǎo",
-      "category": "植物世界",
-      "learningStage": "基础层"
-    },
     "河": {
-      "id": "河_hé_1",
+      "id": "河_hé",
       "category": "水与地理",
       "learningStage": "基础层"
     },
     "海": {
-      "id": "海_hǎi_1",
+      "id": "海_hǎi",
       "category": "水与地理",
       "learningStage": "基础层"
     },
     "湖": {
-      "id": "湖_hú_1",
+      "id": "湖_hú",
       "category": "水与地理",
       "learningStage": "基础层"
     },
-    "山": {
-      "id": "山_shān_1",
-      "category": "水与地理",
+    "树": {
+      "id": "树",
+      "category": "植物世界",
       "learningStage": "基础层"
     },
-    "水": {
-      "id": "水_shuǐ_1",
-      "category": "水与地理",
+    "花": {
+      "id": "花",
+      "category": "植物世界",
+      "learningStage": "基础层"
+    },
+    "草": {
+      "id": "草",
+      "category": "植物世界",
+      "learningStage": "基础层"
+    },
+    "鸟": {
+      "id": "鸟",
+      "category": "动物王国",
+      "learningStage": "基础层"
+    },
+    "鱼": {
+      "id": "鱼",
+      "category": "动物王国",
+      "learningStage": "基础层"
+    },
+    "马": {
+      "id": "马",
+      "category": "动物王国",
+      "learningStage": "基础层"
+    },
+    "牛": {
+      "id": "牛",
+      "category": "动物王国",
       "learningStage": "基础层"
     }
   },
   "categoryIndex": {
-    "动物王国": [
-      "鸟_niǎo",
-      "鱼_yú_1",
-      "马_mǎ",
-      "牛_niú"
-    ],
+    "基础汉字": [],
     "天空与气象": [
       "天_tiān_1",
       "云_yún_1",
@@ -118,25 +113,29 @@
       "月_yuè_1",
       "星_xīng_1"
     ],
-    "植物世界": [
-      "树_shù",
-      "花_huā",
-      "草_cǎo"
-    ],
     "水与地理": [
       "河_hé_1",
       "海_hǎi_1",
       "湖_hú_1",
       "山_shān_1",
       "水_shuǐ_1"
+    ],
+    "植物世界": [
+      "树_shù",
+      "花_huā",
+      "草_cǎo"
+    ],
+    "动物王国": [
+      "鸟_niǎo",
+      "雨_yǔ_1",
+      "马_mǎ",
+      "牛_niú"
     ]
   },
   "learningStageIndex": {
     "基础层": [
-      "鸟_niǎo",
-      "鱼_yú_1",
-      "马_mǎ",
-      "牛_niú",
+      "山_shān_1",
+      "水_shuǐ_1",
       "天_tiān_1",
       "云_yún_1",
       "雨_yǔ_1",
@@ -145,14 +144,16 @@
       "日_rì_1",
       "月_yuè_1",
       "星_xīng_1",
-      "树_shù",
-      "花_huā",
-      "草_cǎo",
       "河_hé_1",
       "海_hǎi_1",
       "湖_hú_1",
-      "山_shān_1",
-      "水_shuǐ_1"
+      "树_shù",
+      "花_huā",
+      "草_cǎo",
+      "鸟_niǎo",
+      "雨_yǔ_1",
+      "马_mǎ",
+      "牛_niú"
     ]
   }
 }

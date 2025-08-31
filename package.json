@@ -24,6 +24,7 @@
     "file-saver": "^2.0.5",
     "framer-motion": "^12.23.12",
     "gifsicle-wasm-browser": "^1.5.16",
+    "jotai": "^2.13.1",
     "jszip": "^3.10.1",
     "lottie-react": "^2.4.1",
     "lottie-web": "^5.13.0",
