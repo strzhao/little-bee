@@ -1,17 +1,12 @@
-'use client';
-
-import { Suspense } from 'react';
 import HanziUnifiedPage from '@/components/hanzi/HanziUnifiedPage';
+import type { Metadata } from 'next';
 
-function HanziPageContent() {
-  console.log('🏠 [HanziPage] 汉字首页组件渲染');
-  return <HanziUnifiedPage />;
-}
+export const metadata: Metadata = {
+  title: '识字小蜜蜂 - 专为儿童设计的趣味汉字学习',
+  description:
+    '通过“识字小蜜蜂”，让孩子在互动和故事中探索汉字的起源和演变，从甲骨文、金文到楷书。激发学习兴趣，建立文化自信。',
+};
 
 export default function HanziPage() {
-  return (
-    <Suspense fallback={<div className="w-full h-full flex items-center justify-center">加载中...</div>}>
-      <HanziPageContent />
-    </Suspense>
-  );
+  return <HanziUnifiedPage />;
 }
