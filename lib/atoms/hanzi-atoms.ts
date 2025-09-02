@@ -7,16 +7,16 @@ export interface HanziCharacter {
   character: string
   pinyin: string
   theme: string
-  category: string
-  learningStage: string
+  category?: string
+  learningStage?: string
   meaning: string
-  emoji: string
+  emoji?: string
   assets: {
     pronunciationAudio: string
     mainIllustration: string
     lottieAnimation: string
     realObjectImage: string
-    realObjectCardColor: string
+    realObjectCardColor?: string
   }
   evolutionStages: Array<{
     scriptName: string
@@ -99,14 +99,15 @@ export const getCategoryProgressAtom = atom((get) => {
   const categoryStats: Record<string, { total: number; completed: number; percentage: number }> = {}
   
   allHanzi.forEach(hanzi => {
-    if (!categoryStats[hanzi.category]) {
-      categoryStats[hanzi.category] = { total: 0, completed: 0, percentage: 0 }
+    const category = hanzi.category || 'unknown'
+    if (!categoryStats[category]) {
+      categoryStats[category] = { total: 0, completed: 0, percentage: 0 }
     }
     
-    categoryStats[hanzi.category].total++
+    categoryStats[category].total++
     
     if (progress[hanzi.id]?.completed) {
-      categoryStats[hanzi.category].completed++
+      categoryStats[category].completed++
     }
   })
   

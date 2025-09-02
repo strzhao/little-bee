@@ -98,7 +98,7 @@ export default function HanziDetailView({
             pinyin: character.pinyin,
             theme: character.theme || '',
             meaning: character.meaning,
-            emoji: character.emoji,
+            emoji: character.emoji || '',
             category: character.category,
             learningStage: character.learningStage,
             assets: {
@@ -128,9 +128,9 @@ export default function HanziDetailView({
             pinyin: char.pinyin,
             theme: char.theme || '',
             meaning: char.meaning,
-            emoji: char.emoji,
-            category: char.category,
-            learningStage: char.learningStage,
+            emoji: char.emoji || '',
+            category: char.category || '',
+            learningStage: char.learningStage || '',
             assets: {
               pronunciationAudio: char.assets.pronunciationAudio,
               mainIllustration: char.assets.mainIllustration,
