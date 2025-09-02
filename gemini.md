@@ -167,7 +167,7 @@
 
 ## 工程概述
 
-这是一个基于 Next.js、React 和 TypeScript 构建的在线图片压缩工具。
+这是一个基于 Next.js、React 和 TypeScript 构建的汉字学习应用。
 
 ### 技术栈
 
@@ -175,12 +175,13 @@
 - **语言:** [TypeScript](https://www.typescriptlang.org/)
 - **UI 库:** [shadcn/ui](https://ui.shadcn.com/)
 - **样式:** [Tailwind CSS](https://tailwindcss.com/)
-- **图片压缩:** [browser-image-compression](https://github.com/Donaldcwl/browser-image-compression)
+- **状态管理:** [Jotai](https://jotai.org/)
+- **动画:** [Framer Motion](https://www.framer.com/motion/)
 
 ### 功能
 
-- **图片上传:** 用户可以从本地选择图片文件。
-- **图片压缩:** 在浏览器端对图片进行压缩，无需上传到服务器。
-- **信息展示:** 显示原始图片和压缩后图片的大小、尺寸等信息。
-- **压缩进度:** 提供压缩进度的可视化反馈。
-- **结果下载:** 用户可以下载压缩后的图片。
+- **汉字学习:** 从甲骨文到现代字体的演变历程学习。
+- **年龄分组:** 支持不同年龄段的学习模式。
+- **互动游戏:** 趣味性的汉字识别和学习游戏。
+- **进度跟踪:** 学习进度的可视化反馈和统计。
+- **语音播放:** 汉字发音和解释的语音功能。

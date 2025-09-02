@@ -6,7 +6,7 @@ import { AgeGate } from '@/components/features/age-gate/AgeGate';
 import { useAgeGroup } from '@/lib/hooks/use-age-group';
 import { AGE_GROUPS } from '@/lib/constants';
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { ImageIcon, ArrowRight, BookOpen } from "lucide-react";
+import { ArrowRight, BookOpen } from "lucide-react";
 
 import { ToddlerGamePage } from '@/components/features/hanzi-game-toddler/ToddlerGamePage';
 
@@ -28,12 +28,7 @@ function StudentHomePage() {
           href: "/hanzi",
           icon: <BookOpen className="w-8 h-8" />,
         },
-        {
-          name: "图像压缩",
-          description: "快速减小 JPG、PNG、WEBP 图片的体积。",
-          href: "/compress",
-          icon: <ImageIcon className="w-8 h-8" />,
-        },
+
       ];
 
   return (
