@@ -1,35 +1,41 @@
-"use client";
+'use client';
 
-import Link from "next/link";
+import React from 'react';
+import Link from 'next/link';
+import { AgeGate } from '@/components/features/age-gate/AgeGate';
+import { useAgeGroup } from '@/lib/hooks/use-age-group';
+import { AGE_GROUPS } from '@/lib/constants';
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { ImageIcon, ArrowRight, BookOpen } from "lucide-react";
-import React from "react";
 
-// 1. 定义工具列表的数据结构
-// 未来添加新工具时，只需在此数组中添加一个新对象即可
-const tools = [
-  {
-    name: "识字小蜜蜂🐝",
-    description: "趣味汉字学习，从甲骨文到现代字体的演变历程。",
-    href: "/hanzi",
-    icon: <BookOpen className="w-8 h-8" />,
-  },
-  {
-    name: "图像压缩",
-    description: "快速减小 JPG、PNG、WEBP 图片的体积。",
-    href: "/compress",
-    icon: <ImageIcon className="w-8 h-8" />,
-  },
-  // {
-  //   name: "下一个很酷的工具",
-  //   description: "这个工具的简短描述。",
-  //   href: "/next-cool-tool",
-  //   icon: <AnotherIconComponent className="w-8 h-8" />,
-  // },
-];
+import { ToddlerGamePage } from '@/components/features/hanzi-game-toddler/ToddlerGamePage';
 
-// 2. 创建主页组件
-export default function HomePage() {
+// Placeholder for the Child Game Page
+function ChildGamePage() {
+  return (
+    <div className="flex h-screen w-screen items-center justify-center bg-blue-100">
+      <h1 className="text-3xl font-bold">探索版 (5-7岁) 游戏即将上线</h1>
+    </div>
+  );
+}
+
+// The original HomePage content, now repurposed as the "Student" version.
+function StudentHomePage() {
+    const tools = [
+        {
+          name: "识字小蜜蜂🐝",
+          description: "趣味汉字学习，从甲骨文到现代字体的演变历程。",
+          href: "/hanzi",
+          icon: <BookOpen className="w-8 h-8" />,
+        },
+        {
+          name: "图像压缩",
+          description: "快速减小 JPG、PNG、WEBP 图片的体积。",
+          href: "/compress",
+          icon: <ImageIcon className="w-8 h-8" />,
+        },
+      ];
+
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="absolute top-0 left-0 w-full p-4 sm:p-6 md:p-8">
@@ -38,17 +44,12 @@ export default function HomePage() {
         </div>
       </div>
       <div className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 md:p-8">
-        {/* 标题区域 */}
         <div className="text-center mb-12 md:mb-16">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100">
             一个工具集
           </h1>
-          {/* <p className="mt-4 max-w-2xl mx-auto text-lg sm:text-xl text-gray-600 dark:text-gray-400">
-            这里很有用，也有很有趣和有爱的工具
-          </p> */}
         </div>
 
-        {/* 工具网格 */}
         <div className="w-full max-w-5xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {tools.map((tool) => (
@@ -76,11 +77,35 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* 页脚 */}
         <footer className="mt-20 text-center text-gray-500 dark:text-gray-400 text-sm">
           <p>© {new Date().getFullYear()} Web Tools. All Rights Reserved.</p>
         </footer>
       </div>
     </main>
+  );
+}
+
+function AgeSpecificContent() {
+  const { ageGroup } = useAgeGroup();
+
+  switch (ageGroup) {
+    case AGE_GROUPS.TODDLER:
+      return <ToddlerGamePage />;
+    case AGE_GROUPS.CHILD:
+      return <ChildGamePage />;
+    case AGE_GROUPS.STUDENT:
+      return <StudentHomePage />;
+    default:
+      // This case should ideally not be reached if AgeGate is working correctly,
+      // but it's good practice to have a fallback.
+      return null;
+  }
+}
+
+export default function HomePage() {
+  return (
+    <AgeGate>
+      <AgeSpecificContent />
+    </AgeGate>
   );
 }

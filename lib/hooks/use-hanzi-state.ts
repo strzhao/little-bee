@@ -13,7 +13,7 @@ import {
   HanziCharacter,
   LearningProgress
 } from '../atoms/hanzi-atoms'
-import { HanziService } from '../services/hanzi-service'
+import { hanziDataLoader, loadHanziData } from '@/lib/hanzi-data-loader';
 
 // 主要的汉字状态管理hook
 export function useHanziState() {
@@ -21,53 +21,52 @@ export function useHanziState() {
   const [currentHanzi, setCurrentHanzi] = useAtom(currentHanziAtom)
   const [loadingState, setLoadingState] = useAtom(loadingStateAtom)
   const updateProgress = useSetAtom(updateCharacterProgressAtom)
-  
-  const hanziService = HanziService.getInstance()
 
   // 加载所有汉字数据
   const loadAllCharacters = useCallback(async () => {
     if (allHanzi.length > 0) return // 已加载
-    
+
     setLoadingState({ isLoading: true, error: null })
-    
+
     try {
-      const characters = await hanziService.getAllCharacters()
+      const characters = await loadHanziData(); // Use the compatibility function
       setAllHanzi(characters)
       setLoadingState({ isLoading: false, error: null })
     } catch (error) {
-      setLoadingState({ 
-        isLoading: false, 
-        error: error instanceof Error ? error.message : 'Failed to load characters' 
+      setLoadingState({
+        isLoading: false,
+        error: error instanceof Error ? error.message : 'Failed to load characters'
       })
     }
-  }, [allHanzi.length, setAllHanzi, setLoadingState, hanziService])
+  }, [allHanzi.length, setAllHanzi, setLoadingState])
 
   // 根据ID加载特定汉字
   const loadCharacterById = useCallback(async (id: string) => {
     setLoadingState({ isLoading: true, error: null })
-    
+
     try {
-      const character = await hanziService.getCharacterById(id)
-      
+      await hanziDataLoader.initialize(); // Ensure loader is initialized
+      const character = await hanziDataLoader.loadCharacterById(id)
+
       if (character) {
         setCurrentHanzi(character)
         setLoadingState({ isLoading: false, error: null })
         return character
       } else {
-        setLoadingState({ 
-          isLoading: false, 
-          error: `Character not found: ${id}` 
+        setLoadingState({
+          isLoading: false,
+          error: `Character not found: ${id}`
         })
         return null
       }
     } catch (error) {
-      setLoadingState({ 
-        isLoading: false, 
-        error: error instanceof Error ? error.message : 'Failed to load character' 
+      setLoadingState({
+        isLoading: false,
+        error: error instanceof Error ? error.message : 'Failed to load character'
       })
       return null
     }
-  }, [setCurrentHanzi, setLoadingState, hanziService])
+  }, [setCurrentHanzi, setLoadingState])
 
   // 重置汉字学习进度
   const resetCharacterProgress = useCallback((characterId: string) => {
@@ -83,7 +82,7 @@ export function useHanziState() {
     allHanzi,
     currentHanzi,
     loadingState,
-    
+
     // 操作
     loadAllCharacters,
     loadCharacterById,
