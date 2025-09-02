@@ -10,9 +10,15 @@ interface ToddlerGameState {
   currentChoices: HanziCharacter[];
   gameState: GameState;
   score: number;
+  lastResult: 'CORRECT' | 'INCORRECT' | null; // Track the last answer
   startGame: (hanziList: HanziCharacter[]) => void;
-  selectAnswer: (selectedHanzi: HanziCharacter) => boolean;
+  // The `updateProgress` function is now passed as an argument
+  selectAnswer: (
+    selectedHanzi: HanziCharacter,
+    updateProgress: (characterId: string) => void
+  ) => boolean;
   nextRound: () => void;
+  clearLastResult: () => void;
 }
 
 const shuffle = <T,>(array: T[]): T[] => {
@@ -26,28 +32,43 @@ export const useToddlerGameStore = create<ToddlerGameState>((set, get) => ({
   currentChoices: [],
   gameState: 'LOADING',
   score: 0,
+  lastResult: null,
 
   startGame: (hanziList) => {
     const shuffledList = shuffle(hanziList);
-    set({ 
+    set({
       fullList: hanziList, // Keep the original full list for generating choices
-      hanziQueue: shuffledList, 
-      score: 0 
+      hanziQueue: shuffledList,
+      score: 0,
+      lastResult: null,
     });
     get().nextRound();
   },
 
-  selectAnswer: (selectedHanzi) => {
+  selectAnswer: (selectedHanzi, updateProgress) => {
     const { currentCharacter } = get();
     const isCorrect = currentCharacter?.id === selectedHanzi.id;
 
     if (isCorrect) {
+      // Record progress when the answer is correct
+      if (currentCharacter) {
+        updateProgress(currentCharacter.id);
+      }
+
       set((state) => ({
         gameState: 'CELEBRATING',
         score: state.score + 1,
+        lastResult: 'CORRECT',
       }));
+    } else {
+      // Set state for incorrect answer
+      set({ lastResult: 'INCORRECT' });
     }
     return isCorrect;
+  },
+
+  clearLastResult: () => {
+    set({ lastResult: null });
   },
 
   nextRound: () => {
