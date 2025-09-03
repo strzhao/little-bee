@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useAtom } from 'jotai';
 import { useToddlerGameStore } from '@/lib/store/toddler-game-store';
 import { updateCharacterProgressAtom } from '@/lib/atoms/hanzi-atoms';
@@ -9,8 +9,8 @@ import { CharacterDisplay } from './CharacterDisplay';
 import { ChoiceCard } from './ChoiceCard';
 import { Celebration } from './Celebration';
 import { motion } from 'framer-motion';
-
-const ERROR_SOUND_PATH = '/assets/audio/error.mp3'; // Placeholder path
+import ExplanationVoicePlayer, { ExplanationVoicePlayerRef } from '@/components/hanzi/ExplanationVoicePlayer';
+import useVoiceFeedback from '@/components/hanzi/VoiceFeedback';
 
 export function GameStage() {
   const {
@@ -27,15 +27,16 @@ export function GameStage() {
   } = useToddlerGameStore();
 
   const [, updateProgress] = useAtom(updateCharacterProgressAtom);
+  const voicePlayerRef = useRef<ExplanationVoicePlayerRef>(null);
+  const { speakSuccess, speakError } = useVoiceFeedback({ voicePlayerRef });
 
   useEffect(() => {
     if (lastResult === 'INCORRECT') {
-      const audio = new Audio(ERROR_SOUND_PATH);
-      audio.play().catch(err => console.error("Failed to play error sound:", err));
+      speakError();
       // Reset the result so the sound doesn't play again on re-render
       clearLastResult();
     }
-  }, [lastResult, clearLastResult]);
+  }, [lastResult, clearLastResult, speakError]);
 
   const handleSelectAnswer = (selectedHanzi: HanziCharacter) => {
     const isCorrect = selectAnswer(selectedHanzi, (characterId: string) => {
@@ -45,6 +46,7 @@ export function GameStage() {
         starsEarned: 1,
         lastLearned: new Date().toISOString()
       });
+      speakSuccess();
     });
     return isCorrect;
   };
@@ -140,6 +142,13 @@ export function GameStage() {
           </motion.div>
         ))}
       </motion.div>
+
+      {/* Hidden voice player for feedback */}
+      <ExplanationVoicePlayer 
+        ref={voicePlayerRef}
+        text=""
+        className="hidden"
+      />
     </div>
   );
 }
