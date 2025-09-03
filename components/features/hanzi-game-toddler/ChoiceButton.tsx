@@ -39,7 +39,7 @@ export function ChoiceButton({
     },
     pulse: {
       scale: [1, 1.05, 1],
-      transition: { duration: 0.7, repeat: Infinity, repeatType: 'mirror' },
+      transition: { duration: 0.7, repeat: Infinity, repeatType: 'mirror' as const },
     },
     disappear: { opacity: 0, scale: 0.8, transition: { duration: 0.3 } },
     selected: { scale: 0.95 },
