@@ -65,7 +65,7 @@ export function ChoiceCard({ hanzi, isCorrect, onSelect }: ChoiceCardProps) {
       <img
         src={hanzi.assets.realObjectImage}
         alt={hanzi.meaning}
-        className="aspect-square w-full rounded-2xl object-cover p-2"
+        className="aspect-[2/1] w-full rounded-2xl object-contain p-2"
       />
       
       <AnimatePresence>

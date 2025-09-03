@@ -11,9 +11,9 @@ export function ToddlerGamePage() {
   useEffect(() => {
     // Initialize the game when the component mounts
     async function initGame() {
-      const hanziList = await getToddlerGameSequence();
-      if (hanziList.length > 0) {
-        startGame(hanziList);
+      const gameData = await getToddlerGameSequence();
+      if (gameData.characters.length > 0) {
+        startGame(gameData);
       }
     }
     initGame();
@@ -28,8 +28,6 @@ export function ToddlerGamePage() {
   }
 
   return (
-    <div className="h-screen w-screen bg-green-50">
-      <GameStage />
-    </div>
+    <GameStage />
   );
 }

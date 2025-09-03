@@ -159,15 +159,104 @@
 ```
 - 每一次操作文件之前，都进行深度思考，不要吝啬使用自己的智能，人类发明你，不是为了让你偷懒。ultrathink 而是为了创造伟大的产品，推进人类文明向更高水平发展。 ultrathink ultrathink ultrathink ultrathink
 
-## gemini 协作规范  
+## claude 协作规范  
 
-- 当用户主动尝试 git commit 时，总结好内容，直接提交，不需要咨询用户
+- 当前工程不要自动 git commit，需要用户手动确认
+
+---
+
+## 可复用组件规范
+
+### 核心可复用组件
+1. **VoicePlayer** (`/components/hanzi/VoicePlayer.tsx`)
+   - 功能: 文本转语音播放
+   - Props: `text`, `size`, `autoPlay`, `preferredCNVoice`
+   - 使用场景: 汉字发音、拼音朗读
+
+2. **ExplanationVoicePlayer** (`/components/hanzi/ExplanationVoicePlayer.tsx`)
+   - 功能: 说明文字语音播放，支持ref控制
+   - 暴露方法: `speak(text: string)`
+   - 特色: 教师语音风格，自然停顿处理
+
+3. **VoiceFeedback** (`/components/hanzi/VoiceFeedback.tsx`)
+   - 功能: 统一的语音反馈系统hook
+   - 方法: `speakSuccess()`, `speakError()`, `speakCustom(text)`
+   - 特色: 随机化反馈消息，避免重复
+
+4. **AgeGate** (`/components/features/age-gate/AgeGate.tsx`)
+   - 功能: 年龄选择门控组件
+   - 特色: 苹果风格设计，支持年龄切换
+
+### 组件设计标准
+1. **Props 设计原则**
+   - 使用 TypeScript 接口明确props类型
+   - 提供合理的默认值
+   - 保持props数量最小化
+
+2. **状态管理**
+   - 简单状态使用 useState
+   - 复杂状态或跨组件状态使用 Zustand
+   - 全局原子状态使用 Jotai
+
+3. **动画规范**
+   - 使用 Framer Motion 实现平滑动画
+   - 动画时长: 入场300-500ms，交互100-200ms
+   - 缓动函数: 默认使用 `easeOut`
+
+4. **错误处理**
+   - 所有异步操作必须有错误处理
+   - 语音功能需要检查浏览器支持
+   - 图片加载需要错误回退机制
+
+### 代码质量标准
+1. **文件结构**
+   ```
+   components/
+   ├── hanzi/           # 汉字相关通用组件
+   ├── features/        # 功能模块组件
+   │   ├── age-gate/    # 年龄门控
+   │   ├── hanzi-game-toddler/  # 萌芽版游戏
+   │   └── hanzi-game-knowledge/ # 知识版游戏
+   └── ui/              # 基础UI组件
+   ```
+
+2. **命名约定**
+   - 组件: PascalCase (如: `VoicePlayer`)
+   - 文件: 与组件同名 (如: `VoicePlayer.tsx`)
+   - Props: camelCase (如: `autoPlay`)
+   - Hook: use前缀 (如: `useVoiceFeedback`)
+
+3. **TypeScript 规范**
+   - 所有组件必须使用 TypeScript
+   - 定义明确的接口和类型
+   - 避免使用 any 类型
+
+### 性能优化指南
+1. **React 优化**
+   - 使用 React.memo 避免不必要的重渲染
+   - 使用 useCallback 和 useMemo 优化函数和值
+   - 合理使用 key prop 优化列表渲染
+
+2. **资源加载**
+   - 图片使用懒加载
+   - 音频文件预加载控制
+   - 避免阻塞主线程的操作
+
+3. **包大小控制**
+   - 按需导入第三方库
+   - 使用代码分割
+   - 定期检查包大小变化
+
+### 测试标准
+1. **单元测试**: 所有可复用组件必须有基础单元测试
+2. **集成测试**: 关键用户流程需要集成测试
+3. **E2E 测试**: 核心功能需要端到端测试覆盖
 
 ---
 
 ## 工程概述
 
-这是一个基于 Next.js、React 和 TypeScript 构建的在线图片压缩工具。
+这是一个基于 Next.js、React 和 TypeScript 构建的汉字学习应用，专注于儿童汉字教育。
 
 ### 技术栈
 
@@ -175,12 +264,15 @@
 - **语言:** [TypeScript](https://www.typescriptlang.org/)
 - **UI 库:** [shadcn/ui](https://ui.shadcn.com/)
 - **样式:** [Tailwind CSS](https://tailwindcss.com/)
-- **图片压缩:** [browser-image-compression](https://github.com/Donaldcwl/browser-image-compression)
+- **状态管理:** [Zustand](https://github.com/pmndrs/zustand) + [Jotai](https://jotai.org/)
+- **动画:** [Framer Motion](https://www.framer.com/motion/)
+- **语音:** Web Speech API
 
 ### 功能
 
-- **图片上传:** 用户可以从本地选择图片文件。
-- **图片压缩:** 在浏览器端对图片进行压缩，无需上传到服务器。
-- **信息展示:** 显示原始图片和压缩后图片的大小、尺寸等信息。
-- **压缩进度:** 提供压缩进度的可视化反馈。
-- **结果下载:** 用户可以下载压缩后的图片。
+- **年龄分级:** 支持2-4岁（萌芽版）和8岁+（知识版）不同年龄段的学习内容
+- **汉字学习:** 通过实物图片、汉字演变、发音学习汉字
+- **互动游戏:** 选择题形式的汉字识别游戏
+- **进度跟踪:** 学习进度和成就系统
+- **语音反馈:** 中文语音指导和反馈
+- **响应式设计:** 适配桌面和移动设备

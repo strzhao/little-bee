@@ -58,7 +58,7 @@ export function ChoiceButton({
       variants={variants}
       initial="initial"
       animate={animate}
-      className="aspect-square w-full max-w-[180px] rounded-2xl flex items-center justify-center overflow-hidden shadow-lg transition-all duration-200 border-4 border-transparent"
+      className="aspect-[2/1] w-full rounded-2xl flex items-center justify-center overflow-hidden shadow-lg transition-all duration-200 border-4 border-transparent"
       onClick={onClick}
       disabled={phase !== 'WAITING_FOR_CHOICE'}
     >

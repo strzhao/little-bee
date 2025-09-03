@@ -10,7 +10,7 @@ interface ExplanationVoicePlayerProps {
 }
 
 export interface ExplanationVoicePlayerRef {
-  speak: (text: string) => void
+  speak: (text: string, onComplete?: () => void) => void
 }
 
 const ExplanationVoicePlayer = forwardRef<ExplanationVoicePlayerRef, ExplanationVoicePlayerProps>(
@@ -30,7 +30,7 @@ const ExplanationVoicePlayer = forwardRef<ExplanationVoicePlayerRef, Explanation
       lg: 20
     }
 
-    const speak = useCallback((textToSpeak: string) => {
+    const speak = useCallback((textToSpeak: string, onComplete?: () => void) => {
       // 检查浏览器支持
       if (!('speechSynthesis' in window)) {
         setIsSupported(false)
@@ -82,12 +82,13 @@ const ExplanationVoicePlayer = forwardRef<ExplanationVoicePlayerRef, Explanation
 
       utterance.onend = () => {
         setIsPlaying(false)
+        onComplete?.()
       }
 
       utterance.onerror = (event) => {
         console.error('语音播放错误:', event.error)
         setIsPlaying(false)
-        setIsSupported(false)
+        onComplete?.() // Also call onComplete on error to avoid getting stuck
       }
 
       // 确保语音列表已加载

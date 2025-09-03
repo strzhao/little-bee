@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { HanziCharacter } from '@/lib/hanzi-data-loader';
+import { ToddlerGameData } from '@/lib/services/hanzi-service';
 
 type GameState = 'LOADING' | 'PLAYING' | 'CELEBRATING';
 
@@ -8,10 +9,11 @@ interface ToddlerGameState {
   fullList: HanziCharacter[];
   currentCharacter: HanziCharacter | null;
   currentChoices: HanziCharacter[];
+  explanations: Record<string, any> | null;
   gameState: GameState;
   score: number;
   lastResult: 'CORRECT' | 'INCORRECT' | null; // Track the last answer
-  startGame: (hanziList: HanziCharacter[]) => void;
+  startGame: (gameData: ToddlerGameData) => void;
   // The `updateProgress` function is now passed as an argument
   selectAnswer: (
     selectedHanzi: HanziCharacter,
@@ -30,15 +32,17 @@ export const useToddlerGameStore = create<ToddlerGameState>((set, get) => ({
   fullList: [],
   currentCharacter: null,
   currentChoices: [],
+  explanations: null,
   gameState: 'LOADING',
   score: 0,
   lastResult: null,
 
-  startGame: (hanziList) => {
-    const shuffledList = shuffle(hanziList);
+  startGame: (gameData) => {
+    const shuffledList = shuffle(gameData.characters);
     set({
-      fullList: hanziList, // Keep the original full list for generating choices
+      fullList: gameData.characters, // Keep the original full list for generating choices
       hanziQueue: shuffledList,
+      explanations: gameData.explanations,
       score: 0,
       lastResult: null,
     });

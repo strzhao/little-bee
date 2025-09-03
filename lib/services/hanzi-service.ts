@@ -3,15 +3,28 @@ import { hanziDataLoader, HanziCharacter } from '@/lib/hanzi-data-loader';
 // The curated list of characters for the toddler game.
 const TODDLER_HANZI_LIST = ['山', '水', '日', '月', '木', '火', '人', '口', '鸟', '鱼'];
 
+export interface ToddlerGameData {
+  characters: HanziCharacter[];
+  explanations: Record<string, any>;
+}
+
 /**
- * Fetches and prepares the sequence of Hanzi characters for the toddler game.
+ * Fetches and prepares the sequence of Hanzi characters and their explanations for the toddler game.
  * 
- * @returns A promise that resolves to an array of HanziCharacter objects.
+ * @returns A promise that resolves to an object containing characters and explanations.
  */
-export async function getToddlerGameSequence(): Promise<HanziCharacter[]> {
+export async function getToddlerGameSequence(): Promise<ToddlerGameData> {
   try {
-    // Ensure the data loader is initialized
-    await hanziDataLoader.initialize();
+    // Fetch explanations and character data concurrently
+    const [explanationsResponse] = await Promise.all([
+      fetch('/data/configs/personalized-explanations.json'),
+      hanziDataLoader.initialize() // Ensure the data loader is initialized
+    ]);
+
+    if (!explanationsResponse.ok) {
+      throw new Error('Failed to fetch explanations');
+    }
+    const explanations = await explanationsResponse.json();
 
     // To be more efficient, we can try loading only the relevant categories.
     // For now, we load all data for simplicity, as the loader is cached.
@@ -26,12 +39,14 @@ export async function getToddlerGameSequence(): Promise<HanziCharacter[]> {
     );
     
     // Sort the filtered list according to our curated order.
-    return TODDLER_HANZI_LIST
+    const characters = TODDLER_HANZI_LIST
       .map(character => toddlerHanzi.find(h => h.character === character))
       .filter((hanzi): hanzi is HanziCharacter => hanzi !== undefined);
 
+    return { characters, explanations };
+
   } catch (error) {
     console.error("Failed to get toddler game sequence:", error);
-    return []; // Return an empty array on error
+    return { characters: [], explanations: {} }; // Return empty data on error
   }
 }
