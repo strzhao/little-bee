@@ -84,8 +84,8 @@ export function GameStage() {
   const twoChoices = store.currentChoices.slice(0, 2);
 
   return (
-    <div className="h-full w-full overflow-hidden bg-gradient-to-b from-blue-50 to-green-50 flex flex-col">
-      <div className="flex-1 flex items-center justify-center p-4 relative">
+    <div className="h-screen w-screen overflow-hidden bg-gradient-to-b from-blue-50 to-green-50 flex flex-col p-6">
+      <div className="h-3/5 flex items-center justify-center p-4 relative">
         <AnimatePresence>
           {store.currentCharacter && (
             <CharacterPresenter
@@ -98,9 +98,9 @@ export function GameStage() {
         </AnimatePresence>
       </div>
 
-      <div className="flex-none h-1/3 flex items-center justify-center px-6 pb-8">
+      <div className="h-[30%] flex items-center justify-center">
         <motion.div
-          className="grid grid-cols-2 gap-6 w-full max-w-md"
+          className="grid grid-cols-2 gap-6 w-2/3"
           variants={{ enter: { transition: { staggerChildren: 0.1 } } }}
           initial="initial"
           animate="enter"
