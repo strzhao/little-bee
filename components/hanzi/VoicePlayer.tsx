@@ -90,12 +90,12 @@ const VoicePlayer = ({ text, className = '', size = 'md', autoPlay = false, pref
   }, [text, speak, isSupported])
 
   // 自动播放
-  useState(() => {
+  useEffect(() => {
     if (autoPlay && text && isSupported) {
       const timer = setTimeout(() => speak(text), 500)
       return () => clearTimeout(timer)
     }
-  })
+  }, [autoPlay, text, isSupported, speak])
 
   if (!isSupported) {
     return (
