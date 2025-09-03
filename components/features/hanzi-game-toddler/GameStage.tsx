@@ -31,6 +31,10 @@ export function GameStage() {
     if (advanceTimerRef.current) {
       clearTimeout(advanceTimerRef.current);
     }
+    // Ensure we transition out of exploring phase before advancing
+    if (phase === 'EXPLORING') {
+      setPhase('FEEDBACK_CORRECT'); 
+    }
     store.nextRound();
   };
 
@@ -63,7 +67,7 @@ export function GameStage() {
     if (phase === 'FEEDBACK_CORRECT') {
       advanceTimerRef.current = setTimeout(() => {
         advanceToNextRound();
-      }, 3500); // Auto-advance after celebration
+      }, 3500);
       return () => {
         if (advanceTimerRef.current) {
           clearTimeout(advanceTimerRef.current);
@@ -120,13 +124,12 @@ export function GameStage() {
     <div className="h-screen w-screen overflow-hidden bg-gradient-to-b from-blue-50 to-green-50 flex flex-col p-6">
       <div className="h-[70%] flex items-center justify-center p-4 relative">
         <AnimatePresence>
-          {store.currentCharacter && (
+          {store.currentCharacter && phase !== 'EXPLORING' && (
             <CharacterPresenter
               key={store.currentCharacter.id}
               character={store.currentCharacter}
               phase={phase}
               layoutId={CHARACTER_LAYOUT_ID}
-              pinyin={phase === 'EXPLORING' ? store.currentCharacter.pinyin : undefined}
             />
           )}
         </AnimatePresence>
@@ -171,6 +174,22 @@ export function GameStage() {
         {phase === 'EXPLORING' && (
           <>
             <div className="fixed inset-0 z-30 bg-black/20 backdrop-blur-sm" onClick={advanceToNextRound} />
+            
+            <div className="fixed inset-0 z-40 flex flex-col items-center justify-center pointer-events-none">
+              <div className="h-[70%] w-full flex items-center justify-center">
+                {store.currentCharacter && (
+                  <CharacterPresenter
+                    key={`${store.currentCharacter.id}-exploring`}
+                    character={store.currentCharacter}
+                    phase={phase}
+                    layoutId={CHARACTER_LAYOUT_ID}
+                    pinyin={store.currentCharacter.pinyin}
+                  />
+                )}
+              </div>
+              <div className="h-[30%] w-full" />
+            </div>
+
             <ExplanationCard text={explanationText} />
           </>
         )}
