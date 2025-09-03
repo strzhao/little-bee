@@ -73,8 +73,18 @@ export const getCharacterProgressAtom = atom(
 export const updateCharacterProgressAtom = atom(
   null,
   (get, set, update: { characterId: string; completed: boolean; starsEarned: number; lastLearned?: string }) => {
+    console.log('🔄 updateCharacterProgressAtom called with:', update);
+    
     const currentProgress = get(learningProgressAtom)
     const existingProgress = currentProgress[update.characterId]
+    
+    console.log('📋 Current progress for character:', {
+      characterId: update.characterId,
+      existingProgress,
+      currentStars: existingProgress?.starsEarned || 0,
+      newStars: update.starsEarned,
+      totalStarsAfterUpdate: (existingProgress?.starsEarned || 0) + update.starsEarned
+    });
     
     const newProgress = {
       ...currentProgress,
@@ -87,7 +97,13 @@ export const updateCharacterProgressAtom = atom(
         starsEarned: (existingProgress?.starsEarned || 0) + update.starsEarned
       }
     }
+    
+    console.log('💾 Setting new progress:', newProgress[update.characterId]);
     set(learningProgressAtom, newProgress)
+    
+    // 验证更新后的状态
+    const updatedProgress = get(learningProgressAtom)
+    console.log('✅ Progress updated successfully:', updatedProgress[update.characterId]);
   }
 )
 

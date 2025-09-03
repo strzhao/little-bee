@@ -1,7 +1,16 @@
 import { hanziDataLoader, HanziCharacter } from '@/lib/hanzi-data-loader';
 
-// The curated list of characters for the toddler game.
-const TODDLER_HANZI_LIST = ['山', '水', '日', '月', '木', '火', '人', '口', '鸟', '鱼'];
+// The curated list of characters for the toddler game - includes all available characters
+const TODDLER_HANZI_LIST = [
+  // 天空与气象类 (10个)
+  '山', '水', '天', '云', '雨', '风', '雪', '日', '月', '星',
+  // 动物王国类 (4个) 
+  '鸟', '鱼', '马', '牛',
+  // 植物世界类 (3个)
+  '树', '花', '草',
+  // 水与地理类 (3个)
+  '河', '海', '湖'
+];
 
 export interface ToddlerGameData {
   characters: HanziCharacter[];

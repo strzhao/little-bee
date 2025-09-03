@@ -4,15 +4,18 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useAtom } from 'jotai';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useToddlerGameStore } from '@/lib/store/toddler-game-store';
-import { updateCharacterProgressAtom } from '@/lib/atoms/hanzi-atoms';
+import { updateCharacterProgressAtom, getOverallProgressAtom, learningProgressAtom } from '@/lib/atoms/hanzi-atoms';
 import { HanziCharacter } from '@/lib/hanzi-data-loader';
+import { useHanziState } from '@/lib/hooks/use-hanzi-state';
 import ExplanationVoicePlayer, { ExplanationVoicePlayerRef } from '@/components/hanzi/ExplanationVoicePlayer';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Star } from 'lucide-react';
 
 import { CharacterPresenter } from './CharacterPresenter';
 import { ChoiceButton } from './ChoiceButton';
 import { FullScreenCelebration } from './FullScreenCelebration';
 import { ExplanationCard } from './ExplanationCard';
+import { CharacterEvolutionDisplay } from './CharacterEvolutionDisplay';
+import { Progress } from '@/components/ui/progress';
 
 export type GamePhase = 'ENTERING' | 'WAITING_FOR_CHOICE' | 'FEEDBACK_INCORRECT' | 'FEEDBACK_CORRECT' | 'EXPLORING';
 
@@ -20,12 +23,20 @@ const CHARACTER_LAYOUT_ID = 'hanzi-character';
 
 export function GameStage() {
   const store = useToddlerGameStore();
+  const { loadAllCharacters } = useHanziState();
   const [, updateProgress] = useAtom(updateCharacterProgressAtom);
+  const [overallProgress] = useAtom(getOverallProgressAtom);
+  const [learningProgress] = useAtom(learningProgressAtom);
   const voicePlayerRef = useRef<ExplanationVoicePlayerRef | null>(null);
   const advanceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const [phase, setPhase] = useState<GamePhase>('ENTERING');
   const [selectedChoice, setSelectedChoice] = useState<HanziCharacter | null>(null);
+
+  // 初始化汉字数据
+  useEffect(() => {
+    loadAllCharacters();
+  }, [loadAllCharacters]);
 
   const advanceToNextRound = () => {
     if (advanceTimerRef.current) {
@@ -106,20 +117,41 @@ export function GameStage() {
   const handleSelectAnswer = (selected: HanziCharacter) => {
     if (phase !== 'WAITING_FOR_CHOICE') return;
 
+    console.log('🎯 handleSelectAnswer called:', {
+      selectedId: selected.id,
+      currentCharacterId: store.currentCharacter?.id,
+      phase
+    });
+
     setSelectedChoice(selected);
     const isCorrect = selected.id === store.currentCharacter?.id;
+
+    console.log('✅ Answer check:', { isCorrect, selectedCharacter: selected.character });
 
     if (isCorrect) {
       setPhase('FEEDBACK_CORRECT');
       voicePlayerRef.current?.speak('叮咚！你找到啦！');
-      updateProgress({
-        characterId: store.currentCharacter!.id,
-        completed: true,
-        starsEarned: 1,
-        lastLearned: new Date().toISOString(),
+      
+      console.log('🌟 Before calling store.selectAnswer - store.score:', store.score);
+      console.log('📊 Before progress update - learningProgress:', learningProgress);
+      
+      // 调用store的selectAnswer方法来更新分数
+      store.selectAnswer(selected, (characterId: string) => {
+        console.log('💫 updateProgress callback called for characterId:', characterId);
+        updateProgress({
+          characterId,
+          completed: true,
+          starsEarned: 1,
+          lastLearned: new Date().toISOString(),
+        });
+        console.log('✨ updateProgress called with starsEarned: 1');
       });
+      
+      console.log('🌟 After calling store.selectAnswer - store.score:', store.score);
     } else {
       setPhase('FEEDBACK_INCORRECT');
+      // 也要调用store的selectAnswer来记录错误答案
+      store.selectAnswer(selected, () => {});
     }
   };
 
@@ -128,10 +160,45 @@ export function GameStage() {
   }
 
   const twoChoices = store.currentChoices.slice(0, 2);
+  const progressValue = overallProgress.percentage;
+  
+  // 计算总星星数
+  const totalStars = Object.values(learningProgress).reduce((sum, progress) => sum + progress.starsEarned, 0);
+  
+  // 调试日志
+  console.log('📈 Progress Debug:', {
+    overallProgress,
+    progressValue,
+    totalStars,
+    learningProgressCount: Object.keys(learningProgress).length,
+    storeScore: store.score,
+    fullListLength: store.fullList.length,
+    overallProgressDetails: {
+      total: overallProgress.total,
+      completed: overallProgress.completed,
+      percentage: overallProgress.percentage
+    },
+    learningProgressKeys: Object.keys(learningProgress)
+  });
 
   return (
     <div className="h-screen w-screen overflow-hidden bg-gradient-to-b from-blue-50 to-green-50 flex flex-col p-6">
-      <div className="h-[70%] flex items-center justify-center p-4 relative">
+      {/* Progress and Score Display */}
+      <div className="flex-none h-8 flex items-center justify-between px-2">
+        <Progress value={progressValue} className="w-full h-2" />
+        <motion.div 
+          key={totalStars} // Key to trigger re-render animation
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+          className="flex items-center ml-4 text-yellow-600 font-bold"
+        >
+          <Star size={20} fill="currentColor" className="mr-1" />
+          <span>{totalStars}</span>
+        </motion.div>
+      </div>
+
+      <div className="flex-1 flex items-center justify-center p-4 relative">
         <AnimatePresence>
           {store.currentCharacter && phase !== 'EXPLORING' && (
             <CharacterPresenter
@@ -157,7 +224,7 @@ export function GameStage() {
         )}
       </div>
 
-      <div className="h-[30%] flex items-center justify-center">
+      <div className="flex-none h-[30%] flex items-center justify-center">
         <motion.div
           className="grid grid-cols-2 gap-6 w-2/3"
           variants={{ enter: { transition: { staggerChildren: 0.1 } } }}
@@ -185,7 +252,7 @@ export function GameStage() {
             <div className="fixed inset-0 z-30 bg-black/20 backdrop-blur-sm" onClick={advanceToNextRound} />
             
             <div className="fixed inset-0 z-40 flex flex-col items-center justify-center pointer-events-none">
-              <div className="h-[70%] w-full flex items-center justify-center">
+              <div className="h-[50%] w-full flex items-center justify-center">
                 {store.currentCharacter && (
                   <CharacterPresenter
                     key={`${store.currentCharacter.id}-exploring`}
@@ -196,6 +263,13 @@ export function GameStage() {
                   />
                 )}
               </div>
+              
+              <div className="h-[20%] w-full flex items-center justify-center">
+                {store.currentCharacter && store.currentCharacter.evolutionStages && (
+                  <CharacterEvolutionDisplay evolutionStages={store.currentCharacter.evolutionStages} />
+                )}
+              </div>
+
               <div className="h-[30%] w-full" />
             </div>
 

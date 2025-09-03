@@ -50,22 +50,40 @@ export const useToddlerGameStore = create<ToddlerGameState>((set, get) => ({
   },
 
   selectAnswer: (selectedHanzi, updateProgress) => {
-    const { currentCharacter } = get();
+    const { currentCharacter, score: currentScore } = get();
     const isCorrect = currentCharacter?.id === selectedHanzi.id;
+
+    console.log('🎮 store.selectAnswer called:', {
+      selectedHanziId: selectedHanzi.id,
+      currentCharacterId: currentCharacter?.id,
+      isCorrect,
+      currentScore
+    });
 
     if (isCorrect) {
       // Record progress when the answer is correct
       if (currentCharacter) {
+        console.log('📞 Calling updateProgress for:', currentCharacter.id);
         updateProgress(currentCharacter.id);
       }
 
+      console.log('🎯 Updating store state - score from', currentScore, 'to', currentScore + 1);
       set((state) => ({
         gameState: 'CELEBRATING',
         score: state.score + 1,
         lastResult: 'CORRECT',
       }));
+      
+      // 验证状态更新
+      const newState = get();
+      console.log('✅ Store state updated:', {
+        newScore: newState.score,
+        gameState: newState.gameState,
+        lastResult: newState.lastResult
+      });
     } else {
       // Set state for incorrect answer
+      console.log('❌ Incorrect answer, setting lastResult to INCORRECT');
       set({ lastResult: 'INCORRECT' });
     }
     return isCorrect;
