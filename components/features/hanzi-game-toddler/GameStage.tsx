@@ -78,11 +78,20 @@ export function GameStage() {
 
   const explanationText = useMemo(() => {
     if (!store.currentCharacter || !store.explanations) return '';
-    const meaning = store.currentCharacter.meaning.replace(/\s+/g, '');
-    return (
-      store.explanations.realObjectExplanations[meaning] ||
-      store.explanations.fallbackTemplates.realObject
-    ).replace('{character}', store.currentCharacter.character);
+
+    const characterData = store.currentCharacter;
+    const meaningKey = characterData.meaning.split(',')[0].trim();
+
+    const template =
+      store.explanations.characterExplanations[meaningKey] ||
+      store.explanations.realObjectExplanations[meaningKey] ||
+      store.explanations.fallbackTemplates.realObject;
+
+    console.log({ meaningKey, template, explanations: store.explanations });
+
+    return template
+      .replace(/"{character}"/g, characterData.character)
+      .replace(/{meaning}/g, characterData.meaning);
   }, [store.currentCharacter, store.explanations]);
 
   const handleStartExploring = () => {
