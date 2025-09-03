@@ -1,7 +1,7 @@
 'use client';
 
 import { HanziCharacter } from '@/lib/hanzi-data-loader';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import VoicePlayer from '@/components/hanzi/VoicePlayer';
 
@@ -10,13 +10,10 @@ interface CharacterDisplayProps {
 }
 
 export function CharacterDisplay({ character }: CharacterDisplayProps) {
-  const audioRef = useRef<HTMLAudioElement>(null);
-
   useEffect(() => {
-    // Play the pronunciation audio whenever the character changes
-    if (audioRef.current) {
-      audioRef.current.play().catch(e => console.error("Audio play failed", e));
-    }
+    // Pronunciation audio is temporarily disabled to avoid errors
+    // The audio files are reserved for future use but not currently available
+    console.log('Pronunciation audio feature is temporarily disabled');
   }, [character]);
 
   return (
@@ -58,7 +55,7 @@ export function CharacterDisplay({ character }: CharacterDisplayProps) {
       >
         {character.pinyin}
       </motion.p>
-      <audio ref={audioRef} src={character.assets.pronunciationAudio} preload="auto" />
+      {/* Audio element temporarily removed to avoid pronunciationAudio errors */}
     </motion.div>
   );
 }
