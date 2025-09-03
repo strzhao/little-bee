@@ -77,9 +77,10 @@ export const useToddlerGameStore = create<ToddlerGameState>((set, get) => ({
     const nextCharacter = newQueue.shift();
 
     if (nextCharacter) {
+      // 只选择一个干扰项，确保二选一
       const wrongAnswers = shuffle(
         fullList.filter((h) => h.id !== nextCharacter.id)
-      ).slice(0, 2);
+      ).slice(0, 1);
       const choices = shuffle([nextCharacter, ...wrongAnswers]);
 
       set({
@@ -87,6 +88,7 @@ export const useToddlerGameStore = create<ToddlerGameState>((set, get) => ({
         currentCharacter: nextCharacter,
         currentChoices: choices,
         gameState: 'PLAYING',
+        lastResult: null, // 重置选择状态
       });
     } else {
       set({ gameState: 'LOADING' }); // Game over, reset to loading/initial state

@@ -10,7 +10,7 @@ export interface VoiceFeedbackRef {
 }
 
 interface VoiceFeedbackProps {
-  voicePlayerRef: React.RefObject<ExplanationVoicePlayerRef>;
+  voicePlayerRef: React.RefObject<ExplanationVoicePlayerRef | null>;
 }
 
 const useVoiceFeedback = ({ voicePlayerRef }: VoiceFeedbackProps) => {
