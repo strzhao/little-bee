@@ -8,7 +8,7 @@ import { updateCharacterProgressAtom, getOverallProgressAtom, learningProgressAt
 import { HanziCharacter } from '@/lib/hanzi-data-loader';
 import { useHanziState } from '@/lib/hooks/use-hanzi-state';
 import ExplanationVoicePlayer, { ExplanationVoicePlayerRef } from '@/components/hanzi/ExplanationVoicePlayer';
-import { Sparkles, Star } from 'lucide-react';
+import { Sparkles, Star, Settings } from 'lucide-react';
 
 import { CharacterPresenter } from './CharacterPresenter';
 import { ChoiceButton } from './ChoiceButton';
@@ -16,6 +16,7 @@ import { FullScreenCelebration } from './FullScreenCelebration';
 import { ExplanationCard } from './ExplanationCard';
 import { CharacterEvolutionDisplay } from './CharacterEvolutionDisplay';
 import { Progress } from '@/components/ui/progress';
+import { useRouter } from 'next/navigation';
 
 export type GamePhase = 'ENTERING' | 'WAITING_FOR_CHOICE' | 'FEEDBACK_INCORRECT' | 'FEEDBACK_CORRECT' | 'EXPLORING';
 
@@ -29,6 +30,7 @@ export function GameStage() {
   const [learningProgress] = useAtom(learningProgressAtom);
   const voicePlayerRef = useRef<ExplanationVoicePlayerRef | null>(null);
   const advanceTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const router = useRouter();
 
   const [phase, setPhase] = useState<GamePhase>('ENTERING');
   const [selectedChoice, setSelectedChoice] = useState<HanziCharacter | null>(null);
@@ -186,16 +188,25 @@ export function GameStage() {
       {/* Progress and Score Display */}
       <div className="flex-none h-8 flex items-center justify-between px-2">
         <Progress value={progressValue} className="w-full h-2" />
-        <motion.div 
-          key={totalStars} // Key to trigger re-render animation
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-          className="flex items-center ml-4 text-yellow-600 font-bold"
-        >
-          <Star size={20} fill="currentColor" className="mr-1" />
-          <span>{totalStars}</span>
-        </motion.div>
+        <div className="flex items-center ml-4 gap-2">
+          <motion.div 
+            key={totalStars} // Key to trigger re-render animation
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+            className="flex items-center text-yellow-600 font-bold"
+          >
+            <Star size={20} fill="currentColor" className="mr-1" />
+            <span>{totalStars}</span>
+          </motion.div>
+          <button
+            onClick={() => router.push('/settings')}
+            className="p-1 rounded-full hover:bg-white/20 transition-colors"
+            title="设置"
+          >
+            <Settings size={18} className="text-gray-600" />
+          </button>
+        </div>
       </div>
 
       <div className="flex-1 flex items-center justify-center p-4 relative">

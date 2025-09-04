@@ -5,14 +5,24 @@ import { useRouter } from 'next/navigation';
 import { AgeGate } from '@/components/features/age-gate/AgeGate';
 import { useAgeGroup } from '@/lib/hooks/use-age-group';
 import { AGE_GROUPS } from '@/lib/constants';
+import { Settings } from 'lucide-react';
 
 import { ToddlerGamePage } from '@/components/features/hanzi-game-toddler/ToddlerGamePage';
 import HanziUnifiedPage from '@/components/hanzi/HanziUnifiedPage';
 
 // Placeholder for the Child Game Page
 function ChildGamePage() {
+  const router = useRouter();
+  
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-blue-100">
+    <div className="flex h-screen w-screen items-center justify-center bg-blue-100 relative">
+      <button
+        onClick={() => router.push('/settings')}
+        className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/20 transition-colors"
+        title="设置"
+      >
+        <Settings size={20} className="text-gray-600" />
+      </button>
       <h1 className="text-3xl font-bold">探索版 (5-7岁) 游戏即将上线</h1>
     </div>
   );
