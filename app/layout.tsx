@@ -83,8 +83,14 @@ export default function RootLayout({
         </JotaiProvider>
         <Script id="sw-register" strategy="afterInteractive">
           {`
+            console.log('🔍 Service Worker 注册检查:');
+            console.log('- 浏览器支持:', 'serviceWorker' in navigator);
+            console.log('- 当前域名:', location.hostname);
+            console.log('- 是否为本地环境:', location.hostname.includes('localhost'));
+            
             // 开发环境下禁用 Service Worker 注册
             if ('serviceWorker' in navigator && !location.hostname.includes('localhost')) {
+              console.log('✅ 满足注册条件，开始注册 Service Worker...');
               window.addEventListener('load', async function() {
                 try {
                   // 简化的 Service Worker 注册逻辑
@@ -156,7 +162,13 @@ export default function RootLayout({
                 }
               });
             } else {
-              console.warn('⚠️ 浏览器不支持 Service Worker');
+              if (!('serviceWorker' in navigator)) {
+                console.warn('⚠️ 浏览器不支持 Service Worker');
+              } else if (location.hostname.includes('localhost')) {
+                console.log('🚫 开发环境，跳过 Service Worker 注册');
+              } else {
+                console.warn('⚠️ 未知原因，Service Worker 注册被跳过');
+              }
             }
           `}
         </Script>
