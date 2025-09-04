@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { JotaiProvider } from "@/components/providers/jotai-provider";
-import Script from "next/script";
+import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -81,24 +81,7 @@ export default function RootLayout({
         <JotaiProvider>
           {children}
         </JotaiProvider>
-        <Script id="sw-register" strategy="afterInteractive">
-          {`
-            // 简化的 Service Worker 注册逻辑
-            if ('serviceWorker' in navigator && !location.hostname.includes('localhost')) {
-              window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw.js')
-                  .then(function(registration) {
-                    console.log('✅ Service Worker 注册成功');
-                  })
-                  .catch(function(error) {
-                    console.error('❌ Service Worker 注册失败:', error);
-                  });
-              });
-            } else {
-              console.log('🚫 开发环境或不支持 Service Worker');
-            }
-          `}
-        </Script>
+        <ServiceWorkerRegister />
       </body>
     </html>
   );
