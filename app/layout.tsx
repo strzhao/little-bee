@@ -83,92 +83,19 @@ export default function RootLayout({
         </JotaiProvider>
         <Script id="sw-register" strategy="afterInteractive">
           {`
-            console.log('🔍 Service Worker 注册检查:');
-            console.log('- 浏览器支持:', 'serviceWorker' in navigator);
-            console.log('- 当前域名:', location.hostname);
-            console.log('- 是否为本地环境:', location.hostname.includes('localhost'));
-            
-            // 开发环境下禁用 Service Worker 注册
+            // 简化的 Service Worker 注册逻辑
             if ('serviceWorker' in navigator && !location.hostname.includes('localhost')) {
-              console.log('✅ 满足注册条件，开始注册 Service Worker...');
-              window.addEventListener('load', async function() {
-                try {
-                  // 简化的 Service Worker 注册逻辑
-                  const registration = await navigator.serviceWorker.register('/sw.js', {
-                    updateViaCache: 'none'
+              window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                  .then(function(registration) {
+                    console.log('✅ Service Worker 注册成功');
+                  })
+                  .catch(function(error) {
+                    console.error('❌ Service Worker 注册失败:', error);
                   });
-                  
-                  console.log('✅ Service Worker 注册成功:', registration);
-                  console.log('作用域:', registration.scope);
-                  
-                  // 统一的状态监听函数
-                   function handleWorkerStateChange(worker, workerType) {
-                     worker.addEventListener('statechange', () => {
-                       console.log('📊 ' + workerType + ' Service Worker 状态:', worker.state);
-                       
-                       switch (worker.state) {
-                         case 'installing':
-                           console.log('🔄 Service Worker 正在安装...');
-                           break;
-                         case 'installed':
-                           console.log('✅ Service Worker 安装完成');
-                           if (navigator.serviceWorker.controller) {
-                             console.log('🔄 新版本等待激活，刷新页面生效');
-                           } else {
-                             console.log('🎉 Service Worker 首次安装成功');
-                           }
-                           break;
-                         case 'activating':
-                           console.log('🔄 Service Worker 正在激活...');
-                           break;
-                         case 'activated':
-                           console.log('🚀 Service Worker 已激活并运行');
-                           break;
-                         case 'redundant':
-                           console.log('⚠️ Service Worker 已被新版本替换');
-                           break;
-                       }
-                     });
-                   }
-                  
-                  // 监听更新事件
-                  registration.addEventListener('updatefound', () => {
-                    console.log('🆕 发现 Service Worker 更新');
-                    const newWorker = registration.installing;
-                    if (newWorker) {
-                      handleWorkerStateChange(newWorker, '新版本');
-                    }
-                  });
-                  
-                  // 检查当前状态
-                  if (registration.installing) {
-                    console.log('🔄 Service Worker 正在安装中...');
-                    handleWorkerStateChange(registration.installing, '安装中');
-                  } else if (registration.waiting) {
-                    console.log('⏳ Service Worker 等待激活');
-                    handleWorkerStateChange(registration.waiting, '等待中');
-                  } else if (registration.active) {
-                    console.log('✅ Service Worker 已激活');
-                    handleWorkerStateChange(registration.active, '当前');
-                  }
-                  
-                  // 监听 Service Worker 控制器变化
-                  navigator.serviceWorker.addEventListener('controllerchange', () => {
-                    console.log('🔄 Service Worker 控制器已更新');
-                  });
-                  
-                } catch (error) {
-                  console.error('❌ Service Worker 操作失败:', error);
-                }
               });
             } else {
-              if (!('serviceWorker' in navigator)) {
-                console.warn('⚠️ 浏览器不支持 Service Worker');
-              } else if (location.hostname.includes('localhost')) {
-                console.log('🚫 开发环境，跳过 Service Worker 注册');
-              } else {
-                console.warn('⚠️ 未知原因，Service Worker 注册被跳过');
-              }
+              console.log('🚫 开发环境或不支持 Service Worker');
             }
           `}
         </Script>

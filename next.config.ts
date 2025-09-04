@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
 export default withPWA({
   dest: "public",
   disable: process.env.NODE_ENV === 'development', // 开发环境禁用 PWA
-  register: true,
+  register: false, // 禁用自动注册，使用手动注册
   skipWaiting: false, // 禁用自动跳过等待，避免频繁替换
   // 自定义 Service Worker
   sw: 'sw.js',
