@@ -1,6 +1,7 @@
 'use client';
 
 import { PWACacheManager } from '@/components/features/pwa-cache-manager';
+import { ResourcePreloadManager } from '@/components/features/resource-preload-manager';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 
@@ -27,6 +28,9 @@ export default function SettingsPage() {
 
         {/* PWA 缓存管理 */}
         <PWACacheManager />
+        
+        {/* 资源预加载管理 */}
+        <ResourcePreloadManager />
 
         {/* 其他设置选项 */}
         <div className="grid gap-4">

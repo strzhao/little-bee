@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { JotaiProvider } from "@/components/providers/jotai-provider";
+import { BackgroundPreloaderProvider } from "@/components/providers/background-preloader";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 
 const geistSans = Geist({
@@ -79,7 +80,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <JotaiProvider>
-          {children}
+          <BackgroundPreloaderProvider>
+            {children}
+          </BackgroundPreloaderProvider>
         </JotaiProvider>
         <ServiceWorkerRegister />
       </body>
