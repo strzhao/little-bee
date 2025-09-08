@@ -427,7 +427,4 @@ export default function HanziUnifiedPage() {
       </AnimatePresence>
     </div>
   );
-}Presence>
-    </div>
-  );
 }
