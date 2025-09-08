@@ -199,13 +199,6 @@ export function GameStage() {
             <Star size={20} fill="currentColor" className="mr-1" />
             <span>{totalStars}</span>
           </motion.div>
-          <button
-            onClick={() => router.push('/settings')}
-            className="p-1 rounded-full hover:bg-white/20 transition-colors"
-            title="设置"
-          >
-            <Settings size={18} className="text-gray-600" />
-          </button>
         </div>
       </div>
 
