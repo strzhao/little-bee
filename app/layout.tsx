@@ -4,6 +4,8 @@ import "./globals.css";
 import { JotaiProvider } from "@/components/providers/jotai-provider";
 import { BackgroundPreloaderProvider } from "@/components/providers/background-preloader";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
+import { AppHeader } from "@/components/layout/AppHeader";
+import { ControlCenter } from "@/components/features/control-center/ControlCenter";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -81,7 +83,11 @@ export default function RootLayout({
       >
         <JotaiProvider>
           <BackgroundPreloaderProvider>
-            {children}
+            <AppHeader />
+            <main>
+              {children}
+            </main>
+            <ControlCenter />
           </BackgroundPreloaderProvider>
         </JotaiProvider>
         <ServiceWorkerRegister />

@@ -15,14 +15,7 @@ function ChildGamePage() {
   const router = useRouter();
   
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-blue-100 relative">
-      <button
-        onClick={() => router.push('/settings')}
-        className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/20 transition-colors"
-        title="设置"
-      >
-        <Settings size={20} className="text-gray-600" />
-      </button>
+    <div className="flex h-screen w-screen items-center justify-center bg-blue-100 relative pt-20">
       <h1 className="text-3xl font-bold">探索版 (5-7岁) 游戏即将上线</h1>
     </div>
   );

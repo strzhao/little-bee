@@ -271,25 +271,7 @@ const HanziHomeView = ({ onNavigateToDetail }: { onNavigateToDetail: (characterI
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* 顶部导航 */}
-      <header className="h-20 flex items-center justify-between px-6 border-b border-gray-100">
-        <h1 className="text-2xl font-medium text-gray-800">识字小蜜蜂🐝</h1>
-        <div className="flex items-center gap-4">
-          <div className="text-base text-gray-600">
-            总进度: {learnedCount}/{totalCharacters}
-          </div>
-          <button
-            onClick={() => router.push('/settings')}
-            className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors duration-200 flex items-center gap-2"
-            title="应用设置"
-          >
-            <Settings className="w-5 h-5 text-gray-600" />
-            <span className="text-sm text-gray-600 hidden sm:inline">设置</span>
-          </button>
-        </div>
-      </header>
-
+    <div className="min-h-screen bg-white pt-20">
       {/* 主内容区 */}
       <main className="px-6 py-8">
         <div className="max-w-4xl mx-auto">
