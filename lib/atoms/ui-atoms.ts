@@ -11,3 +11,9 @@ export const isControlCenterOpenAtom = atom(false);
  */
 export const isImmersiveModeAtom = atom(false);
 
+/**
+ * Controls the visibility of the modal that shows all collected Hanzi.
+ */
+export const isCollectedHanziModalOpenAtom = atom(false);
+
+

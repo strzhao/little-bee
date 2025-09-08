@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Star from './Star';
+import { useAtom } from 'jotai';
 import { motion, AnimatePresence } from 'framer-motion';
-// import Link from 'next/link'; // 不再需要Link组件
-import { useLearningProgress } from '@/lib/hooks/use-hanzi-state';
+import Star from './Star';
+import { isCollectedHanziModalOpenAtom } from '@/lib/atoms/ui-atoms';
+import { useLearningProgress, useHanziState } from '@/lib/hooks/use-hanzi-state';
 
 interface SuccessfulCharacter {
   id: string;
@@ -17,40 +18,29 @@ interface SuccessStarsProps {
 }
 
 const SuccessStars = ({ onNavigateToDetail }: SuccessStarsProps = {}) => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useAtom(isCollectedHanziModalOpenAtom);
   const [successfulChars, setSuccessfulChars] = useState<SuccessfulCharacter[]>([]);
   
-  // 使用新的Jotai状态管理获取学习进度
   const { progress } = useLearningProgress();
-  
-  // 计算总星数
-  const starCount = Object.values(progress).reduce((sum, char) => sum + char.starsEarned, 0);
-  
+  const { allHanzi } = useHanziState(); // Use this to map IDs to characters
+
   useEffect(() => {
-    // 转换进度数据为成功字符格式，用于显示详情
+    if (allHanzi.length === 0) return;
+
+    const hanziMap = new Map(allHanzi.map(h => [h.id, h.character]));
     const chars: SuccessfulCharacter[] = Object.values(progress)
       .filter(p => p.completed && p.starsEarned > 0)
       .map(p => ({
         id: p.characterId,
-        character: p.characterId, // 这里可能需要从汉字数据中获取实际字符
+        character: hanziMap.get(p.characterId) || '？', // Fallback for safety
         count: p.starsEarned
       }));
     
     setSuccessfulChars(chars);
-  }, [progress]);
+  }, [progress, allHanzi]);
 
   return (
     <>
-      <motion.div 
-        id="success-star-counter" 
-        className="fixed top-4 right-6 flex items-center gap-1 bg-white/80 backdrop-blur-sm px-3 py-2 rounded-full shadow-md cursor-pointer z-40"
-        onClick={() => setShowModal(true)}
-        whileTap={{ scale: 0.95 }}
-      >
-        <Star id="success-star-icon" size={24} color="#FFD700" />
-        <span className="font-bold text-lg text-yellow-500">{starCount}</span>
-      </motion.div>
-
       <AnimatePresence>
         {showModal && (
           <motion.div

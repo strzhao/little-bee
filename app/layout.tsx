@@ -6,6 +6,7 @@ import { BackgroundPreloaderProvider } from "@/components/providers/background-p
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 import { AppHeader } from "@/components/layout/AppHeader";
 import { ControlCenter } from "@/components/features/control-center/ControlCenter";
+import SuccessStars from "@/components/hanzi/SuccessStars";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -88,6 +89,7 @@ export default function RootLayout({
               {children}
             </main>
             <ControlCenter />
+            <SuccessStars />
           </BackgroundPreloaderProvider>
         </JotaiProvider>
         <ServiceWorkerRegister />

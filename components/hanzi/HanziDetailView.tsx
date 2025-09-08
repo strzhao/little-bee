@@ -711,8 +711,7 @@ const EvolutionPlayer = ({
         )}
       </AnimatePresence>
 
-      {/* 星星计数器 */}
-      <SuccessStars />
+      
     </div>
   );
 };

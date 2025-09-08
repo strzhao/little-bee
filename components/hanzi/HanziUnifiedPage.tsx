@@ -312,8 +312,7 @@ const HanziHomeView = ({ onNavigateToDetail }: { onNavigateToDetail: (characterI
         onNavigateToDetail={onNavigateToDetail}
       />
       
-      {/* 星星计数器 */}
-      <SuccessStars onNavigateToDetail={onNavigateToDetail} />
+      
     </div>
   );
 };
@@ -426,6 +425,9 @@ export default function HanziUnifiedPage() {
           </motion.div>
         )}
       </AnimatePresence>
+    </div>
+  );
+}Presence>
     </div>
   );
 }
