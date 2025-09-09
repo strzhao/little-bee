@@ -17,7 +17,7 @@ export function AppHeader({ customContent, showSettings = true }: AppHeaderProps
   const setIsControlCenterOpen = useSetAtom(isControlCenterOpenAtom);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex items-center p-4 bg-background/80 backdrop-blur-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 flex items-center p-4 bg-white/10 backdrop-blur-xl border-b border-white/20 shadow-lg shadow-black/5">
       {/* 标题区域 */}
       <div className="flex-shrink-0">
         <h1 className="text-xl font-bold">识字小蜜蜂 🐝</h1>
