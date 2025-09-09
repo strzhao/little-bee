@@ -16,6 +16,7 @@ import { FullScreenCelebration } from './FullScreenCelebration';
 import { ExplanationCard } from './ExplanationCard';
 import { CharacterEvolutionDisplay } from './CharacterEvolutionDisplay';
 import { Progress } from '@/components/ui/progress';
+import { AppHeader } from '@/components/layout/AppHeader';
 import { useRouter } from 'next/navigation';
 
 export type GamePhase = 'ENTERING' | 'WAITING_FOR_CHOICE' | 'FEEDBACK_INCORRECT' | 'FEEDBACK_CORRECT' | 'EXPLORING';
@@ -183,26 +184,42 @@ export function GameStage() {
     learningProgressKeys: Object.keys(learningProgress)
   });
 
-  return (
-    <div className="h-screen w-screen overflow-hidden bg-gradient-to-b from-blue-50 to-green-50 flex flex-col p-6">
-      {/* Progress and Score Display */}
-      <div className="flex-none h-8 flex items-center justify-between px-2">
-        <Progress value={progressValue} className="w-full h-2" />
-        <div className="flex items-center ml-4 gap-2">
-          <motion.div 
-            key={totalStars} // Key to trigger re-render animation
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-            className="flex items-center text-yellow-600 font-bold"
-          >
-            <Star size={20} fill="currentColor" className="mr-1" />
-            <span>{totalStars}</span>
-          </motion.div>
+  // 自定义头部内容
+  const customHeaderContent = (
+    <div className="flex items-center gap-4 w-full">
+      {/* 进度条 */}
+      <div className="flex-1">
+        <div className="flex items-center gap-3">
+          <div className="flex-1">
+            <Progress value={progressValue} className="h-3 bg-gray-200" />
+          </div>
+          <div className="text-sm text-gray-500 font-medium min-w-[3rem] text-right">
+            {Math.round(progressValue)}%
+          </div>
         </div>
       </div>
 
-      <div className="flex-1 flex items-center justify-center p-4 relative">
+      {/* 星星计数 */}
+      <motion.div 
+        key={totalStars}
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+        className="flex items-center gap-2 bg-yellow-50 px-3 py-2 rounded-full border border-yellow-200 flex-shrink-0"
+      >
+        <Star size={18} fill="#EAB308" className="text-yellow-500" />
+        <span className="text-yellow-700 font-bold text-sm">{totalStars}</span>
+      </motion.div>
+    </div>
+  );
+
+  return (
+    <div className="h-screen w-screen overflow-hidden bg-gradient-to-b from-blue-50 to-green-50 flex flex-col">
+      <AppHeader customContent={customHeaderContent} />
+
+      {/* 主游戏区域 - 添加顶部padding以避免被AppHeader遮挡 */}
+      <div className="flex-1 flex flex-col p-6 pt-20">
+        <div className="flex-1 flex items-center justify-center p-4 relative">
         <AnimatePresence>
           {store.currentCharacter && phase !== 'EXPLORING' && (
             <CharacterPresenter
@@ -282,7 +299,8 @@ export function GameStage() {
         )}
       </AnimatePresence>
 
-      <ExplanationVoicePlayer ref={voicePlayerRef} text="" className="hidden" />
+        <ExplanationVoicePlayer ref={voicePlayerRef} text="" className="hidden" />
+      </div>
     </div>
   );
 }

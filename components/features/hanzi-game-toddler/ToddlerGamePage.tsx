@@ -1,20 +1,12 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useSetAtom } from 'jotai';
-import { isImmersiveModeAtom } from '@/lib/atoms/ui-atoms';
 import { useToddlerGameStore } from '@/lib/store/toddler-game-store';
 import { getToddlerGameSequence } from '@/lib/services/hanzi-service';
 import { GameStage } from './GameStage';
 
 export function ToddlerGamePage() {
   const { gameState, startGame } = useToddlerGameStore();
-  const setImmersiveMode = useSetAtom(isImmersiveModeAtom);
-
-  useEffect(() => {
-    setImmersiveMode(true);
-    return () => setImmersiveMode(false);
-  }, [setImmersiveMode]);
 
   useEffect(() => {
     // Initialize the game when the component mounts

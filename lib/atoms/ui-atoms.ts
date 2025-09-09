@@ -6,12 +6,6 @@ import { atom } from 'jotai';
 export const isControlCenterOpenAtom = atom(false);
 
 /**
- * Controls if the AppHeader should be in immersive mode (e.g., for games).
- * In immersive mode, the header might only show essential controls and have no background.
- */
-export const isImmersiveModeAtom = atom(false);
-
-/**
  * Controls the visibility of the modal that shows all collected Hanzi.
  */
 export const isCollectedHanziModalOpenAtom = atom(false);
