@@ -1,6 +1,6 @@
 'use client';
 
-import { Baby, BookOpen, GraduationCap } from 'lucide-react';
+// 移除 lucide-react 图标导入，改用 emoji
 import { AGE_GROUPS } from '@/lib/constants';
 import { AgeGroup } from '@/types';
 
@@ -11,18 +11,18 @@ interface AgeSelectorProps {
 const ageOptions = [
   {
     ageGroup: AGE_GROUPS.TODDLER,
-    icon: <Baby size={48} />,
-    label: '萌芽版 (2-4岁)',
+    icon: '🍼',
+    label: '🍼 萌芽版 (2-3岁)',
   },
   {
     ageGroup: AGE_GROUPS.CHILD,
-    icon: <BookOpen size={48} />,
-    label: '探索版 (5-7岁)',
+    icon: '🌱',
+    label: '🌱 探索版 (3-4岁)',
   },
   {
     ageGroup: AGE_GROUPS.STUDENT,
-    icon: <GraduationCap size={48} />,
-    label: '知识版 (8岁+)',
+    icon: '📚',
+    label: '📚 知识版 (5岁+)',
   },
 ];
 
@@ -38,7 +38,7 @@ export function AgeSelector({ onSelect }: AgeSelectorProps) {
               onClick={() => onSelect(ageGroup)}
               className="group flex cursor-pointer flex-col items-center gap-4 rounded-lg border bg-white p-8 shadow-sm transition-all hover:scale-105 hover:shadow-lg"
             >
-              <div className="text-gray-600 transition-colors group-hover:text-blue-500">
+              <div className="text-6xl transition-transform group-hover:scale-110">
                 {icon}
               </div>
               <span className="text-lg font-medium text-gray-800">{label}</span>

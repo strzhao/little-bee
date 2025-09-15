@@ -1,7 +1,7 @@
 export const AGE_GROUPS = {
-  TODDLER: '2-4',
-  CHILD: '5-7',
-  STUDENT: '8+',
+  TODDLER: '2-3',
+  CHILD: '3-4',
+  STUDENT: '5+',
 } as const;
 
 export const LOCAL_STORAGE_KEYS = {

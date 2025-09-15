@@ -16,7 +16,7 @@ function ChildGamePage() {
   
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-blue-100 relative pt-20">
-      <h1 className="text-3xl font-bold">探索版 (5-7岁) 游戏即将上线</h1>
+      <h1 className="text-3xl font-bold">🌱 探索版 (3-4岁) 游戏即将上线</h1>
     </div>
   );
 }

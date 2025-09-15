@@ -5,9 +5,9 @@ import { AGE_GROUPS } from '@/lib/constants';
 import { AgeGroup } from '@/types';
 
 const ageOptions = [
-  { value: AGE_GROUPS.TODDLER, label: '萌芽版 (2-4岁)' },
-  { value: AGE_GROUPS.CHILD, label: '探索版 (5-7岁)' },
-  { value: AGE_GROUPS.STUDENT, label: '知识版 (8岁+)' },
+  { value: AGE_GROUPS.TODDLER, label: '🍼 萌芽版 (2-3岁)' },
+  { value: AGE_GROUPS.CHILD, label: '🌱 探索版 (3-4岁)' },
+  { value: AGE_GROUPS.STUDENT, label: '📚 知识版 (5岁+)' },
 ];
 
 export function AgeSwitcher() {
